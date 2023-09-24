@@ -71,7 +71,7 @@ int main(void)
 {
     char *c = "cest pas grave c\nest ri\tgolo loliloliolioli";
     char *ptr = c;
-    unsigned int size = 34;
+    unsigned int size = 0;
 
     ft_print_memory(ptr, size);
     return (0);
