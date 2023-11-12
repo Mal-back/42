@@ -6,7 +6,7 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 17:42:00 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/11 21:52:13 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/11/12 20:22:27 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,25 @@ int	ft_printf(const char *format, ...)
 {
 	va_list	ap;
 	int		count;
-	int		i;
 
 	if (!format)
 		return (-1);
 	va_start(ap, format);
-	i = 0;
 	count = 0;
 	while (*format)
 	{
 		if (*format == '%')
-			ft_identifier(&ap, format + i, &count);
+			format = ft_identifier(&ap, format, &count);
 		else
 			ft_putchar_count(*format, &count);
-		format++;
+		if (*format != 0)
+			format++;
 	}
 	va_end(ap);
 	return (count);
 }
 
-void	ft_identifier(va_list *ap, const char *format, int *count)
+const char	*ft_identifier(va_list *ap, const char *format, int *count)
 {
 	int	i;
 
@@ -60,8 +59,7 @@ void	ft_identifier(va_list *ap, const char *format, int *count)
 		ft_putchar_count('%', count);
 	else
 		ft_error_handling(format + i, count);
-	format += i;
-	return ;
+	return (format + i);
 }
 
 int	flag_check(char c)

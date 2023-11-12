@@ -6,7 +6,7 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 20:20:34 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/11 21:37:17 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/11/12 21:24:28 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 void	ft_ptr_handling(va_list *ap, int *count)
 {
 	va_list	ap_c;
-	void	*p;
+	unsigned long long	p;
 
 	va_copy(ap_c, *ap);
-	p = va_arg(ap_c, void *);
-	if (p == NULL)
+	p = (unsigned long long)va_arg(ap_c, void *);
+	if (p == 0)
 		ft_putstr_count("(nil)", count);
 	else
 	{
 		ft_putstr_count("0x", count);
-		ft_putnbr_count("0123456789abcdef", (long)p, 16, count);
+		ft_bputnbr_count("0123456789abcdef", p, 16, count);
 	}
 	va_copy(*ap, ap_c);
 	va_end(ap_c);
@@ -36,7 +36,7 @@ void	ft_uchexa_handling(va_list *ap, int *count)
 	va_list	ap_c;
 
 	va_copy(ap_c, *ap);
-	ft_putnbr_count("0123456789ABCDEF", (long)va_arg(ap_c, int), 16,
+	ft_putnbr_count("0123456789ABCDEF", (unsigned int)va_arg(ap_c, int), 16,
 		count);
 	va_copy(*ap, ap_c);
 	va_end(ap_c);
@@ -45,7 +45,7 @@ void	ft_uchexa_handling(va_list *ap, int *count)
 
 void	ft_error_handling(const char *format, int *count)
 {
-	if (format++ == 0)
+	if (*format++ == 0)
 		*count = -1;
 	else
 	{
