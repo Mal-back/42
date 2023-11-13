@@ -6,7 +6,7 @@
 /*   By: vlevy <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 12:14:45 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/09 14:54:01 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/11/13 10:47:47 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ t_list	*ft_lstnew(void *content)
 	new_node = malloc(sizeof (t_list));
 	if (new_node != NULL)
 	{
-	new_node->content = content;
-	new_node->next = NULL;
+		new_node->content = content;
+		new_node->next = NULL;
 	}
 	return (new_node);
 }

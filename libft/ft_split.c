@@ -6,7 +6,7 @@
 /*   By: vlevy <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 15:25:50 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/10 19:14:48 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/11/13 10:47:22 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ static int	ft_cw(const char *s, char c)
 	return (nb);
 }
 
-static void	free_tab(char **tab)
+static void	free_tab(char **tab, int count)
 {
 	int	i;
 
 	i = 0;
-	while (tab[i])
+	while (i < count)
 	{
 		free(tab[i]);
 		i++;
@@ -43,7 +43,7 @@ static void	free_tab(char **tab)
 	free(tab);
 }
 
-void	ft_write_str(char *dest, const char *s, int n)
+static void	ft_write_str(char *dest, const char *s, int n)
 {
 	int	i;
 
@@ -74,7 +74,7 @@ static void	ft_fill_tab(char **str_tab, const char *s, char c)
 			str_tab[count] = malloc((i[1] - i[0] + 1) * sizeof (char));
 			if (str_tab[count] == NULL)
 			{
-				free_tab(str_tab);
+				free_tab(str_tab, count - 1);
 				return ;
 			}
 			ft_write_str(str_tab[count], s + i[0], i[1] - i[0]);
