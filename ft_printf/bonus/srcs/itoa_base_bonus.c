@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   itoa_base_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlevy <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 14:11:10 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/14 17:22:57 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/11/14 17:25:08 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,6 @@
 
 static void	ft_retrieve_length(int n, size_t	*len)
 {
-	if (n == -2147483648)
-	{
-		*len = 10;
-		return ;
-	}
 	if (n > 9)
 		ft_retrieve_length(n / 10, len);
 	*len += 1;
@@ -38,7 +33,7 @@ static void	fill_str(char	*str, size_t	*f, int n)
 	*f += 1;
 }
 
-char	*ft_itoa(int nb)
+char	*ft_itoa(int nb, int base_len, char *base)
 {
 	char	*str;
 	size_t	f;
@@ -53,7 +48,7 @@ char	*ft_itoa(int nb)
 		f = 1;
 		n *= -1;
 	}
-	ft_retrieve_length(n, &len);
+	ft_retrieve_length(n, &len, base_len, base);
 	len += f;
 	str = ft_calloc((len + 1), sizeof (char));
 	if (str != NULL)
@@ -61,7 +56,7 @@ char	*ft_itoa(int nb)
 		str[len] = 0;
 		if (f == 1)
 			str[0] = '-';
-		fill_str(str, &f, n);
+		fill_str(str, &f, n, base, base_len);
 	}
 	return (str);
 }

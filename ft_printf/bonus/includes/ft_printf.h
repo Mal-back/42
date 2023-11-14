@@ -6,7 +6,7 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 16:29:00 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/14 16:58:19 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/11/14 17:18:33 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,6 @@ int					def_padding(t_flags *flags);
 char				*fill_str(char *pad_str, t_flags *flags);
 
 void				ft_char_handling(va_list *ap, long *count, t_flags *flags);
+void				ft_str_handling(va_list *ap, long *count, t_flags *flags);
 
 #endif
