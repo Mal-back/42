@@ -1,42 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_lstadd_front_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlevy <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 10:27:39 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/13 15:48:21 by vlevy            ###   ########.fr       */
+/*   Created: 2023/11/09 14:44:08 by vlevy             #+#    #+#             */
+/*   Updated: 2023/11/10 10:22:40 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
-#include <stdio.h>
 
-void	*ft_calloc(size_t nmemb, size_t size)
+void	ft_lstadd_front(t_list **list, t_list *new)
 {
-	void	*p;
-
-	p = NULL;
-	if (nmemb == 0 || size == 0)
-	{
-		p = malloc(1 * sizeof (char));
-		return (p);
-	}
-	if ((nmemb * size) % nmemb != 0)
-		return (NULL);
-	p = malloc(nmemb * size);
-	if (p != NULL)
-		ft_bzero(p, nmemb * size);
-	return (p);
+	if (!list || !new)
+		return ;
+	new->next = *list;
+	*list = new;
+	return ;
 }
 
 /*int	main(void)
 {
-	int	*p;
+	t_list	*node;
+	t_list	*new;
+	int	n = 42;
 
-	p = calloc(0, sizeof(int));
-	free(p);
-	return (0);
+	node = malloc(sizeof (t_list));
+	new = malloc(sizeof (t_list));
+	node->content = &n;
+	ft_lstadd_front(&node, new);
+	ft_putnbr_fd(*(int *)new->next->content, 1);
+	free(node);
+	free(new);
 }*/

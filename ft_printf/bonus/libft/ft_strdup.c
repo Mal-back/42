@@ -1,42 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlevy <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 10:27:39 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/13 15:48:21 by vlevy            ###   ########.fr       */
+/*   Created: 2023/11/07 10:52:54 by vlevy             #+#    #+#             */
+/*   Updated: 2023/11/08 11:31:46 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "libft.h"
-#include <stdio.h>
 
-void	*ft_calloc(size_t nmemb, size_t size)
+char	*ft_strdup(const char *s)
 {
-	void	*p;
+	size_t	len;
+	char	*str;
 
-	p = NULL;
-	if (nmemb == 0 || size == 0)
-	{
-		p = malloc(1 * sizeof (char));
-		return (p);
-	}
-	if ((nmemb * size) % nmemb != 0)
-		return (NULL);
-	p = malloc(nmemb * size);
-	if (p != NULL)
-		ft_bzero(p, nmemb * size);
-	return (p);
+	len = ft_strlen(s);
+	str = malloc(len + 1 * sizeof (char));
+	if (str != NULL)
+		ft_strlcpy(str, s, len + 1);
+	return (str);
 }
 
 /*int	main(void)
 {
-	int	*p;
-
-	p = calloc(0, sizeof(int));
-	free(p);
-	return (0);
+	char *s = "Salut l'equipe";
+	char *str = ft_strdup(s);
+	free(str);
+	return(0);
 }*/

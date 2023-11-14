@@ -1,42 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_lstmap_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlevy <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 10:27:39 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/13 15:48:21 by vlevy            ###   ########.fr       */
+/*   Created: 2023/11/09 19:17:11 by vlevy             #+#    #+#             */
+/*   Updated: 2023/11/10 10:47:00 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
-#include <stdio.h>
 
-void	*ft_calloc(size_t nmemb, size_t size)
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	void	*p;
+	t_list	*node;
+	t_list	*ret;
 
-	p = NULL;
-	if (nmemb == 0 || size == 0)
-	{
-		p = malloc(1 * sizeof (char));
-		return (p);
-	}
-	if ((nmemb * size) % nmemb != 0)
+	if (!lst || !f || !del)
 		return (NULL);
-	p = malloc(nmemb * size);
-	if (p != NULL)
-		ft_bzero(p, nmemb * size);
-	return (p);
+	ret = NULL;
+	while (lst)
+	{
+		node = ft_lstnew(f(lst->content));
+		if (!node)
+		{
+			ft_lstclear(&ret, del);
+			return (NULL);
+		}
+		ft_lstadd_back(&ret, node);
+		lst = lst->next;
+	}
+	return (ret);
 }
-
-/*int	main(void)
-{
-	int	*p;
-
-	p = calloc(0, sizeof(int));
-	free(p);
-	return (0);
-}*/

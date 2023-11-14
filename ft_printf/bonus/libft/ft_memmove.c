@@ -1,42 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlevy <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 10:27:39 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/13 15:48:21 by vlevy            ###   ########.fr       */
+/*   Created: 2023/11/06 17:08:08 by vlevy             #+#    #+#             */
+/*   Updated: 2023/11/08 15:50:46 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
-#include <stdio.h>
 
-void	*ft_calloc(size_t nmemb, size_t size)
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	void	*p;
+	unsigned char			*dest_p;
+	const unsigned char		*src_p;
 
-	p = NULL;
-	if (nmemb == 0 || size == 0)
+	dest_p = dest;
+	src_p = src;
+	if (dest == NULL && src == NULL && n != 0)
+		return (dest);
+	if (dest > src)
 	{
-		p = malloc(1 * sizeof (char));
-		return (p);
+		while (n != 0)
+		{
+			*(dest_p + n - 1) = *(src_p + n - 1);
+			n--;
+		}
 	}
-	if ((nmemb * size) % nmemb != 0)
-		return (NULL);
-	p = malloc(nmemb * size);
-	if (p != NULL)
-		ft_bzero(p, nmemb * size);
-	return (p);
+	else
+		ft_memcpy(dest, src, n);
+	return (dest);
 }
 
 /*int	main(void)
 {
-	int	*p;
-
-	p = calloc(0, sizeof(int));
-	free(p);
-	return (0);
+	char src[50]="hhhhhhhhhhhh";
+	char dest[50]="jjjjjjjjjjjjjj";
+	ft_memmove(dest, src, 3);
 }*/

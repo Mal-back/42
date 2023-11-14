@@ -1,42 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlevy <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 10:27:39 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/13 15:48:21 by vlevy            ###   ########.fr       */
+/*   Created: 2023/11/07 16:51:47 by vlevy             #+#    #+#             */
+/*   Updated: 2023/11/07 16:57:26 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
-#include <stdio.h>
 
-void	*ft_calloc(size_t nmemb, size_t size)
+void	ft_putchar_fd(char c, int fd)
 {
-	void	*p;
-
-	p = NULL;
-	if (nmemb == 0 || size == 0)
-	{
-		p = malloc(1 * sizeof (char));
-		return (p);
-	}
-	if ((nmemb * size) % nmemb != 0)
-		return (NULL);
-	p = malloc(nmemb * size);
-	if (p != NULL)
-		ft_bzero(p, nmemb * size);
-	return (p);
+	write(fd, &c, 1);
+	return ;
 }
 
 /*int	main(void)
 {
-	int	*p;
-
-	p = calloc(0, sizeof(int));
-	free(p);
+	ft_putchar_fd(66, 1);
 	return (0);
 }*/

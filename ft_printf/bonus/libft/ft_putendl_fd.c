@@ -1,42 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlevy <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 10:27:39 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/13 15:48:21 by vlevy            ###   ########.fr       */
+/*   Created: 2023/11/07 17:05:49 by vlevy             #+#    #+#             */
+/*   Updated: 2023/11/08 16:09:49 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
-#include <stdio.h>
 
-void	*ft_calloc(size_t nmemb, size_t size)
+void	ft_putendl_fd(char *s, int fd)
 {
-	void	*p;
-
-	p = NULL;
-	if (nmemb == 0 || size == 0)
-	{
-		p = malloc(1 * sizeof (char));
-		return (p);
-	}
-	if ((nmemb * size) % nmemb != 0)
-		return (NULL);
-	p = malloc(nmemb * size);
-	if (p != NULL)
-		ft_bzero(p, nmemb * size);
-	return (p);
+	ft_putstr_fd(s, fd);
+	write(fd, "\n", 1);
+	return ;
 }
 
-/*int	main(void)
+/*#include <stdio.h>
+int	main(void)
 {
-	int	*p;
-
-	p = calloc(0, sizeof(int));
-	free(p);
-	return (0);
+	char *str = "Souvenir souvenir me rappele";
+	ft_putendl_fd(str, 1);
 }*/

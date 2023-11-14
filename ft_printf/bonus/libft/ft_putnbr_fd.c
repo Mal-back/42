@@ -1,42 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlevy <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 10:27:39 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/13 15:48:21 by vlevy            ###   ########.fr       */
+/*   Created: 2023/11/07 17:11:07 by vlevy             #+#    #+#             */
+/*   Updated: 2023/11/08 10:39:33 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
-#include <stdio.h>
 
-void	*ft_calloc(size_t nmemb, size_t size)
+void	ft_putnbr_fd(int n, int fd)
 {
-	void	*p;
+	char	c;
 
-	p = NULL;
-	if (nmemb == 0 || size == 0)
+	if (n == -2147483648)
 	{
-		p = malloc(1 * sizeof (char));
-		return (p);
+		ft_putstr_fd("-2147483648", fd);
+		return ;
 	}
-	if ((nmemb * size) % nmemb != 0)
-		return (NULL);
-	p = malloc(nmemb * size);
-	if (p != NULL)
-		ft_bzero(p, nmemb * size);
-	return (p);
+	if (n < 0)
+	{
+		ft_putchar_fd('-', fd);
+		n *= -1;
+	}
+	if (n > 9)
+		ft_putnbr_fd(n / 10, fd);
+	c = n % 10 + 48;
+	ft_putchar_fd(c, fd);
 }
 
-/*int	main(void)
+/*int main (void)
 {
-	int	*p;
-
-	p = calloc(0, sizeof(int));
-	free(p);
+	ft_putnbr_fd(-2147483648, 1);
+	write(1, "\n", 1);
+	ft_putnbr_fd(-487, 1);
+	write(1, "\n" ,1);
 	return (0);
 }*/

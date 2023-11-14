@@ -1,42 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlevy <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 10:27:39 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/13 15:48:21 by vlevy            ###   ########.fr       */
+/*   Created: 2023/11/09 12:14:45 by vlevy             #+#    #+#             */
+/*   Updated: 2023/11/09 14:54:01 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
-#include <stdio.h>
 
-void	*ft_calloc(size_t nmemb, size_t size)
+t_list	*ft_lstnew(void *content)
 {
-	void	*p;
+	t_list	*new_node;
 
-	p = NULL;
-	if (nmemb == 0 || size == 0)
+	new_node = malloc(sizeof (t_list));
+	if (new_node != NULL)
 	{
-		p = malloc(1 * sizeof (char));
-		return (p);
+	new_node->content = content;
+	new_node->next = NULL;
 	}
-	if ((nmemb * size) % nmemb != 0)
-		return (NULL);
-	p = malloc(nmemb * size);
-	if (p != NULL)
-		ft_bzero(p, nmemb * size);
-	return (p);
+	return (new_node);
 }
 
 /*int	main(void)
 {
-	int	*p;
+	t_list	*node1;
+	t_list	*node2;
+	char	*str = "cest bon";
+	int		n = 42;
 
-	p = calloc(0, sizeof(int));
-	free(p);
+	node1 = ft_lstnew(str);
+	node2 = ft_lstnew(&n);
+	ft_putendl_fd(node1->content, 1);
+	ft_putnbr_fd(*(int *)(node2->content), 1);
+	ft_putchar_fd('\n', 1);
+	free (node1);
+	free(node2);
 	return (0);
 }*/

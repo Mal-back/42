@@ -1,42 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_lstclear_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlevy <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 10:27:39 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/13 15:48:21 by vlevy            ###   ########.fr       */
+/*   Created: 2023/11/09 17:21:31 by vlevy             #+#    #+#             */
+/*   Updated: 2023/11/10 19:15:01 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
-#include <stdio.h>
 
-void	*ft_calloc(size_t nmemb, size_t size)
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	void	*p;
+	t_list	*p;
+	t_list	*tmp;
 
-	p = NULL;
-	if (nmemb == 0 || size == 0)
+	if (!lst || !del)
+		return ;
+	p = *lst;
+	while (p)
 	{
-		p = malloc(1 * sizeof (char));
-		return (p);
+		del(p->content);
+		tmp = p->next;
+		free(p);
+		p = tmp;
 	}
-	if ((nmemb * size) % nmemb != 0)
-		return (NULL);
-	p = malloc(nmemb * size);
-	if (p != NULL)
-		ft_bzero(p, nmemb * size);
-	return (p);
+	*lst = NULL;
+	return ;
 }
-
-/*int	main(void)
-{
-	int	*p;
-
-	p = calloc(0, sizeof(int));
-	free(p);
-	return (0);
-}*/

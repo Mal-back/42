@@ -1,42 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlevy <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 10:27:39 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/13 15:48:21 by vlevy            ###   ########.fr       */
+/*   Created: 2023/11/06 19:21:14 by vlevy             #+#    #+#             */
+/*   Updated: 2023/11/08 15:53:08 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
-#include <stdio.h>
 
-void	*ft_calloc(size_t nmemb, size_t size)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	void	*p;
+	const unsigned char	*p;
 
-	p = NULL;
-	if (nmemb == 0 || size == 0)
+	p = s;
+	while (n > 0)
 	{
-		p = malloc(1 * sizeof (char));
-		return (p);
+		if (*p == (unsigned char)c)
+			return ((void *)p);
+		p++;
+		n--;
 	}
-	if ((nmemb * size) % nmemb != 0)
-		return (NULL);
-	p = malloc(nmemb * size);
-	if (p != NULL)
-		ft_bzero(p, nmemb * size);
-	return (p);
+	return (NULL);
 }
 
-/*int	main(void)
+/*#include <stdio.h>
+int	main(void)
 {
-	int	*p;
-
-	p = calloc(0, sizeof(int));
-	free(p);
-	return (0);
+	char *s = "lalalBalala";
+	printf("%s\n", (char *)ft_memchr(s, 66, 10));
 }*/

@@ -1,42 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlevy <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 10:27:39 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/13 15:48:21 by vlevy            ###   ########.fr       */
+/*   Created: 2023/11/06 16:43:46 by vlevy             #+#    #+#             */
+/*   Updated: 2023/11/08 12:15:25 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
-#include <stdio.h>
 
-void	*ft_calloc(size_t nmemb, size_t size)
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	void	*p;
+	const unsigned char	*src_p;
+	unsigned char		*dest_p;
 
-	p = NULL;
-	if (nmemb == 0 || size == 0)
+	src_p = src;
+	dest_p = dest;
+	if (dest == NULL && src == NULL && n != 0)
+		return (dest);
+	while (n > 0)
 	{
-		p = malloc(1 * sizeof (char));
-		return (p);
+		*dest_p++ = *src_p++;
+		n--;
 	}
-	if ((nmemb * size) % nmemb != 0)
-		return (NULL);
-	p = malloc(nmemb * size);
-	if (p != NULL)
-		ft_bzero(p, nmemb * size);
-	return (p);
+	return (dest);
 }
 
-/*int	main(void)
-{
-	int	*p;
+/*#include <stdio.h>
 
-	p = calloc(0, sizeof(int));
-	free(p);
-	return (0);
+int	main(void)
+{
+	char src[15] = "Salut";
+	char dest[20] = "hhhhhhhhhhh";
+	ft_memcpy(dest, src, 3);
+	printf("%s\n", dest);
 }*/

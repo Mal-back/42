@@ -1,42 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlevy <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 10:27:39 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/13 15:48:21 by vlevy            ###   ########.fr       */
+/*   Created: 2023/11/07 16:42:34 by vlevy             #+#    #+#             */
+/*   Updated: 2023/11/10 13:44:03 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
-#include <stdio.h>
 
-void	*ft_calloc(size_t nmemb, size_t size)
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
-	void	*p;
+	unsigned int	i;
 
-	p = NULL;
-	if (nmemb == 0 || size == 0)
+	if (!s || !f)
+		return ;
+	i = 0;
+	while (s[i])
 	{
-		p = malloc(1 * sizeof (char));
-		return (p);
+		f(i, &s[i]);
+		i++;
 	}
-	if ((nmemb * size) % nmemb != 0)
-		return (NULL);
-	p = malloc(nmemb * size);
-	if (p != NULL)
-		ft_bzero(p, nmemb * size);
-	return (p);
+	return ;
 }
 
-/*int	main(void)
+/*char	ft_test(unsigned int i, char *s)
 {
-	int	*p;
+	char	c;
 
-	p = calloc(0, sizeof(int));
-	free(p);
+	c = s[i + 1];
+	return (c);
+}
+
+#include <stdio.h>
+int	main(void)
+{
+	char str[27] = "abcdefghijklmnopqrstuvwxyz";
+	ft_striteri(str, &ft_test);
+	printf("%s\n", str);
 	return (0);
 }*/

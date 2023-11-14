@@ -1,42 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlevy <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 10:27:39 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/13 15:48:21 by vlevy            ###   ########.fr       */
+/*   Created: 2023/11/06 19:03:54 by vlevy             #+#    #+#             */
+/*   Updated: 2023/11/09 09:35:41 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
-#include <stdio.h>
 
-void	*ft_calloc(size_t nmemb, size_t size)
+char	*ft_strrchr(const char *s, int c)
 {
-	void	*p;
+	size_t	i;
+	size_t	idx;
+	size_t	f;
+	char	cs;
 
-	p = NULL;
-	if (nmemb == 0 || size == 0)
+	i = 0;
+	f = 0;
+	idx = 0;
+	cs = (char)c;
+	while (s[i])
 	{
-		p = malloc(1 * sizeof (char));
-		return (p);
+		if (s[i] == cs)
+		{
+			f = 1;
+			idx = i;
+		}
+		i++;
 	}
-	if ((nmemb * size) % nmemb != 0)
-		return (NULL);
-	p = malloc(nmemb * size);
-	if (p != NULL)
-		ft_bzero(p, nmemb * size);
-	return (p);
+	if (c == 0)
+		return ((char *)s + i);
+	else if (f == 1)
+		return ((char *)s + idx);
+	return (NULL);
 }
 
-/*int	main(void)
+/*#include <stdio.h>
+int main(void)
 {
-	int	*p;
-
-	p = calloc(0, sizeof(int));
-	free(p);
-	return (0);
+	char *s = "aBBBBBAb";
+	printf("%s\n", ft_strrchr(s, 66));
 }*/

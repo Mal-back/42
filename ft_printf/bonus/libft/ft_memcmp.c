@@ -1,42 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlevy <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 10:27:39 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/13 15:48:21 by vlevy            ###   ########.fr       */
+/*   Created: 2023/11/06 19:32:33 by vlevy             #+#    #+#             */
+/*   Updated: 2023/11/08 17:54:50 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
-#include <stdio.h>
 
-void	*ft_calloc(size_t nmemb, size_t size)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	void	*p;
+	const unsigned char	*s1_p;
+	const unsigned char	*s2_p;
 
-	p = NULL;
-	if (nmemb == 0 || size == 0)
+	s1_p = s1;
+	s2_p = s2;
+	if (n == 0)
+		return (0);
+	while (n - 1 > 0 && *s1_p == *s2_p)
 	{
-		p = malloc(1 * sizeof (char));
-		return (p);
+		s1_p++;
+		s2_p++;
+		n--;
 	}
-	if ((nmemb * size) % nmemb != 0)
-		return (NULL);
-	p = malloc(nmemb * size);
-	if (p != NULL)
-		ft_bzero(p, nmemb * size);
-	return (p);
+	return (*s1_p - *s2_p);
 }
 
-/*int	main(void)
+/*#include <stdio.h>
+int	main(void)
 {
-	int	*p;
-
-	p = calloc(0, sizeof(int));
-	free(p);
-	return (0);
+	char *s1 = "Hello";
+	char *s2 = "Hello";
+	printf("%d\n", ft_memcmp(s1, s2, 5));
 }*/

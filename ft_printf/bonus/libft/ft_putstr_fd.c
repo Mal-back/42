@@ -1,42 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlevy <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 10:27:39 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/13 15:48:21 by vlevy            ###   ########.fr       */
+/*   Created: 2023/11/07 16:57:59 by vlevy             #+#    #+#             */
+/*   Updated: 2023/11/08 16:38:11 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
-#include <stdio.h>
 
-void	*ft_calloc(size_t nmemb, size_t size)
+void	ft_putstr_fd(char *s, int fd)
 {
-	void	*p;
+	size_t	i;
 
-	p = NULL;
-	if (nmemb == 0 || size == 0)
+	i = 0;
+	if (!s)
+		return ;
+	while (s[i])
 	{
-		p = malloc(1 * sizeof (char));
-		return (p);
+		ft_putchar_fd(s[i], fd);
+		i++;
 	}
-	if ((nmemb * size) % nmemb != 0)
-		return (NULL);
-	p = malloc(nmemb * size);
-	if (p != NULL)
-		ft_bzero(p, nmemb * size);
-	return (p);
+	return ;
 }
 
-/*int	main(void)
+/*#include <stdio.h>
+int	main(void)
 {
-	int	*p;
-
-	p = calloc(0, sizeof(int));
-	free(p);
+	char	*str = "Mauvais bail";
+	ft_putstr(str, 1);
 	return (0);
 }*/
