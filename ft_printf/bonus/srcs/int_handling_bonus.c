@@ -6,12 +6,11 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 20:20:34 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/15 16:13:20 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/11/15 17:06:15 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdio.h>
+#include "ft_printf.h"
 
 void	ft_int_handling(va_list *ap, long *count, t_flags *flags)
 {

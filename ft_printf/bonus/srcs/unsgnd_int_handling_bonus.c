@@ -6,11 +6,11 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 20:20:34 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/15 16:18:01 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/11/15 17:48:59 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
 void	ft_unsgnd_int_handling(va_list *ap, long *count, t_flags *flags)
 {
@@ -29,7 +29,7 @@ void	ft_unsgnd_int_handling(va_list *ap, long *count, t_flags *flags)
 		free(flags->arg_str);
 		return ;
 	}
-	*count = write(1, fill_padding(pad_str, flags), n);
+	*count += write(1, fill_padding(pad_str, flags), n);
 	free(pad_str);
 	free(flags->arg_str);
 	return ;

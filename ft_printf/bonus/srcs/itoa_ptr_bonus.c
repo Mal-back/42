@@ -6,15 +6,15 @@
 /*   By: vlevy <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 14:11:10 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/15 15:37:21 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/11/15 18:40:43 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-static void	ft_retrieve_length(long n, size_t	*len, char *base)
+static void	ft_retrieve_length(unsigned long long n, size_t	*len, char *base)
 {
-	int	base_len;
+	unsigned int	base_len;
 
 	base_len = ft_strlen(base);
 	if (n >= base_len)
@@ -23,9 +23,9 @@ static void	ft_retrieve_length(long n, size_t	*len, char *base)
 	return ;
 }
 
-static void	fill_str(char	*str, size_t	*f, long n, char *base)
+static void	fill_str(char	*str, size_t	*f, unsigned long long n, char *base)
 {
-	int	base_len;
+	unsigned int	base_len;
 
 	base_len = ft_strlen(base);
 	if (n >= base_len)

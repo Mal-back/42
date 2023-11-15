@@ -5,7 +5,7 @@ srcs/fill_padding_bonus.c srcs/int_handling_bonus.c srcs/itoa_base_bonus.c \
 srcs/itoa_ptr_bonus.c srcs/lchexa_handling_bonus.c srcs/ptr_handling_bonus.c \
 srcs/str_handling_bonus.c srcs/uchexa_handling_bonus.c \
 srcs/unsgnd_int_handling_bonus.c srcs/char_handling_bonus.c \
-srcs/malloc_secure_bonus.c
+srcs/malloc_secure_bonus.c srcs/char_padding_bonus.c
 
 OBJECTS = ${FILES:.c=.o}
 

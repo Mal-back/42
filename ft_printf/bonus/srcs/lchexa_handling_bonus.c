@@ -6,11 +6,11 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 20:20:34 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/15 16:18:25 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/11/15 20:32:53 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
 void	ft_lchexa_handling(va_list *ap, long *count, t_flags *flags)
 {
@@ -20,6 +20,8 @@ void	ft_lchexa_handling(va_list *ap, long *count, t_flags *flags)
 	long	nb;
 
 	nb = (unsigned int)va_arg(*ap, int);
+	if (nb == 0)
+		flags->sharp = 0;
 	str = ft_itoa_base(nb, "0123456789abcdef");
 	if (malloc_secure(str, count))
 		return ;

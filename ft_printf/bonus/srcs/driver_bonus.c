@@ -6,11 +6,12 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 17:42:00 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/15 14:42:34 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/11/15 20:38:03 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
+#include "ft_printf.h"
 
 int	ft_printf(const char *format, ...)
 {
@@ -61,7 +62,7 @@ const char	*ft_identifier(va_list *ap, const char *format, long *count)
 	else if (*format == 'X')
 		ft_uchhexa_handling(ap, count, &flags);
 	else if (*format == '%')
-		*count = write(1, "%", 1);
+		*count += write(1, "%", 1);
 	return (format + 1);
 }
 
@@ -96,6 +97,8 @@ const char	*flag_check(const char *format, t_flags *flags)
 			flags->pad_side = 1;
 			flags->pad_sign = -32;
 		}
+		else if (*format == ' ')
+			flags->sign = 32;
 		else if (*format == '0' && flags->pad_sign != -32)
 			flags->pad_sign = '0';
 		else if (*format == '.')

@@ -6,11 +6,11 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 20:20:34 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/15 16:19:21 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/11/15 17:46:31 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
 static void	ptr_handling_2(long *count, t_flags *flags, char *str,
 	unsigned long long nb)
@@ -37,7 +37,7 @@ void	ft_ptr_handling(va_list *ap, long *count, t_flags *flags)
 	char				*str;
 	unsigned long long	nb;
 
-	nb = (unsigned long long)va_arg(*ap, int);
+	nb = (unsigned long long)va_arg(*ap, void *);
 	if (nb == 0)
 		str = "(nil)";
 	else

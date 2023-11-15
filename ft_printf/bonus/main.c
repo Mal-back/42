@@ -6,21 +6,21 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 11:38:32 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/15 16:31:05 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/11/15 20:39:10 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-//#include <stdio.h>
+#include "ft_printf.h"
+#include <stdio.h>
 
 int	main(void)
 {
-	//int	n;
+	int	n;
 	int n1;
 	char *str = NULL;
 
-//	n = printf("||%p||\n", str);
-	n1 = ft_printf("||%%||\n", 42);
-//	printf("Ref : %d || Test : %d\n", n, n1);
+	n = printf("Refe : ||% s||\n", "lalala");
+	n1 = ft_printf("Test : ||% s||\n", "lalala");
+	printf("Ref : %d || Test : %d\n", n, n1);
 	return (0);
 }
