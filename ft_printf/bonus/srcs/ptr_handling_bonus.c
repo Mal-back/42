@@ -6,31 +6,48 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 20:20:34 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/14 21:28:31 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/11/15 16:19:21 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-void	ft_int_handling(va_list *ap, long *count, t_flags *flags)
+static void	ptr_handling_2(long *count, t_flags *flags, char *str,
+	unsigned long long nb)
 {
-	char				*pad_str;
-	int					n;
+	int		n;
+	char	*pad_str;
+
+	n = def_padding(flags);
+	pad_str = malloc(n + 1 * sizeof(char));
+	if (malloc_secure(pad_str, count))
+	{
+		if (nb != 0)
+			free (str);
+		return ;
+	}
+	*count += write(1, fill_padding(pad_str, flags), n);
+	free(pad_str);
+	if (nb != 0)
+		free(str);
+}
+
+void	ft_ptr_handling(va_list *ap, long *count, t_flags *flags)
+{
+	char				*str;
 	unsigned long long	nb;
 
 	nb = (unsigned long long)va_arg(*ap, int);
-	if (nb = 0)
-		flag->arg_str = "(nil)";
+	if (nb == 0)
+		str = "(nil)";
 	else
-		flags->arg_str = ft_itoa_ptr(nb, "012345679abcdef");
-	flag->sharp = 'x';
-	n = def_padding(flags);
-	pad_str = malloc((n + 1) * sizeof(char));
-	if (pad_str == NULL)
 	{
-		*count = -1;
-		return ;
+		str = ft_itoa_ptr(nb, "0123456789abcdef");
+		if (malloc_secure(str, count))
+			return ;
+		flags->sharp = 'x';
 	}
-	*count = write(1, fill_str(pad_str, flags), n);
-	free(pad_str);
+	flags->arg_str = str;
+	ptr_handling_2(count, flags, str, nb);
+	return ;
 }

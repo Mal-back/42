@@ -6,37 +6,34 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 20:20:34 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/14 15:55:10 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/11/15 16:24:15 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
 void	ft_char_handling(va_list *ap, long *count, t_flags *flags)
 {
-	char	*str;
 	char	*pad_str;
 	char	c;
 	int		n;
 
-	str = malloc(2 * sizeof(char));
-	if (!str)
+	flags->arg_str = ft_calloc(2, sizeof(char));
+	if (malloc_secure(flags->arg_str, count))
 	{
-		*count = -1;
 		return ;
 	}
 	c = va_arg(*ap, int);
-	ft_stlcpy(str, &c, 2);
-	flags->arg_str = str;
+	*(flags->arg_str) = c;
 	n = def_padding(flags);
 	pad_str = malloc((n + 1) * sizeof(char));
-	if (pad_str == NULL)
+	if (malloc_secure(pad_str, count))
 	{
-		free (str);
-		*count = -1;
+		free(flags->arg_str);
 		return ;
 	}
-	*count = write(1, fill_str(pad_str, flags), n);
-	free(str);
+	*count += write(1, fill_padding(pad_str, flags), n);
+	free(flags->arg_str);
 	free(pad_str);
+	return ;
 }

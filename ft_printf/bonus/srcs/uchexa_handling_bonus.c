@@ -6,29 +6,35 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 20:20:34 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/14 21:21:09 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/11/15 16:30:16 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-void	ft_int_handling(va_list *ap, long *count, t_flags *flags)
+void	ft_uchhexa_handling(va_list *ap, long *count, t_flags *flags)
 {
 	char	*pad_str;
-	int		n
+	char	*str;
+	int		n;
 	long	nb;
 
 	nb = (unsigned int)va_arg(*ap, int);
-	flags->arg_str = ft_itoa(nb, "012345679ABCDEF");
-	if (flag->sharp > 0)
-		flag->sharp = 'X';
+	str = ft_itoa_base(nb, "0123456789ABCDEF");
+	if (malloc_secure(str, count))
+		return ;
+	flags->arg_str = str;
+	if (flags->sharp > 0)
+		flags->sharp = 'X';
 	n = def_padding(flags);
 	pad_str = malloc((n + 1) * sizeof(char));
-	if (pad_str == NULL)
+	if (malloc_secure(pad_str, count))
 	{
-		*count = -1;
+		free(str);
 		return ;
 	}
-	*count = write(1, fill_str(pad_str, flags), n);
+	*count += write(1, fill_padding(pad_str, flags), n);
+	free(str);
 	free(pad_str);
+	return ;
 }

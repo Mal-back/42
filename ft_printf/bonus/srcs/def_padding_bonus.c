@@ -6,7 +6,7 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 17:46:50 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/14 15:25:18 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/11/15 14:58:45 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,29 @@
 
 int	def_padding(t_flags *flags)
 {
-	int	f;
-
-	f = 0;
 	if (flags->sharp > 0)
-		f += 2;
+		flags->f += 2;
 	if (flags->sign > 0)
-		f += 1;
-	flags->left_padding_space = flags->pad_value - f - flags->precision_value
-		- ft_strlen(arg_str);
-	if (flags->left_padding_space < 0)
+		flags->f += 1;
+	flags->precision_value -= ft_strlen(flags->arg_str);
+	if (flags->precision_value <= 0)
+		flags->precision_value = 0;
+	flags->left_padding_space = flags->pad_value - flags->f
+		- flags->precision_value - ft_strlen(flags->arg_str);
+	if (flags->left_padding_space <= 0)
 		flags->left_padding_space = 0;
 	if (flags->pad_sign == '0')
 	{
-		left_padding_zero = left_padding_space;
-		left_padding_space = 0;
+		flags->left_padding_zero = flags->left_padding_space;
+		flags->left_padding_space = 0;
 	}
-	if (flags->pad_side_value == 1)
+	if (flags->pad_side == 1)
 	{
 		flags->right_padding = flags->left_padding_space;
 		flags->pad_sign = 32;
-		flags->left_padding = 0;
+		flags->left_padding_space = 0;
 	}
-	return (f + flags->left_padding_space + flags->left_padding_zero
-		+ flags->right_padding + flags->precision->value
-		+ ft_strlen(arg_str));
+	return (flags->left_padding_space + flags->left_padding_zero
+		+ flags->right_padding + flags->precision_value
+		+ ft_strlen(flags->arg_str) + flags->f);
 }

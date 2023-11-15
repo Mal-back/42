@@ -1,34 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fill_str_bonus.c                                   :+:      :+:    :+:   */
+/*   fill_padding_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:57:25 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/14 17:02:06 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/11/15 14:58:03 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*fill_str(char *pad_str, t_flags *flags)
+#include "libft.h"
+
+char	*fill_padding(char *pad_str, t_flags *flags)
 {
 	char	*tmp;
 
 	tmp = pad_str;
 	while (flags->left_padding_space--)
 		*tmp++ = ' ';
-	if (sharp > 0)
+	if (flags->sharp > 0)
 	{
 		*tmp++ = '0';
 		*tmp++ = flags->sharp;
 	}
-	if (sign > 0)
+	if (flags->sign > 0)
 		*tmp++ = flags->sign;
 	while (flags->left_padding_zero--)
 		*tmp++ = '0';
-	while (flags->precison_value--)
+	while (flags->precision_value--)
 		*tmp++ = '0';
-	tmp = ft_strlcpy(tmp, arg_str, ft_strlen(arg_str) + 1);
+	ft_strlcpy(tmp, flags->arg_str, ft_strlen(flags->arg_str) + 1);
 	while (*tmp)
 		tmp++;
 	while (flags->right_padding--)
