@@ -1,30 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   str_handling_bonus.c                               :+:      :+:    :+:   */
+/*   ptr_handling_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 20:20:34 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/14 20:40:25 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/11/14 21:28:31 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_str_handling(va_list *ap, long *count, t_flags *flags)
+void	ft_int_handling(va_list *ap, long *count, t_flags *flags)
 {
-	char	*pad_str;
-	int		n;
+	char				*pad_str;
+	int					n;
+	unsigned long long	nb;
 
-	flags->arg_str = va_arg(*ap, char *);
-	if (flags->arg_str == NULL)
-		flags->arg_str = "(null)"
+	nb = (unsigned long long)va_arg(*ap, int);
+	if (nb = 0)
+		flag->arg_str = "(nil)";
+	else
+		flags->arg_str = ft_itoa_ptr(nb, "012345679abcdef");
+	flag->sharp = 'x';
 	n = def_padding(flags);
 	pad_str = malloc((n + 1) * sizeof(char));
 	if (pad_str == NULL)
 	{
-		free (str);
 		*count = -1;
 		return ;
 	}

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   itoa_base_bonus.c                                  :+:      :+:    :+:   */
+/*   itoa_ptr_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlevy <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 14:11:10 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/14 21:18:27 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/11/14 21:29:22 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	fill_str(char	*str, size_t	*f, long n, char *base)
 	*f += 1;
 }
 
-char	*ft_itoa(long nb, char *base)
+char	*ft_itoa_ptr(unsigned long long nb, char *base)
 {
 	char	*str;
 	size_t	f;
