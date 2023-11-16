@@ -6,7 +6,7 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 17:42:00 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/16 12:46:29 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/11/16 17:06:41 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	ft_printf(const char *format, ...)
 		else
 			i++;
 		if (count > 2147483647 || count == -1)
-			return (-1);
+			continue ;
 	}
 	count += write(1, format, i);
 	va_end(ap);
