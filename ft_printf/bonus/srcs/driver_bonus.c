@@ -6,7 +6,7 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 17:42:00 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/15 20:38:03 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/11/16 12:46:29 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ const char	*flag_check(const char *format, t_flags *flags)
 			flags->sign = '+';
 		else if (*format == ' ' && flags->sharp == -1)
 			flags->sign = ' ';
-		else if (*format == '-' && flags->pad_side == -1)
+		else if (*format == '-')
 		{
 			flags->pad_side = 1;
 			flags->pad_sign = -32;
@@ -101,9 +101,7 @@ const char	*flag_check(const char *format, t_flags *flags)
 			flags->sign = 32;
 		else if (*format == '0' && flags->pad_sign != -32)
 			flags->pad_sign = '0';
-		else if (*format == '.')
-			flags->precision = 1;
-		else if (ft_isdigit(*format))
+		else if (ft_isdigit(*format) || *format == '.')
 			format = ft_pad_check(format, flags);
 		else
 			return (format);
@@ -114,6 +112,11 @@ const char	*flag_check(const char *format, t_flags *flags)
 
 const char	*ft_pad_check(const char *format, t_flags *flags)
 {
+	if (*format == '.')
+	{
+		flags->precision = 1;
+		return (format);
+	}
 	if (flags->precision == 1)
 		flags->precision_value = ft_atoi((char *)format);
 	else

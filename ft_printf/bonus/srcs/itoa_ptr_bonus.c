@@ -6,7 +6,7 @@
 /*   By: vlevy <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 14:11:10 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/15 18:40:43 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/11/16 12:43:15 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static void	ft_retrieve_length(unsigned long long n, size_t	*len, char *base)
 	return ;
 }
 
-static void	fill_str(char	*str, size_t	*f, unsigned long long n, char *base)
+static void	fill_str(char	*str, size_t	*f,
+	unsigned long long n, char *base)
 {
 	unsigned int	base_len;
 

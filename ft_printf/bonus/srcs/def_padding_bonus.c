@@ -6,7 +6,7 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 17:46:50 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/15 17:05:27 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/11/16 12:42:40 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	def_padding(t_flags *flags)
 		- flags->precision_value - ft_strlen(flags->arg_str);
 	if (flags->left_padding_space <= 0)
 		flags->left_padding_space = 0;
-	if (flags->pad_sign == '0')
+	if (flags->pad_sign == '0' && flags->precision <= 0)
 	{
 		flags->left_padding_zero = flags->left_padding_space;
 		flags->left_padding_space = 0;

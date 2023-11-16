@@ -6,7 +6,7 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 20:20:34 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/15 20:38:27 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/11/16 12:43:45 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 static int	define_size(t_flags *flags, long *count)
 {
 	int	n;
+
 	if (flags->arg_str == NULL)
 	{
 		flags->arg_str = malloc(7 * sizeof(char));
@@ -23,10 +24,11 @@ static int	define_size(t_flags *flags, long *count)
 			return (1);
 		ft_strlcpy(flags->arg_str, "(null)", 7);
 		if (flags->precision)
-			{
+		{
+			if (flags->precision_value < 6)
 				*flags->arg_str = 0;
-				flags->precision_value = 0;
-			}
+			flags->precision_value = 0;
+		}
 	}
 	else if (flags->precision)
 	{

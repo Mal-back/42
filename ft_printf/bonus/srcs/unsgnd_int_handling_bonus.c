@@ -6,7 +6,7 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 20:20:34 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/15 17:48:59 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/11/16 12:27:08 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@ void	ft_unsgnd_int_handling(va_list *ap, long *count, t_flags *flags)
 	flags->arg_str = ft_itoa_base(nb, "0123456789");
 	if (malloc_secure(flags->arg_str, count))
 		return ;
+	if (nb == 0 && flags->precision_value == 0 && flags-> precision > 0)
+	{
+		*flags->arg_str = 0;
+		flags->pad_sign = 32;
+	}
 	n = def_padding(flags);
 	pad_str = malloc((n + 1) * sizeof(char));
 	if (malloc_secure(pad_str, count))
