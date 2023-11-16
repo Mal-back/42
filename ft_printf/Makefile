@@ -24,7 +24,7 @@ LIB_OBJ = ${LIB_FILES:.c=.o}
 
 CC = cc -Wall -Wextra -Werror
 
-NAME = libftprintf.a
+NAME = libft.a
 
 SUBDIR = libft/
 
