@@ -31,7 +31,7 @@ SUBDIR = libft/
 all : ${NAME}
 
 ${NAME} : ${OBJECTS} ${LIB_OBJ}	
-	make -obj -C ${SUBDIR}
+	make obj -C ${SUBDIR}
 	ar rcs $@ $^
 
 %.o:%.c

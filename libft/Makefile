@@ -26,7 +26,7 @@ fclean : 		clean
 
 re : fclean all
 
-bonus : ${BONUS_OBJ} ${OBJECTS} $(NAME)
+bonus : ${BONUS_OBJ} ${OBJECTS}
 	ar rcs ${NAME} ${BONUS_OBJ} ${OBJECTS}
 
 .PHONY : all re fclean clean bonus

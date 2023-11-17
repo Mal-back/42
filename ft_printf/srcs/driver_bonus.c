@@ -35,7 +35,7 @@ int	ft_printf(const char *format, ...)
 		else
 			i++;
 		if (count > 2147483647 || count == -1)
-			continue ;
+			break ;
 	}
 	count += write(1, format, i);
 	va_end(ap);
