@@ -6,65 +6,69 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 19:03:27 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/18 23:11:50 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/11/19 19:31:02 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char *fill_str(char *stash, char *str, t_list *lst, int lst_size)
+char	*fill_str(char *stash, char *str, t_list *lst, int lst_size)
 {
-	t_list	*temp_node;
+	t_list		*temp_node;
 	int			len;
 
-	len = ft_strlen_cs(stash, '\n');
+	temp_node = lst;
+	len = ft_strlen_cs(stash, '\n', 1);
 	ft_strncat(str, stash, len + 1);
-	if (lst != NULL)
+	if (temp_node != NULL)
 	{
-		temp_node = lst;
-		while(--lst_size)
+		while (--lst_size)
 		{
 			ft_strncat(str, temp_node->content, BUFFER_SIZE + 1);
 			temp_node = temp_node->next;
 		}
-		len = ft_strlen_cs(temp_node->content, '\n');
-		if (*(temp_node->content + len) == '\n')
-			len++;
+		len = ft_strlen_cs(temp_node->content, '\n', 1);
 		ft_strncat(str, temp_node->content, len + 1);
+	}
+	if (!update_stash(stash, temp_node))
+	{
+		free(str);
+		str = NULL;
 	}
 	return (str);
 }
 
 char	*update_stash(char *stash, t_list *temp_str_node)
 {
-	char temp_str[BUFFER_SIZE + 1];
-	int	len_to_trim;
-	
+	char	*temp_str;
+	int		len_to_trim;
+
+	temp_str = malloc(BUFFER_SIZE + 1 * sizeof (char));
+	if (temp_str == NULL)
+		return (NULL);
 	if (temp_str_node != NULL)
 	{
 		ft_memset(stash, 0, BUFFER_SIZE + 1);
-		len_to_trim = ft_strlen_cs(temp_str_node->content, '\n');
-		if (*(temp_str_node->content + len_to_trim) == '\n')
-			len_to_trim++;
-		ft_strncat(stash, temp_str_node->content + len_to_trim + 1, (BUFFER_SIZE
-		- len_to_trim + 1));
+		len_to_trim = ft_strlen_cs(temp_str_node->content, '\n', 1);
+		ft_strncat(stash, temp_str_node->content + len_to_trim, (BUFFER_SIZE
+				- len_to_trim + 1));
 	}
 	else
 	{
 		ft_memset(temp_str, 0, BUFFER_SIZE + 1);
-		len_to_trim = ft_strlen_cs(stash, '\n');
-		//if (*(stash + len_to_trim) == '\n')
-		//	len_to_trim++;
-		ft_strncat(temp_str, stash + len_to_trim, BUFFER_SIZE - len_to_trim + 1);
+		len_to_trim = ft_strlen_cs(stash, '\n', 1);
+		ft_strncat(temp_str, stash + len_to_trim, BUFFER_SIZE
+			- len_to_trim + 1);
 		ft_memset(stash, 0, BUFFER_SIZE + 1);
 		ft_strncat(stash, temp_str, BUFFER_SIZE + 1);
 	}
+	free(temp_str);
 	return (stash);
 }
 
 char	*handle_eol(int lst_size, char *stash, t_list *lst)
 {
-	t_list	*tmp;
+	t_list		*tmp;
 	char		*str;
 	int			i;
 	int			len;
@@ -73,19 +77,18 @@ char	*handle_eol(int lst_size, char *stash, t_list *lst)
 	tmp = lst;
 	if (tmp != NULL)
 	{
-		while(tmp->next)
+		while (tmp->next)
 			tmp = tmp->next;
-		i = ft_strlen_cs(tmp->content, '\n');
+		i = ft_strlen_cs(tmp->content, '\n', 1);
 	}
-	else
-		lst_size = 1;
-	len = ft_strlen_cs(stash, '\n') + i + ((lst_size - 1) * BUFFER_SIZE);
+	len = ft_strlen_cs(stash, '\n', 1) + i + ((lst_size - 1) * BUFFER_SIZE);
+	if (len == 0)
+		return (ft_lst_clear(&lst));
 	str = malloc((len + 1) * sizeof (char));
 	if (str == NULL)
-		return (NULL);
+		return (ft_lst_clear(&lst));
 	ft_memset(str, 0, len + 1);
 	str = fill_str(stash, str, lst, lst_size);
-	stash = update_stash(stash, tmp);
 	ft_lst_clear(&lst);
 	return (str);
 }
@@ -93,45 +96,44 @@ char	*handle_eol(int lst_size, char *stash, t_list *lst)
 char	*read_till_eol(char *str, char *stash, t_list *lst, int fd)
 {
 	int		lst_size;
-	int		bytes_read;
-	char	buff[BUFFER_SIZE + 1];
+	char	*buff;
 
+	buff = malloc(BUFFER_SIZE + 1 * sizeof (char));
+	if (buff == NULL)
+		return (NULL);
 	lst_size = 0;
-	ft_memset(buff, 66, BUFFER_SIZE);
-	bytes_read = BUFFER_SIZE;
-	while (ft_strlen_cs(buff, '\n') == BUFFER_SIZE && bytes_read == BUFFER_SIZE)
+	ft_memset(buff, 0, BUFFER_SIZE + 1);
+	while (BUFFER_SIZE == read(fd, buff, BUFFER_SIZE)
+		&& ft_strlen_cs(buff, '\n', 0) == BUFFER_SIZE)
 	{
-		bytes_read = read(fd, buff, BUFFER_SIZE);
-		if (bytes_read < 0)
-			return (ft_lst_clear(&lst));
-		if (bytes_read == 0)
-			return (handle_eol(lst_size, stash, lst));
-		buff[bytes_read] = 0;
 		if (update_lst(&lst, buff))
 			return (ft_lst_clear(&lst));
 		lst_size++;
+		ft_memset(buff, 0, BUFFER_SIZE + 1);
 	}
+	if (update_lst(&lst, buff))
+		return (ft_lst_clear(&lst));
+	lst_size++;
 	str = handle_eol(lst_size, stash, lst);
+	free(buff);
 	return (str);
 }
 
-char *get_next_line(int fd)
+char	*get_next_line(int fd)
 {
 	char						*str;
-	static char			stash[BUFFER_SIZE + 1];
-	t_list					*lst;
+	static char					stash[BUFFER_SIZE + 1];
+	t_list						*lst;
 	int							stash_len;
 
-	if (!fd || fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	str = NULL;
 	lst = NULL;
-	stash_len = ft_strlen_cs(stash, '\n');
-	if (*stash + stash_len  == '\n')
+	stash_len = ft_strlen_cs(stash, '\n', 0);
+	if (*(stash + stash_len) == '\n')
 		str = handle_eol(1, stash, lst);
 	else
 		str = read_till_eol(str, stash, lst, fd);
-	if (*stash == 0 && *str == 0)
-		str = NULL;
 	return (str);
 }

@@ -6,34 +6,36 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 19:03:40 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/18 22:56:22 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/11/19 19:03:57 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int update_lst(t_list **lst, char *buff)
+int	update_lst(t_list **lst, char *buff)
 {
 	t_list	*new;
 	t_list	*tmp;
 
 	new = malloc(sizeof (t_list));
 	if (!new)
+		return (1);
+	new->content = malloc((BUFFER_SIZE + 1) * sizeof (char));
+	if (new->content == NULL)
 	{
-		ft_lst_clear(lst);
+		free(new);
 		return (1);
 	}
 	ft_memset(new->content, 0, BUFFER_SIZE);
 	ft_strncat(new->content, buff, BUFFER_SIZE + 1);
 	new->next = NULL;
-	if(!*lst)
+	if (!*lst)
 	{
 		*lst = new;
 		return (0);
 	}
-
 	tmp = *lst;
-	while(tmp->next)
+	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = new;
 	return (0);
@@ -41,15 +43,16 @@ int update_lst(t_list **lst, char *buff)
 
 char	*ft_lst_clear(t_list **lst)
 {
-	t_list *tmp;
+	t_list	*tmp;
 	t_list	*ptr;
 
 	ptr = *lst;
 	if (!lst)
 		return (NULL);
-	while(ptr)
+	while (ptr)
 	{
 		tmp = ptr->next;
+		free(ptr->content);
 		free(ptr);
 		ptr = tmp;
 	}
@@ -57,19 +60,11 @@ char	*ft_lst_clear(t_list **lst)
 	return (NULL);
 }
 
-t_list	*lst_last(t_list *lst)
-{
-	if (!lst)
-		return (NULL);
-	while(lst->next)
-		lst = lst->next;
-	return (lst);
-}
-
 void	ft_strncat(char *dest, char *src, int n)
 {
 	int	i;
 	int	j;
+
 	i = 0;
 	j = 0;
 	while (dest[j])
@@ -80,7 +75,7 @@ void	ft_strncat(char *dest, char *src, int n)
 		i++;
 		j++;
 	}
-	while(i < n && dest[j + 1])
+	while (i < n)
 	{
 		dest[j] = 0;
 		i++;
@@ -89,18 +84,16 @@ void	ft_strncat(char *dest, char *src, int n)
 	return ;
 }
 
-int	ft_strlen_cs(char *str, char c)
+int	ft_strlen_cs(char *str, char c, int f)
 {
 	int	i;
 
 	i = 0;
-	while (str[i])
-	{
+	while (str[i] && str[i] != c)
 		i++;
-		if (str[i] == c)
-			return (i);
-	}
-	return(i);
+	if (f && str[i] == c)
+		i++;
+	return (i);
 }
 
 void	ft_memset(char *str, int c, int n)

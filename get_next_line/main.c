@@ -6,7 +6,7 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 19:12:30 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/18 22:57:13 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/11/19 19:51:14 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,15 @@ int	main(void)
 	int 	fd;
 	int 	i = 0;
 	char	*str;
-	fd = open("sample3.txt", O_RDONLY);
+	fd = open("Test_ressources/sample3.txt", O_RDONLY);
 	while (i == 0 || str != NULL)
 	{
 	 str = get_next_line(fd);
-	 printf("%s", str);
+	 printf("%s", str); 
+	 free(str);
 	 i++;
 	}
 	printf("i = %d\n", i);
-	free(str);
+	close(fd);
 	return (0);
 }
