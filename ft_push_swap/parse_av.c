@@ -1,33 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parse_av.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/16 19:12:30 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/20 18:48:37 by vlevy            ###   ########.fr       */
+/*   Created: 2023/11/23 18:35:51 by vlevy             #+#    #+#             */
+/*   Updated: 2023/11/24 16:41:46 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <fcntl.h>
-#include "get_next_line.h"
+#include "push_swap.h"
 
-int	main(void)
+int	parse_av(char *str, tdc_list **list)
 {
-	int 	fd;
-	int 	i = 0;
-	char	*str;
-	fd = open("bible.txt", O_RDONLY);
-	while (i == 0 || str != NULL)
+	long	nb;
+	tdc_list	*new_node;
+
+	while (ft_isdigit(*str) || ft_isblank(*str)|| ft_is_sign(*str))
 	{
-	 str = get_next_line(fd);
-	 //printf("%send", str); 
-	 free(str);
-	 i++;
+			nb = ft_atol(&str);
+			if (nb < -2147483648 || nb > 2147483647 || check_doublons(nb, *list))
+				return (1);
+			new_node = ft_lstdc_new(&nb);
+			if (new_node == NULL)
+				return (1);
+			ft_lstdcadd_back(list, new_node);
+			str++;
 	}
-	printf("i = %d\n", i);
-	close(fd);
+	if (*str != 0)
+		return (1);
 	return (0);
 }

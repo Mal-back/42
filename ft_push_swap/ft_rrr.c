@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_rrr.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/16 19:12:30 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/20 18:48:37 by vlevy            ###   ########.fr       */
+/*   Created: 2023/11/24 19:01:15 by vlevy             #+#    #+#             */
+/*   Updated: 2023/11/24 19:04:39 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <fcntl.h>
-#include "get_next_line.h"
+#include "libft.h"
+#include "push_swap.h"
 
-int	main(void)
+void	ft_rrr(tdc_list **list_a, tdc_list **list_b)
 {
-	int 	fd;
-	int 	i = 0;
-	char	*str;
-	fd = open("bible.txt", O_RDONLY);
-	while (i == 0 || str != NULL)
-	{
-	 str = get_next_line(fd);
-	 //printf("%send", str); 
-	 free(str);
-	 i++;
-	}
-	printf("i = %d\n", i);
-	close(fd);
-	return (0);
+	if (!*list_a && !*list_b && !(*list_a)->next && !(*list_b)->next)
+		return ;
+	ft_putendl_fd("rrr", 1);
+	ft_rra(list_a, 0);
+	ft_rrb(list_b, 0);
 }

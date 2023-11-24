@@ -1,33 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isblank.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/16 19:12:30 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/20 18:48:37 by vlevy            ###   ########.fr       */
+/*   Created: 2023/11/23 20:30:09 by vlevy             #+#    #+#             */
+/*   Updated: 2023/11/23 20:32:14 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <fcntl.h>
-#include "get_next_line.h"
+#include "push_swap.h"
 
-int	main(void)
+int	ft_isblank(int c)
 {
-	int 	fd;
-	int 	i = 0;
-	char	*str;
-	fd = open("bible.txt", O_RDONLY);
-	while (i == 0 || str != NULL)
-	{
-	 str = get_next_line(fd);
-	 //printf("%send", str); 
-	 free(str);
-	 i++;
-	}
-	printf("i = %d\n", i);
-	close(fd);
+	if (c == 32 || (c >= 9 && c <= 13))
+		return (1);
 	return (0);
 }

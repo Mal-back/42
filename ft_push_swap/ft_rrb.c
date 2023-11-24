@@ -1,33 +1,22 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_rrb.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/16 19:12:30 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/20 18:48:37 by vlevy            ###   ########.fr       */
+/*   Created: 2023/11/24 18:56:09 by vlevy             #+#    #+#             */
+/*   Updated: 2023/11/24 18:59:08 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <fcntl.h>
-#include "get_next_line.h"
+#include "push_swap.h"
 
-int	main(void)
+void	ft_rrb(tdc_list **list_b, int f)
 {
-	int 	fd;
-	int 	i = 0;
-	char	*str;
-	fd = open("bible.txt", O_RDONLY);
-	while (i == 0 || str != NULL)
-	{
-	 str = get_next_line(fd);
-	 //printf("%send", str); 
-	 free(str);
-	 i++;
-	}
-	printf("i = %d\n", i);
-	close(fd);
-	return (0);
+	if (!*list_b || !(*list_b)->next)
+		return ;
+	*list_b = (*list_b)->prev;
+	return ;
 }

@@ -1,33 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_ra.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/16 19:12:30 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/20 18:48:37 by vlevy            ###   ########.fr       */
+/*   Created: 2023/11/24 18:29:33 by vlevy             #+#    #+#             */
+/*   Updated: 2023/11/24 18:44:04 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <fcntl.h>
-#include "get_next_line.h"
+#include "libft.h"
+#include "push_swap.h"
 
-int	main(void)
+void	ft_ra(tdc_list **list_a, int f)
 {
-	int 	fd;
-	int 	i = 0;
-	char	*str;
-	fd = open("bible.txt", O_RDONLY);
-	while (i == 0 || str != NULL)
-	{
-	 str = get_next_line(fd);
-	 //printf("%send", str); 
-	 free(str);
-	 i++;
-	}
-	printf("i = %d\n", i);
-	close(fd);
-	return (0);
+	if (!*list_a || !(*list_a)->next)
+		return ;
+	if (f)
+		ft_putendl_fd("ra", 1);
+	*list_a = (*list_a)->next;
+	return ;
 }

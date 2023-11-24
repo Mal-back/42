@@ -1,33 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstdc_clear.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/16 19:12:30 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/20 18:48:37 by vlevy            ###   ########.fr       */
+/*   Created: 2023/11/24 15:02:25 by vlevy             #+#    #+#             */
+/*   Updated: 2023/11/24 15:13:24 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <fcntl.h>
-#include "get_next_line.h"
+#include "push_swap.h"
 
-int	main(void)
+tdc_list	*ft_lstdc_clear(tdc_list **lst)
 {
-	int 	fd;
-	int 	i = 0;
-	char	*str;
-	fd = open("bible.txt", O_RDONLY);
-	while (i == 0 || str != NULL)
+	tdc_list	*tmp;
+
+	if (!lst || !*lst)
+		return (NULL);
+	tmp = *lst;
+	if (tmp->next == NULL)
 	{
-	 str = get_next_line(fd);
-	 //printf("%send", str); 
-	 free(str);
-	 i++;
+		free(tmp);
+		return (NULL);
 	}
-	printf("i = %d\n", i);
-	close(fd);
-	return (0);
+	tmp = tmp->next;
+	while (tmp->next != *lst)
+	{
+		tmp = tmp->next;
+		free(tmp->prev);
+	}
+	free(tmp);
+	free(*lst);
+	lst = NULL;
+	return (NULL);
 }

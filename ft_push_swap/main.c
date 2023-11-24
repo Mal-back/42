@@ -5,29 +5,35 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/16 19:12:30 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/20 18:48:37 by vlevy            ###   ########.fr       */
+/*   Created: 2023/11/22 17:12:09 by vlevy             #+#    #+#             */
+/*   Updated: 2023/11/24 15:49:58 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <fcntl.h>
-#include "get_next_line.h"
+#include "libft.h"
+#include "push_swap.h"
 
-int	main(void)
+int	main(int ac, char **av)
 {
-	int 	fd;
-	int 	i = 0;
-	char	*str;
-	fd = open("bible.txt", O_RDONLY);
-	while (i == 0 || str != NULL)
+	int	i;
+	tdc_list	*lst;
+
+	i = 1;
+	lst = NULL;
+	if (ac < 2)
 	{
-	 str = get_next_line(fd);
-	 //printf("%send", str); 
-	 free(str);
-	 i++;
+		return (0);
 	}
-	printf("i = %d\n", i);
-	close(fd);
+	while (i < ac) 
+	{
+		if (parse_av(av[i], &lst))
+		{
+			ft_putendl_fd("Error\n", 2);
+			lst = ft_lstdc_clear(&lst);
+			return (1);	
+		}
+		i++;
+	}
+	lst = ft_algo_init(lst);
 	return (0);
 }

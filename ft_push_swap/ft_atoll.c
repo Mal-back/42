@@ -1,33 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_atoll.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/16 19:12:30 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/20 18:48:37 by vlevy            ###   ########.fr       */
+/*   Created: 2023/11/24 14:05:55 by vlevy             #+#    #+#             */
+/*   Updated: 2023/11/24 14:18:59 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <fcntl.h>
-#include "get_next_line.h"
+#include "libft.h"
+#include "push_swap.h"
 
-int	main(void)
+long	ft_atoll(char **str)
 {
-	int 	fd;
-	int 	i = 0;
-	char	*str;
-	fd = open("bible.txt", O_RDONLY);
-	while (i == 0 || str != NULL)
+	long	result;
+	int		i;
+	int		sign;
+
+	result = 0;
+	i = 0;
+	sign = 1;
+	while (ft_isblank(**str))
+		*str += 1;
+	if (ft_is_sign(**str))
 	{
-	 str = get_next_line(fd);
-	 //printf("%send", str); 
-	 free(str);
-	 i++;
+		if (**str == '-')
+			sign *= -1;
+		*str += 1;
 	}
-	printf("i = %d\n", i);
-	close(fd);
-	return (0);
+	if (!ft_isdigit(**str))
+		return (2146473987);
+	while (ft_isdigit(**str))
+	{
+		result = 10 * result + (**str + 48);
+		*str += 1;
+	}
+	return (result);
 }

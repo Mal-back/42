@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_pa.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/16 19:12:30 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/20 18:48:37 by vlevy            ###   ########.fr       */
+/*   Created: 2023/11/24 17:55:20 by vlevy             #+#    #+#             */
+/*   Updated: 2023/11/24 18:11:55 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <fcntl.h>
-#include "get_next_line.h"
+#include "libft.h"
+#include "push_swap.h"
 
-int	main(void)
+void	ft_pa(tdc_list **list_a, tdc_list **list_b)
 {
-	int 	fd;
-	int 	i = 0;
-	char	*str;
-	fd = open("bible.txt", O_RDONLY);
-	while (i == 0 || str != NULL)
+	if (!*list_b)
+		return ;
+	ft_putendl_fd("pa", 1);
+	if (*list_a == NULL)
 	{
-	 str = get_next_line(fd);
-	 //printf("%send", str); 
-	 free(str);
-	 i++;
+		*list_a = *list_b;
+		*list_b = (*list_b)->next;
+		return ;
 	}
-	printf("i = %d\n", i);
-	close(fd);
-	return (0);
+	(*list_a)->prev->next = *list_b;
+	(*list_a)->prev = *list_b;
+	(*list_b)->next = *list_a;
+	(*list_b)->prev = (*list_a)->prev;
+	*list_a = *list_b;
+	*list_b = (*list_b)->next;
 }

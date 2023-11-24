@@ -3,19 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlevy <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/06 11:40:21 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/13 10:46:20 by vlevy            ###   ########.fr       */
+/*   Created: 2023/11/11 16:29:00 by vlevy             #+#    #+#             */
+/*   Updated: 2023/11/22 17:05:58 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# include <stddef.h>
+# include <stdarg.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include "libft.h"
 
 typedef struct s_list
 {
