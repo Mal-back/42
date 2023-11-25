@@ -21,7 +21,7 @@ CC = cc -Wall -Wextra -Werror
 
 INCLUDES = includes/
 
-NAME = libft.a
+NAME = ../libft.a
 
 all : ${NAME}	
 

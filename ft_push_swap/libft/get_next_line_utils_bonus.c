@@ -6,18 +6,18 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 19:03:40 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/19 19:40:25 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/11/25 17:16:13 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "libft.h"
 
-int	update_lst(t_list **lst, char *buff)
+int	update_lst(t_clist **lst, char *buff)
 {
-	t_list	*new;
-	t_list	*tmp;
+	t_clist	*new;
+	t_clist	*tmp;
 
-	new = malloc(sizeof (t_list));
+	new = malloc(sizeof (t_clist));
 	if (!new)
 		return (1);
 	new->content = malloc((BUFFER_SIZE + 1) * sizeof (char));
@@ -41,10 +41,10 @@ int	update_lst(t_list **lst, char *buff)
 	return (0);
 }
 
-char	*ft_lst_clear(t_list **lst)
+char	*ft_lst_clear(t_clist **lst)
 {
-	t_list	*tmp;
-	t_list	*ptr;
+	t_clist	*tmp;
+	t_clist	*ptr;
 
 	ptr = *lst;
 	if (!lst)
@@ -94,14 +94,4 @@ int	ft_strlen_cs(char *str, char c, int f)
 	if (f && str[i] == c)
 		i++;
 	return (i);
-}
-
-void	ft_memset(char *str, int c, int n)
-{
-	while (n)
-	{
-		*str++ = c;
-		n--;
-	}
-	return ;
 }

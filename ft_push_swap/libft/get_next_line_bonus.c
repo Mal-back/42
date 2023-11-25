@@ -6,15 +6,15 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 19:03:27 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/19 19:43:04 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/11/25 17:38:11 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "libft.h"
 
-char	*fill_str(char *stash, char *str, t_list *lst, int lst_size)
+static char	*fill_str(char *stash, char *str, t_clist *lst, int lst_size)
 {
-	t_list		*temp_node;
+	t_clist		*temp_node;
 	int			len;
 
 	temp_node = lst;
@@ -38,7 +38,7 @@ char	*fill_str(char *stash, char *str, t_list *lst, int lst_size)
 	return (str);
 }
 
-char	*update_stash(char *stash, t_list *temp_str_node)
+char	*update_stash(char *stash, t_clist *temp_str_node)
 {
 	char	*temp_str;
 	int		len_to_trim;
@@ -66,9 +66,9 @@ char	*update_stash(char *stash, t_list *temp_str_node)
 	return (stash);
 }
 
-char	*handle_eol(int lst_size, char *stash, t_list *lst)
+char	*handle_eol(int lst_size, char *stash, t_clist *lst)
 {
-	t_list		*tmp;
+	t_clist		*tmp;
 	char		*str;
 	int			i;
 	int			len;
@@ -93,7 +93,7 @@ char	*handle_eol(int lst_size, char *stash, t_list *lst)
 	return (str);
 }
 
-char	*read_till_eol(char *str, char *stash, t_list *lst, int fd)
+char	*read_till_eol(char *str, char *stash, t_clist *lst, int fd)
 {
 	int		lst_size;
 	char	*buff;
@@ -123,7 +123,7 @@ char	*get_next_line(int fd)
 {
 	char						*str;
 	static char					stash[FD_CAP][BUFFER_SIZE + 1];
-	t_list						*lst;
+	t_clist						*lst;
 	int							stash_len;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)

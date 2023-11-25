@@ -6,12 +6,11 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 17:42:00 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/16 17:06:41 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/11/25 17:36:12 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-#include "ft_printf.h"
+#include "libft.h"
 
 int	ft_printf(const char *format, ...)
 {

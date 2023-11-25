@@ -6,11 +6,11 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:57:25 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/15 19:57:42 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/11/25 17:35:37 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
 char	*char_padding(char *pad_str, t_flags *flags, long *count)
 {
