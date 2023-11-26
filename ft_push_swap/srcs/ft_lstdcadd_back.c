@@ -6,7 +6,7 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 14:33:12 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/25 21:45:35 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/11/26 19:38:17 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ void	ft_lstdcadd_back(t_dclist **lst, t_dclist *new_node)
 	new_node->prev = tmp;
 	tmp->next = new_node;
 	new_node->next = *lst;
+	(*lst)->prev = new_node;
 	return ;
 }

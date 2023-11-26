@@ -10,6 +10,8 @@ FILES = srcs/check_doublons.c\
 				srcs/ft_rrr.c	srcs/ft_sa.c\
 				srcs/ft_sb.c	srcs/ft_ss.c\
 				srcs/main.c	srcs/parse_av.c\
+				srcs/ft_lstdcadd_front.c\
+				srcs/ft_update_lstdc.c\
 
 OBJECTS = ${FILES:.c=.o}
 

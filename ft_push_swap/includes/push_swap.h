@@ -6,7 +6,7 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:47:49 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/25 20:44:31 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/11/26 20:29:07 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ typedef struct s_dclist
 t_dclist	*ft_lst_dcnew(long data);
 t_dclist	*ft_lst_dcclear(t_dclist **lst);
 t_dclist	*ft_algo_init(t_dclist *list);
+void		ft_lstdcadd_front(t_dclist **list, t_dclist *new_node);
+void		ft_update_lstdc(t_dclist **list);
 void		ft_lstdcadd_back(t_dclist **lst, t_dclist *new_node);
 int			parse_av(char *str, t_dclist **list);
 int			ft_lst_dcsize(t_dclist *lst);

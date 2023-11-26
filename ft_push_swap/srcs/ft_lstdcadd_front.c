@@ -1,34 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_sb.c                                            :+:      :+:    :+:   */
+/*   ft_lstdcadd_front.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/24 17:35:49 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/26 20:32:32 by vlevy            ###   ########.fr       */
+/*   Created: 2023/11/26 15:21:29 by vlevy             #+#    #+#             */
+/*   Updated: 2023/11/26 20:48:39 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "push_swap.h"
 
-void	ft_sb(t_dclist **list_b, int f)
+void	ft_lstdcadd_front(t_dclist **list, t_dclist *new_node)
 {
-	t_dclist	*node_1;
-	t_dclist	*node_2;
-
-	if (!list_b)
+	if (!new_node)
 		return ;
-	node_1 = *list_b;
-	node_2 = (*list_b)->next;
-	if (node_1->next == NULL)
-		return ;
-	if (f)
-		ft_putendl_fd("sb", 1);
-	ft_update_lstdc(list_b);
-	ft_update_lstdc(list_b);
-	ft_lstdcadd_front(list_b, node_1);
-	ft_lstdcadd_front(list_b, node_2);
+	else if (!*list)
+	{
+		*list = new_node;
+		new_node->next = NULL;
+		new_node->prev = NULL;
+	}
+	else if ((*list)->next == NULL)
+	{
+		(*list)->next = new_node;
+		(*list)->prev = new_node;
+		new_node->prev = *list;
+		new_node->next = *list;
+	}
+	else
+	{
+		new_node->prev = (*list)->prev;
+		new_node->next = *list;
+		(*list)->prev->next = new_node;
+	}
+	*list = new_node;
 	return ;
 }

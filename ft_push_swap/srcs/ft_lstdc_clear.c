@@ -6,7 +6,7 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 15:02:25 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/25 19:43:52 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/11/26 19:37:09 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 t_dclist	*ft_lst_dcclear(t_dclist **lst)
 {
 	t_dclist	*tmp;
+	t_dclist	*tmp2;
 
 	if (!lst || !*lst)
 		return (NULL);
@@ -24,14 +25,13 @@ t_dclist	*ft_lst_dcclear(t_dclist **lst)
 		free(tmp);
 		return (NULL);
 	}
-	tmp = tmp->next;
 	while (tmp->next != *lst)
 	{
+		tmp2 = tmp;
 		tmp = tmp->next;
-		free(tmp->prev);
+		free(tmp2);
 	}
 	free(tmp);
-	free(*lst);
 	lst = NULL;
 	return (NULL);
 }
