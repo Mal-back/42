@@ -12,6 +12,16 @@ FILES = srcs/check_doublons.c\
 				srcs/main.c	srcs/parse_av.c\
 				srcs/ft_lstdcadd_front.c\
 				srcs/ft_update_lstdc.c\
+				srcs/ft_is_sorted.c srcs/ft_manual_sort.c\
+				srcs/ft_find_little.c\
+				srcs/ft_find_median_of_three.c\
+				srcs/ft_push_if_above_median.c\
+				srcs/ft_push_if_below_median.c\
+				srcs/ft_merge_to_a.c\
+				srcs/ft_quick_sort_a.c\
+				srcs/ft_quick_sort_init.c\
+				srcs/ft_quick_sort_b.c\
+				srcs/ft_merge_to_b.c\
 
 OBJECTS = ${FILES:.c=.o}
 

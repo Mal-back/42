@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_doublons.c                                   :+:      :+:    :+:   */
+/*   ft_find_little.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/24 16:23:11 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/28 18:38:47 by vlevy            ###   ########.fr       */
+/*   Created: 2023/11/27 18:27:35 by vlevy             #+#    #+#             */
+/*   Updated: 2023/11/27 18:36:45 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	check_doublons(long nb, t_dclist *list)
+t_dclist	*ft_find_little(t_dclist **list_a)
 {
-	t_dclist	*tmp;
+	t_dclist	*head_a;
+	t_dclist	*little;
 
-	tmp = list;
-	if (!list)
-		return (0);
-	while (tmp->next != list && tmp->next)
+	little = *list_a;
+	head_a = (*list_a)->next;
+	*list_a = (*list_a)->next;
+	while ((*list_a)->next != head_a)
 	{
-		if (nb == tmp->data)
-			return (1);
-		tmp = tmp->next;
+		if ((*list_a)->data < little->data)
+			little = *list_a;
+		*list_a = (*list_a)->next;
 	}
-	if (nb == tmp->data)
-		return (1);
-	return (0);
+	return (little);
 }
