@@ -6,7 +6,7 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 17:35:49 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/26 20:32:32 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/11/30 14:40:12 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,10 @@ void	ft_sb(t_dclist **list_b, int f)
 	t_dclist	*node_1;
 	t_dclist	*node_2;
 
-	if (!list_b)
+	if (!list_b || !*list_b)
 		return ;
 	node_1 = *list_b;
 	node_2 = (*list_b)->next;
-	if (node_1->next == NULL)
-		return ;
 	if (f)
 		ft_putendl_fd("sb", 1);
 	ft_update_lstdc(list_b);

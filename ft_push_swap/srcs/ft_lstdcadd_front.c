@@ -6,7 +6,7 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 15:21:29 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/26 20:48:39 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/11/30 15:21:17 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	ft_lstdcadd_front(t_dclist **list, t_dclist *new_node)
 		new_node->prev = (*list)->prev;
 		new_node->next = *list;
 		(*list)->prev->next = new_node;
+		(*list)->prev = new_node;
 	}
 	*list = new_node;
 	return ;

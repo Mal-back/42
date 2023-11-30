@@ -6,7 +6,7 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:47:49 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/28 17:44:10 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/11/30 13:58:49 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,11 @@ void		ft_rr(t_dclist **list_a, t_dclist **list_b);
 void		ft_rra(t_dclist **list_a, int f);
 void		ft_rrb(t_dclist **list_b, int f);
 void		ft_rrr(t_dclist **list_a, t_dclist **list_b);
+
+
+
+
+void	ft_print_test(t_dclist *lst);
+
 
 #endif
