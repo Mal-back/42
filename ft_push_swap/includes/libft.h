@@ -6,7 +6,7 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 16:29:00 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/25 17:38:41 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/12/01 21:11:31 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <unistd.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 5
+#  define BUFFER_SIZE 50
 # endif
 
 # ifndef FD_CAP

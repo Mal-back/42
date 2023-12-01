@@ -1,0 +1,14 @@
+bonus_srcs/check_doublons.c bonus_srcs/free_and_exit.c\
+bonus_srcs/free_tab.c bonus_srcs/ft_apply_instructions.c\
+bonus_srcs/ft_atoll.c bonus_srcs/ft_check_instructions.c\
+bonus_srcs/ft_isblank.c bonus_srcs/ft_is_sign.c\
+bonus_srcs/ft_is_sorted.c bonus_srcs/ft_lstdcadd_back.c\
+bonus_srcs/ft_lstdcadd_front.c bonus_srcs/ft_lstdc_clear.c\
+bonus_srcs/ft_lstdc_new.c bonus_srcs/ft_lstdc_size.c\
+bonus_srcs/ft_pa.c bonus_srcs/ft_parse_instructions.c\
+bonus_srcs/ft_pb.c bonus_srcs/ft_ra.c\
+bonus_srcs/ft_rb.c bonus_srcs/ft_rra.c\
+bonus_srcs/ft_rrb.c bonus_srcs/ft_rr.c\
+bonus_srcs/ft_rrr.c bonus_srcs/ft_sa.c\
+bonus_srcs/ft_sb.c bonus_srcs/ft_ss.c\
+bonus_srcs/main.c bonus_srcs/parse_av.c\

@@ -6,7 +6,7 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 17:11:47 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/29 19:46:56 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/12/01 22:50:04 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_push_if_above_median(t_dclist **list_a, t_dclist **list_b,
 	local_size = ft_lst_dcsize(*list_b);
 	while (*list_b != tail_b)
 	{
-		if ((*list_b)->data >= median_of_three)
+		if ((*list_b)->data <= median_of_three)
 			ft_pa(list_a, list_b);
 		else
 		{
@@ -32,11 +32,12 @@ void	ft_push_if_above_median(t_dclist **list_a, t_dclist **list_b,
 			rotate_counter++;
 		}
 	}
-	if ((*list_b)->data >= median_of_three)
+	if ((*list_b)->data <= median_of_three)
 		ft_pa(list_a, list_b);
-	if (local_size != absolute_size)
+	absolute_size++;
+	while (rotate_counter > 0)
 	{
-		while (rotate_counter--)
-			ft_rrb(list_b, 1);
+		ft_rrb(list_b, 1);
+		rotate_counter--;
 	}
 }
