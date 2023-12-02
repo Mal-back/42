@@ -6,7 +6,7 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 16:59:41 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/27 18:27:04 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/12/02 20:12:40 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,6 @@ void	ft_manual_sort(t_dclist **list_a, int lst_size)
 		ft_sa(list_a, 1);
 		return ;
 	}
-	if ((*list_a)->prev == ft_find_little(list_a))
-	{
-		if ((*list_a)->data > (*list_a)->next->data)
-			ft_sa(list_a, 1);
-		ft_rra(list_a, 1);
-	}
-	else if ((*list_a)->next == ft_find_little(list_a))
-	{
-		if ((*list_a)->data < (*list_a)->prev->data)
-			ft_sa(list_a, 1);
-		else
-			ft_ra(list_a, 1);
-	}
-	else
-	{
-		ft_ra(list_a, 1);
-		ft_sa(list_a, 1);
-		ft_rra(list_a, 1);
-	}
+	if (lst_size == 3)
+		ft_sort_3(list_a);
 }

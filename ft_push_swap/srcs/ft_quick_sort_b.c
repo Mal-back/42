@@ -6,7 +6,7 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 16:56:17 by vlevy             #+#    #+#             */
-/*   Updated: 2023/12/01 22:11:27 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/12/02 18:27:33 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ void	ft_quick_sort_b(t_dclist **list_b, int ultimate_size_a,
 			ultimate_size_b);
 		ft_quick_sort_a(&list_a, ultimate_size_a, ultimate_size_b);
 		ft_quick_sort_b(list_b, ultimate_size_a, ultimate_size_b);
+		ft_merge_to_b(&list_a, list_b);
 	}
 	else if (size_list == 2 && (*list_b)->data < (*list_b)->next->data)
 		ft_sb(list_b, 1);
-	ft_merge_to_b(&list_a, list_b);
 	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 17:55:20 by vlevy             #+#    #+#             */
-/*   Updated: 2023/12/01 21:18:07 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/12/02 17:05:17 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ void	ft_pa(t_dclist **list_a, t_dclist **list_b)
 	if (!list_b || !*list_b)
 		return ;
 	ft_update_lstdc(list_b);
-	tmp->prev = NULL;
-	tmp->next = NULL;
 	ft_lstdcadd_front(list_a, tmp);
 	return ;
 }

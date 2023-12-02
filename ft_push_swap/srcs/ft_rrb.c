@@ -6,7 +6,7 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 18:56:09 by vlevy             #+#    #+#             */
-/*   Updated: 2023/12/01 03:08:40 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/12/02 18:40:01 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	ft_rrb(t_dclist **list_b, int f)
 		return ;
 	if (f)
 		ft_printf("rrb\n");
+	if ((*list_b)->next)
 	*list_b = (*list_b)->prev;
 	return ;
 }

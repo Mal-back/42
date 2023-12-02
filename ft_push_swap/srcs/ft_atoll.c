@@ -6,7 +6,7 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 14:05:55 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/25 20:18:41 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/12/02 18:52:57 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ long	ft_atol(char **str)
 			sign *= -1;
 		*str += 1;
 	}
-	if (!ft_isdigit(**str))
+	if (!ft_isdigit(**str) && !ft_isblank(**str))
 		return (2147483987);
 	while (ft_isdigit(**str))
 	{

@@ -6,7 +6,7 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 17:12:09 by vlevy             #+#    #+#             */
-/*   Updated: 2023/12/01 22:53:31 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/12/02 18:40:56 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ int	main(int ac, char **av)
 		}
 		i++;
 	}
-	ft_algo_init(lst);
-	ft_print_test(lst);
+	lst = ft_algo_init(lst);
+	// ft_print_test(lst);
 	ft_lst_dcclear(&lst);
 	return (0);
 }
@@ -48,15 +48,13 @@ void	ft_print_test(t_dclist *lst)
 	while (lst->next != NULL && lst->next != head_a)
 	{
 		ft_printf("Data : %d\n", lst->data);
-		// ft_printf("Adress : %p\n", lst);
-		// ft_printf("Adress of next element : %p\n", lst->next);
-		// ft_printf("Adress of prev element : %p\n", lst->prev);
+		ft_printf("Adress : %p\n", lst);
+		ft_printf("Adress of next element : %p\n", lst->next);
+		ft_printf("Adress of prev element : %p\n", lst->prev);
 		lst = lst->next;
 	}	
 	ft_printf("Data : %d\n", lst->data);
-	lst = lst->next;
-	ft_printf("Data : %d\n", lst->data);
-	// ft_printf("Adress : %p\n", lst);
-	// ft_printf("Adress of next element : %p\n", lst->next);
-	// ft_printf("Adress of prev element : %p\n", lst->prev);
+	ft_printf("Adress : %p\n", lst);
+	ft_printf("Adress of next element : %p\n", lst->next);
+	ft_printf("Adress of prev element : %p\n", lst->prev);
 }

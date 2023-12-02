@@ -6,7 +6,7 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 18:35:51 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/25 20:22:03 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/12/02 18:50:28 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	parse_av(char *str, t_dclist **list)
 			return (1);
 		ft_lstdcadd_back(list, new_node);
 	}
-	if (*str != 0)
+	if (*str != 0 && *str != 32)
 		return (1);
 	return (0);
 }
