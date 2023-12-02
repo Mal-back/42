@@ -6,7 +6,7 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:47:49 by vlevy             #+#    #+#             */
-/*   Updated: 2023/12/02 20:12:05 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/12/02 22:33:34 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_dclist	*ft_lst_dcclear(t_dclist **lst);
 t_dclist	*ft_algo_init(t_dclist *list);
 t_dclist	*ft_find_little(t_dclist **list_a);
 void		ft_sort_3(t_dclist **list_a);
+void		ft_sort_4(t_dclist **list_a);
 int			ft_is_sorted(t_dclist *list);
 void		ft_lstdcadd_front(t_dclist **list, t_dclist *new_node);
 void		ft_quick_sort_init(t_dclist **list_a, int absolute_size_a,

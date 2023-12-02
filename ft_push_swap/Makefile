@@ -22,7 +22,7 @@ FILES = srcs/check_doublons.c\
 				srcs/ft_quick_sort_init.c\
 				srcs/ft_quick_sort_b.c\
 				srcs/ft_merge_to_b.c\
-				srcs/ft_sort_3.c\
+				srcs/ft_sort_3.c srcs/ft_sort_4.c\
 
 CHECKER_FILES =		bonus_srcs/check_doublons.c bonus_srcs/free_and_exit.c\
 									bonus_srcs/free_tab.c bonus_srcs/ft_apply_instructions.c\
