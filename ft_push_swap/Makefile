@@ -23,6 +23,12 @@ FILES = srcs/check_doublons.c\
 				srcs/ft_quick_sort_b.c\
 				srcs/ft_merge_to_b.c\
 				srcs/ft_sort_3.c srcs/ft_sort_4.c\
+				srcs/ft_sort_5.c\
+				srcs/ft_find_next_little.c\
+				srcs/ft_merge_sort_init.c\
+				srcs/ft_merge_sort_a.c srcs/ft_resolve_a.c\
+				srcs/ft_merge_sort_b.c srcs/ft_resolve_b.c\
+				srcs/need_to_swap.c srcs/ft_bubble_sort.c\
 
 CHECKER_FILES =		bonus_srcs/check_doublons.c bonus_srcs/free_and_exit.c\
 									bonus_srcs/free_tab.c bonus_srcs/ft_apply_instructions.c\
@@ -75,7 +81,7 @@ clean :
 
 fclean : clean
 	make fclean -C ${SUBDIR}
-	rm -f ${NAME} ${CHEKCER_NAME}
+	rm -f ${NAME} ${CHECKER_NAME}
 
 re : fclean all
 

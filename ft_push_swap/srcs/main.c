@@ -6,7 +6,7 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 17:12:09 by vlevy             #+#    #+#             */
-/*   Updated: 2023/12/02 18:40:56 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/12/04 20:31:34 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,13 @@ int	main(int ac, char **av)
 		i++;
 	}
 	lst = ft_algo_init(lst);
-	// ft_print_test(lst);
+	// if (ft_is_sorted(lst))
+	// {
+	// 	ft_printf("OK");
+	// 	ft_print_test(lst);
+	// }
+	// else
+	// 	ft_print_test(lst);
 	ft_lst_dcclear(&lst);
 	return (0);
 }

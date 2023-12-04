@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_sb.c                                            :+:      :+:    :+:   */
+/*   ft_buuble_sort_5.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/24 17:35:49 by vlevy             #+#    #+#             */
-/*   Updated: 2023/12/04 19:06:19 by vlevy            ###   ########.fr       */
+/*   Created: 2023/12/04 15:44:57 by vlevy             #+#    #+#             */
+/*   Updated: 2023/12/04 16:58:12 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "push_swap.h"
 
-void	ft_sb(t_dclist **list_b, int f)
+int	need_to_swap(t_dclist **list)
 {
-	long	tmp;
-
-	if (!list_b || !*list_b)
-		return ;
-	if (f)
-		ft_putendl_fd("sb", 1);
-	tmp = (*list_b)->data;
-	(*list_b)->data = (*list_b)->next->data;
-	(*list_b)->next->data = tmp;
-	return ;
+	if (!*list || !(*list)->next)
+		return (0);
+	if ((*list)->data > (*list)->next->data)
+		return (1);
+	return (0);
 }

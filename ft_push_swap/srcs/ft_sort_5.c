@@ -6,7 +6,7 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 22:51:01 by vlevy             #+#    #+#             */
-/*   Updated: 2023/12/02 23:22:30 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/12/03 18:19:20 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static void	ft_dual_sort(t_dclist **list_a, t_dclist **list_b)
 		ft_rra(list_a, 1);
 	}
 }
+
 static void	ft_actual_sort_5(t_dclist **list_a, t_dclist **list_b)
 {
 	if (ft_is_sorted(*list_a) && !ft_is_sorted(*list_b))
@@ -92,7 +93,7 @@ void	ft_sort_5(t_dclist **list_a)
 
 	list_b = NULL;
 	little = ft_find_little(list_a);
-	second_little = ft_find_next_little(list_a, &little);
+	second_little = ft_find_next_little(*list_a, &little);
 	if (*list_a == little || *list_a == second_little)
 		ft_pb(&list_b, list_a);
 	else if ((*list_a)->prev == little || (*list_a)->prev == second_little)

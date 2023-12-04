@@ -6,7 +6,7 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 19:33:56 by vlevy             #+#    #+#             */
-/*   Updated: 2023/12/02 18:35:44 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/12/04 20:14:23 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ void	ft_parse_instructions(t_dclist **list_a)
 	i = 0;
 	list_b = NULL;
 	str = NULL;
-	instructions_tab = ft_split("sa\n sb\n ss\n pa\n pb\n ra\n rb\n \
-			rr\n rra\n rrb\n rrr\n", 32);
+	instructions_tab = ft_split("sa\n sb\n ss\n pa\n pb\n ra\n rb\n rr\n rra\n rrb\n rrr\n", 32);
 	ft_printf("Starting list A :\n");
 	ft_print_test(*list_a);
 	while (str || i == 0)

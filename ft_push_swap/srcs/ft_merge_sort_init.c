@@ -1,28 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_sb.c                                            :+:      :+:    :+:   */
+/*   ft_merge_sort_init.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/24 17:35:49 by vlevy             #+#    #+#             */
-/*   Updated: 2023/12/04 19:06:19 by vlevy            ###   ########.fr       */
+/*   Created: 2023/12/03 18:52:34 by vlevy             #+#    #+#             */
+/*   Updated: 2023/12/04 18:52:31 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "push_swap.h"
 
-void	ft_sb(t_dclist **list_b, int f)
+void	ft_merge_sort_init(t_dclist **list_a, int size_a)
 {
-	long	tmp;
+	int			i;
+	// int			size_b;
+	t_dclist	*list_b;	
 
-	if (!list_b || !*list_b)
-		return ;
-	if (f)
-		ft_putendl_fd("sb", 1);
-	tmp = (*list_b)->data;
-	(*list_b)->data = (*list_b)->next->data;
-	(*list_b)->next->data = tmp;
-	return ;
+	list_b = NULL;
+	i = 0;
+	while (i < size_a / 2)
+	{
+		ft_pb(&list_b, list_a);
+		i++;
+	}
+	// size_a = ft_lst_dcsize(*list_a);
+	// size_b = ft_lst_dcsize(list_b);
+	// ft_merge_sort_a(list_a, size_a, size_b);
+	// ft_merge_sort_b(&list_b, size_a, size_b);
+	// ft_resolve_a(list_a, &list_b, size_a);
+	ft_bubble_sort(list_a, &list_b);
 }

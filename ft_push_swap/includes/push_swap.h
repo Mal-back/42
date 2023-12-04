@@ -6,7 +6,7 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:47:49 by vlevy             #+#    #+#             */
-/*   Updated: 2023/12/02 22:33:34 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/12/04 18:50:03 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ t_dclist	*ft_lst_dcnew(long data);
 t_dclist	*ft_lst_dcclear(t_dclist **lst);
 t_dclist	*ft_algo_init(t_dclist *list);
 t_dclist	*ft_find_little(t_dclist **list_a);
+t_dclist	*ft_find_next_little(t_dclist *list_a, t_dclist **little);
 void		ft_sort_3(t_dclist **list_a);
 void		ft_sort_4(t_dclist **list_a);
+void		ft_sort_5(t_dclist **list_a);
 int			ft_is_sorted(t_dclist *list);
 void		ft_lstdcadd_front(t_dclist **list, t_dclist *new_node);
 void		ft_quick_sort_init(t_dclist **list_a, int absolute_size_a,
@@ -67,6 +69,18 @@ void		ft_rrr(t_dclist **list_a, t_dclist **list_b);
 
 
 
+int			need_to_swap(t_dclist **list);
+void		bubble_sort_5(t_dclist **list_a);
+void		ft_bubble_sort(t_dclist **list_a, t_dclist **list_b);
+
+
+void		ft_merge_sort_init(t_dclist **list_a, int size_a);
+void		ft_merge_sort_b(t_dclist **list_b, int size_a, int size_b);
+void		ft_merge_sort_a(t_dclist **list_a, int size_a, int size_b);
+void		ft_resolve_a(t_dclist **list_a, t_dclist **list_b,
+				int size_a);
+void		ft_resolve_b(t_dclist **list_a, t_dclist **list_b,
+				int size_b);
 
 void	ft_print_test(t_dclist *lst);
 
