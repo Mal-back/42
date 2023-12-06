@@ -29,6 +29,10 @@ FILES = srcs/check_doublons.c\
 				srcs/ft_merge_sort_a.c srcs/ft_resolve_a.c\
 				srcs/ft_merge_sort_b.c srcs/ft_resolve_b.c\
 				srcs/need_to_swap.c srcs/ft_bubble_sort.c\
+				srcs/bubble_sort_utils.c srcs/ft_find_median.c\
+				srcs/ft_lst_cpy.c srcs/ft_find_big.c\
+				srcs/ft_dcdel.c srcs/ft_find_median_b.c\
+				srcs/ft_bubble_sort_b.c\
 
 CHECKER_FILES =		bonus_srcs/check_doublons.c bonus_srcs/free_and_exit.c\
 									bonus_srcs/free_tab.c bonus_srcs/ft_apply_instructions.c\

@@ -6,7 +6,7 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:47:49 by vlevy             #+#    #+#             */
-/*   Updated: 2023/12/04 18:50:03 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/12/06 20:02:55 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,20 @@ t_dclist	*ft_lst_dcnew(long data);
 t_dclist	*ft_lst_dcclear(t_dclist **lst);
 t_dclist	*ft_algo_init(t_dclist *list);
 t_dclist	*ft_find_little(t_dclist **list_a);
+t_dclist	*ft_find_big(t_dclist **list);
+long		ft_find_median(t_dclist **list);
+long		ft_find_median_b(t_dclist **list);
 t_dclist	*ft_find_next_little(t_dclist *list_a, t_dclist **little);
+void		ft_lst_copy(t_dclist **src, t_dclist **dest);
 void		ft_sort_3(t_dclist **list_a);
 void		ft_sort_4(t_dclist **list_a);
 void		ft_sort_5(t_dclist **list_a);
 int			ft_is_sorted(t_dclist *list);
 void		ft_lstdcadd_front(t_dclist **list, t_dclist *new_node);
-void		ft_quick_sort_init(t_dclist **list_a, int absolute_size_a,
-				int absolute_size_b);
+void		ft_quick_sort_init(t_dclist **list_a, int absolute_size_a);
 void		ft_push_if_above_median(t_dclist **list_a, t_dclist **list_b,
 				int median_of_three, int absolute_size);
+void		ft_dcdel(t_dclist *node, t_dclist **list);
 void		ft_push_if_below_median(t_dclist **list_a, t_dclist **list_b,
 				int median_of_three, int absolute_size);
 void		ft_quick_sort_a(t_dclist **list_a, int ultimate_size_a,
@@ -72,6 +76,11 @@ void		ft_rrr(t_dclist **list_a, t_dclist **list_b);
 int			need_to_swap(t_dclist **list);
 void		bubble_sort_5(t_dclist **list_a);
 void		ft_bubble_sort(t_dclist **list_a, t_dclist **list_b);
+void		ft_bubble_sort_b(t_dclist **list_b, t_dclist **list_a);
+int			need_to_push_back_tail(t_dclist **src, t_dclist **dest);
+int			need_to_push_back_head(t_dclist **src, t_dclist **dest);
+int			before_is_smaller(t_dclist **list);
+int			after_is_bigger(t_dclist **list);
 
 
 void		ft_merge_sort_init(t_dclist **list_a, int size_a);

@@ -6,7 +6,7 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 18:52:34 by vlevy             #+#    #+#             */
-/*   Updated: 2023/12/04 18:52:31 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/12/05 18:49:06 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ void	ft_merge_sort_init(t_dclist **list_a, int size_a)
 	// ft_merge_sort_a(list_a, size_a, size_b);
 	// ft_merge_sort_b(&list_b, size_a, size_b);
 	// ft_resolve_a(list_a, &list_b, size_a);
+	size_a++;
 	ft_bubble_sort(list_a, &list_b);
 }
