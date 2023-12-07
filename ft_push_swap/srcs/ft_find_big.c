@@ -6,24 +6,24 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 20:29:57 by vlevy             #+#    #+#             */
-/*   Updated: 2023/12/05 20:39:15 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/12/07 17:12:52 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_dclist	*ft_find_big(t_dclist **list)
+long	ft_find_big(t_dclist **list)
 {
-	t_dclist	*big;
+	long		big;
 	t_dclist	*head;
 
-	big = *list;
+	big = (*list)->data;
 	*list = (*list)->next;
 	head = *list;
-	while ((*list)->next != head)
+	while (*list != head)
 	{
-		if ((*list)->data > big->data)
-			big = *list;
+		if ((*list)->data > big)
+			big = (*list)->data;
 		*list = (*list)->next;
 	}
 	return (big);

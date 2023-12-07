@@ -6,17 +6,17 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 20:40:07 by vlevy             #+#    #+#             */
-/*   Updated: 2023/12/05 20:56:40 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/12/07 16:38:29 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ft_dcdel(t_dclist *node, t_dclist **list)
+void	ft_dcdel(long node, t_dclist **list)
 {
 	t_dclist	*tmp;
 
-	while (*list != node)
+	while ((*list)->data != node)
 	{
 		*list = (*list)->next;
 	}

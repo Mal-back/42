@@ -6,7 +6,7 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 16:31:08 by vlevy             #+#    #+#             */
-/*   Updated: 2023/11/28 18:43:24 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/12/07 17:57:38 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	ft_is_sorted(t_dclist *list)
 {
 	t_dclist	*head_list;
 
+	if (!list)
+		return (1);
 	head_list = list;
 	if (list->next == NULL)
 		return (1);

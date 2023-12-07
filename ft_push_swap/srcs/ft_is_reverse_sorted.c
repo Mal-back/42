@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_sa.c                                            :+:      :+:    :+:   */
+/*   ft_is_reverse_sorted.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/24 17:01:07 by vlevy             #+#    #+#             */
-/*   Updated: 2023/12/07 15:03:58 by vlevy            ###   ########.fr       */
+/*   Created: 2023/12/07 17:54:47 by vlevy             #+#    #+#             */
+/*   Updated: 2023/12/07 18:00:56 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "push_swap.h"
 
-void	ft_sa(t_dclist **list_a, int f)
+int	ft_is_reverse_sorted(t_dclist *list)
 {
-	long	tmp;
+	t_dclist	*head;
 
-	if (!list_a || !*list_a || !(*list_a)->next)
-		return ;
-	if (f)
-		ft_putendl_fd("sa", 1);
-	tmp = (*list_a)->data;
-	(*list_a)->data = (*list_a)->next->data;
-	(*list_a)->next->data = tmp;
-	return ;
+	if (!list)
+		return (1);
+	head = list;
+	if (list->next == NULL)
+		return (1);
+	while (list->next != head)
+	{
+		if (list->data < list->next->data)
+			return (0);
+		list = list->next;
+	}
+	return (1);
 }

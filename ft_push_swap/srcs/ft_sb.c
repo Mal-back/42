@@ -6,7 +6,7 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 17:35:49 by vlevy             #+#    #+#             */
-/*   Updated: 2023/12/04 19:06:19 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/12/07 15:03:37 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_sb(t_dclist **list_b, int f)
 {
 	long	tmp;
 
-	if (!list_b || !*list_b)
+	if (!list_b || !*list_b || !(*list_b)->next)
 		return ;
 	if (f)
 		ft_putendl_fd("sb", 1);

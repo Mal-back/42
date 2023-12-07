@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_sa.c                                            :+:      :+:    :+:   */
+/*   ft_find_next_big.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/24 17:01:07 by vlevy             #+#    #+#             */
-/*   Updated: 2023/12/07 15:03:58 by vlevy            ###   ########.fr       */
+/*   Created: 2023/12/07 17:13:22 by vlevy             #+#    #+#             */
+/*   Updated: 2023/12/07 17:19:46 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "push_swap.h"
 
-void	ft_sa(t_dclist **list_a, int f)
+long	ft_find_next_big(t_dclist **list, long big)
 {
-	long	tmp;
+	long		next_big;
+	t_dclist	*head;
 
-	if (!list_a || !*list_a || !(*list_a)->next)
-		return ;
-	if (f)
-		ft_putendl_fd("sa", 1);
-	tmp = (*list_a)->data;
-	(*list_a)->data = (*list_a)->next->data;
-	(*list_a)->next->data = tmp;
-	return ;
+	head = *list;
+	if ((*list)->data != big)
+		next_big = (*list)->data;
+	else
+		next_big = (*list)->next->data;
+	*list = (*list)->next;
+	while (*list != head)
+	{
+		if ((*list)->data != big && (*list)->data > next_big)
+			next_big = (*list)->data;
+		*list = (*list)->next;
+	}
+	return (next_big);
 }

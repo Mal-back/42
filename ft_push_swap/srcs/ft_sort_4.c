@@ -6,7 +6,7 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 20:18:31 by vlevy             #+#    #+#             */
-/*   Updated: 2023/12/02 22:31:02 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/12/07 13:25:42 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,18 @@
 void	ft_sort_4(t_dclist **list_a)
 {
 	t_dclist	*list_b;
-	t_dclist	*little;
+	long		little;
 
 	little = ft_find_little(list_a);
 	list_b = NULL;
-	if (*list_a == little)
+	if ((*list_a)->data == little)
 		ft_pb(&list_b, list_a);
-	else if ((*list_a)->next == little)
+	else if ((*list_a)->next->data == little)
 	{
 		ft_ra(list_a, 1);
 		ft_pb(&list_b, list_a);
 	}
-	else if ((*list_a)->prev == little)
+	else if ((*list_a)->prev->data == little)
 	{
 		ft_rra(list_a, 1);
 		ft_pb(&list_b, list_a);

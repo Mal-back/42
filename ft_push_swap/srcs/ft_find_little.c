@@ -6,13 +6,13 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 18:27:35 by vlevy             #+#    #+#             */
-/*   Updated: 2023/12/05 20:36:25 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/12/07 15:30:23 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_dclist	*ft_find_little(t_dclist **list_a)
+long	ft_find_little(t_dclist **list_a)
 {
 	t_dclist	*little;
 	t_dclist	*head_a;
@@ -26,5 +26,5 @@ t_dclist	*ft_find_little(t_dclist **list_a)
 			little = *list_a;
 		*list_a = (*list_a)->next;
 	}
-	return (little);
+	return (little->data);
 }

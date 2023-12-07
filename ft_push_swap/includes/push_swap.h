@@ -6,7 +6,7 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:47:49 by vlevy             #+#    #+#             */
-/*   Updated: 2023/12/06 20:02:55 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/12/07 19:05:58 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,40 @@ typedef struct s_dclist
 	struct s_dclist	*next;
 }							t_dclist;
 
+typedef struct s_sort_info_a
+{
+	long	little;
+	long	next_little;
+	int		push_little_is_mandatory;
+}							t_sort_info_a;
+
+typedef struct s_sort_info_b
+{
+	long	big;
+	long	next_big;
+	int		push_big_is_mandatory;
+}							t_sort_info_b;
+
 t_dclist	*ft_lst_dcnew(long data);
 t_dclist	*ft_lst_dcclear(t_dclist **lst);
 t_dclist	*ft_algo_init(t_dclist *list);
-t_dclist	*ft_find_little(t_dclist **list_a);
-t_dclist	*ft_find_big(t_dclist **list);
+long		ft_find_little(t_dclist **list_a);
+long		ft_find_big(t_dclist **list);
+long		ft_find_next_big(t_dclist **list, long big);
 long		ft_find_median(t_dclist **list);
 long		ft_find_median_b(t_dclist **list);
-t_dclist	*ft_find_next_little(t_dclist *list_a, t_dclist **little);
+long		ft_find_next_little(t_dclist *list_a, long little);
 void		ft_lst_copy(t_dclist **src, t_dclist **dest);
 void		ft_sort_3(t_dclist **list_a);
 void		ft_sort_4(t_dclist **list_a);
 void		ft_sort_5(t_dclist **list_a);
 int			ft_is_sorted(t_dclist *list);
+int			ft_is_reverse_sorted(t_dclist *list);
 void		ft_lstdcadd_front(t_dclist **list, t_dclist *new_node);
 void		ft_quick_sort_init(t_dclist **list_a, int absolute_size_a);
 void		ft_push_if_above_median(t_dclist **list_a, t_dclist **list_b,
 				int median_of_three, int absolute_size);
-void		ft_dcdel(t_dclist *node, t_dclist **list);
+void		ft_dcdel(long node, t_dclist **list);
 void		ft_push_if_below_median(t_dclist **list_a, t_dclist **list_b,
 				int median_of_three, int absolute_size);
 void		ft_quick_sort_a(t_dclist **list_a, int ultimate_size_a,
@@ -81,6 +97,18 @@ int			need_to_push_back_tail(t_dclist **src, t_dclist **dest);
 int			need_to_push_back_head(t_dclist **src, t_dclist **dest);
 int			before_is_smaller(t_dclist **list);
 int			after_is_bigger(t_dclist **list);
+void		final_sort_a(t_dclist **list_a, t_dclist **list_b);
+void		init_sort_info_a(t_dclist **list_a, t_sort_info_a *sort_info,
+				int push_little_is_mandatory);
+void		sort_up_a(t_dclist **list_a, t_dclist **list_b,
+				t_dclist **tail_a, t_sort_info_a *sort_info);
+void		sort_down_a(t_dclist **list_a, t_dclist **list_b,
+				t_dclist **head_a, t_sort_info_a *sort_info);
+void		final_sort_b(t_dclist **list_b, t_dclist **list_a);
+void		init_sort_info_b(t_dclist **list_b, t_sort_info_b *sort_info,
+				int need_to_push_big);
+void		sort_down_b(t_dclist **list_b, t_dclist **list_a,
+				t_dclist **head_b, t_sort_info_b *sort_info);
 
 
 void		ft_merge_sort_init(t_dclist **list_a, int size_a);

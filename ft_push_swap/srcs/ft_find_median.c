@@ -6,7 +6,7 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 20:12:00 by vlevy             #+#    #+#             */
-/*   Updated: 2023/12/06 17:32:07 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/12/07 16:39:19 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 long	ft_find_median(t_dclist **list)
 {
-	t_dclist	*little;
+	long		little;
 	t_dclist	*big;
 	t_dclist	*list_copy;
 	long		median;
@@ -26,7 +26,7 @@ long	ft_find_median(t_dclist **list)
 		little = ft_find_little(&list_copy);
 		big = ft_find_big(&list_copy);
 		ft_dcdel(little, &list_copy);
-		ft_dcdel(big, &list_copy);
+		ft_dcdel(big->data, &list_copy);
 	}
 	big = ft_find_big(&list_copy);
 	median = big->data;
