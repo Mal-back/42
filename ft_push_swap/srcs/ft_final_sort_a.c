@@ -25,14 +25,8 @@ static void	ft_rotate_and_merge(t_dclist **list_a, t_dclist **list_b,
 {
 	while (*list_a != *head_a)
 	{
-		if ((*list_a)->prev->data < (*list_b)->data)
+		if (*list_b && (*list_a)->data < (*list_b)->data)
 			ft_pa(list_a, list_b);
-		ft_rra(list_a, 1);
-	}
-	if ((*list_a)->data < (*list_b)->data)
-	{
-		ft_ra(list_a, 1);
-		ft_pa(list_a, list_b);
 		ft_rra(list_a, 1);
 	}
 	if (!ft_is_sorted(*list_a) && !need_to_swap(list_b))
@@ -41,6 +35,12 @@ static void	ft_rotate_and_merge(t_dclist **list_a, t_dclist **list_b,
 		ft_sa(list_a, 1);
 	else if (!need_to_swap(list_b))
 		ft_sb(list_b, 1);
+	if (*list_b && (*list_a)->data < (*list_b)->data)
+	{
+		ft_ra(list_a, 1);
+		ft_pa(list_a, list_b);
+		ft_rra(list_a, 1);
+	}
 	ft_merge_to_a(list_a, list_b);
 	return ;
 }

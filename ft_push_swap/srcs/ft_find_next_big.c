@@ -18,14 +18,13 @@ long	ft_find_next_big(t_dclist **list, long big)
 	t_dclist	*head;
 
 	head = *list;
-	if ((*list)->data != big)
+	next_big = -2147483648;
+	if ((*list)->data > next_big && (*list)->data < big)
 		next_big = (*list)->data;
-	else
-		next_big = (*list)->next->data;
 	*list = (*list)->next;
 	while (*list != head)
 	{
-		if ((*list)->data != big && (*list)->data > next_big)
+		if ((*list)->data < big && (*list)->data > next_big)
 			next_big = (*list)->data;
 		*list = (*list)->next;
 	}

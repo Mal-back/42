@@ -14,22 +14,19 @@
 
 long	ft_find_next_little(t_dclist *list_a, long little)
 {
-	t_dclist	*next_little;
+	long		next_little;
 	t_dclist	*head_a;
 
-	if (list_a->data != little)
-		next_little = list_a;
-	else
-		next_little = list_a->next;
+	next_little = 2147483647;
 	head_a = list_a;
 	while (list_a->next != head_a)
 	{
-		if (list_a->data != little && list_a->data < next_little->data)
-			next_little = list_a;
+		if (list_a->data > little && list_a->data < next_little)
+			next_little = list_a->data;
 		list_a = list_a->next;
 	}
-	if (list_a->data != little && list_a->data < next_little->data)
-		next_little = list_a;
+	if (list_a->data > little && list_a->data < next_little)
+		next_little = list_a->data;
 	list_a = list_a->next;
-	return (next_little->data);
+	return (next_little);
 }

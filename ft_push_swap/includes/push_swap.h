@@ -109,6 +109,8 @@ void		init_sort_info_b(t_dclist **list_b, t_sort_info_b *sort_info,
 				int need_to_push_big);
 void		sort_down_b(t_dclist **list_b, t_dclist **list_a,
 				t_dclist **head_b, t_sort_info_b *sort_info);
+void		sort_up_b(t_dclist **list_b, t_dclist **list_a,
+				t_dclist **tail_b, t_sort_info_b *sort_info);
 
 
 void		ft_merge_sort_init(t_dclist **list_a, int size_a);

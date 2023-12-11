@@ -94,12 +94,12 @@ void	sort_up_b(t_dclist **list_b, t_dclist **list_a,
 		sort_info->push_big_is_mandatory = 0;
 	}
 	else if (!need_to_swap(list_b) && *list_b != *tail_b)
-	{
 		ft_sb(list_b, 1);
+	else if (need_to_swap(list_a) && ft_lst_dcsize(*list_a) > 1)
+	{
+		ft_sa(list_a, 1);
 		sort_info->push_big_is_mandatory = 0;
 	}
-	else if (need_to_swap(list_a) && ft_lst_dcsize(*list_a) > 1)
-		ft_sa(list_a, 1);
 	else
 		sort_up_b_next(list_b, list_a, tail_b, sort_info);
 	return ;

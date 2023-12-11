@@ -44,6 +44,9 @@ void	ft_push_if_below_median(t_dclist **list_a, t_dclist **list_b,
 			ft_ra(list_a, 1);
 	}
 	if ((*list_a)->data < median)
+	{
 		ft_pb(list_b, list_a);
+		ft_rra(list_a, 1);
+	}
 	ft_rotate_to_good_place(list_a, &head_a, absolute_size, local_size);
 }

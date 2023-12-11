@@ -18,9 +18,9 @@ long	ft_find_little(t_dclist **list_a)
 	t_dclist	*head_a;
 
 	little = *list_a;
-	head_a = (*list_a)->next;
+	head_a = *list_a;
 	*list_a = (*list_a)->next;
-	while ((*list_a)->next != head_a)
+	while (*list_a != head_a)
 	{
 		if ((*list_a)->data < little->data)
 			little = *list_a;

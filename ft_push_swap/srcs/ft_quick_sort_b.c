@@ -19,22 +19,18 @@ void	ft_quick_sort_b(t_dclist **list_b, int ultimate_size_a,
 	int			median;
 	int			size_list;
 
-	list_a = NULL;
 	size_list = ft_lst_dcsize(*list_b);
-	median = ft_find_median_b(list_b);
-	ft_push_if_above_median(&list_a, list_b, median,
-		ultimate_size_b);
-	if (size_list > 10)
+	list_a = NULL;
+	if (size_list > 15)
 	{
+		median = ft_find_median_b(list_b);
+		ft_push_if_above_median(&list_a, list_b, median,
+			ultimate_size_b);
 		ft_quick_sort_a(&list_a, ultimate_size_a, ultimate_size_b);
 		ft_quick_sort_b(list_b, ultimate_size_a, ultimate_size_b);
+		ft_merge_to_b(&list_a, list_b);
 	}
 	else
-	{
-		ft_manual_sort(&list_a, ft_lst_dcsize(list_a));
-		ft_manual_sort(list_b, ft_lst_dcsize(*list_b));
-	}
-		// ft_bubble_sort_b(list_b, &list_a);
-	ft_merge_to_b(&list_a, list_b);
+		final_sort_b(list_b, &list_a);
 	return ;
 }

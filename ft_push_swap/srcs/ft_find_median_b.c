@@ -15,21 +15,21 @@
 long	ft_find_median_b(t_dclist **list)
 {
 	long		little;
-	t_dclist	*big;
-	t_dclist	*list_copy;
-	long		median;
+	long		next_little;
+	long		big;
+	long		next_big;
 
-	median = 0;
-	ft_lst_copy(list, &list_copy);
-	while (ft_lst_dcsize(list_copy) > 2)
+	little = ft_find_little(list);
+	big = ft_find_big(list);
+	while (little != big)
 	{
-		little = ft_find_little(&list_copy);
-		big = ft_find_big(&list_copy);
-		ft_dcdel(little, &list_copy);
-		ft_dcdel(big->data, &list_copy);
+		next_big = ft_find_next_big(list, big);
+		if (little != next_big)
+		{
+			next_little = ft_find_next_little(*list, little);
+			little = next_little;
+		}
+		big = next_big;
 	}
-	little = ft_find_little(&list_copy);
-	median = little;
-	ft_lst_dcclear(&list_copy);
-	return (median);
+	return (little);
 }
