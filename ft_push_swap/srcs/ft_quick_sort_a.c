@@ -19,9 +19,11 @@ void	ft_quick_sort_a(t_dclist **list_a, int ultimate_size_a,
 	int			median;
 	int			list_size;
 
+	if (ft_is_sorted(*list_a))
+		return ;
 	list_size = ft_lst_dcsize(*list_a);
 	list_b = NULL;
-	if (list_size > 15)
+	if (list_size > 16)
 	{
 		median = ft_find_median(list_a);
 		ft_push_if_below_median(list_a, &list_b,

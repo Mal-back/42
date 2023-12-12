@@ -35,13 +35,13 @@ int	main(int ac, char **av)
 		i++;
 	}
 	lst = ft_algo_init(lst);
-	// if (ft_is_sorted(lst))
-	// {
-	// 	ft_print_test(lst);
-	// 	ft_printf("OK");
-	// }
-	// else
-	// 	ft_print_test(lst);
+	if (ft_is_sorted(lst))
+	{
+		ft_print_test(lst);
+		ft_printf("OK");
+	}
+	else
+		ft_print_test(lst);
 	ft_lst_dcclear(&lst);
 	return (0);
 }
@@ -54,12 +54,14 @@ void	ft_print_test(t_dclist *lst)
 	while (lst->next != NULL && lst->next != head_a)
 	{
 		ft_printf("Data : %d\n", lst->data);
+		ft_printf("Index : %d\n", lst->end_place);
 		ft_printf("Adress : %p\n", lst);
 		ft_printf("Adress of next element : %p\n", lst->next);
 		ft_printf("Adress of prev element : %p\n", lst->prev);
 		lst = lst->next;
 	}	
 	ft_printf("Data : %d\n", lst->data);
+	ft_printf("Index : %d\n", lst->end_place);
 	ft_printf("Adress : %p\n", lst);
 	ft_printf("Adress of next element : %p\n", lst->next);
 	ft_printf("Adress of prev element : %p\n", lst->prev);

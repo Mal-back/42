@@ -12,14 +12,27 @@
 
 #include "push_swap.h"
 
-static void	ft_rotate_to_good_place(t_dclist **list_a, t_dclist **head_a,
-	int absolute_size, int local_size)
+static void	ft_rotate_to_good_place(t_dclist **list_a, t_dclist **head_a)
 {
-	if (local_size != absolute_size)
+	while (*list_a != *head_a)
+		ft_rra(list_a, 1);
+}
+
+static t_dclist	*last_element_to_push(t_dclist **list_a, int median)
+{
+	t_dclist	*tail;
+	t_dclist	*head;
+
+	tail = (*list_a);
+	head = (*list_a);
+	*list_a = (*list_a)->next;
+	while (*list_a != head)
 	{
-		while (*list_a != *head_a)
-			ft_rra(list_a, 1);
+		if ((*list_a)->data < median)
+			tail = *list_a;
+		*list_a = (*list_a)->next;
 	}
+	return (tail);
 }
 
 void	ft_push_if_below_median(t_dclist **list_a, t_dclist **list_b,
@@ -29,7 +42,7 @@ void	ft_push_if_below_median(t_dclist **list_a, t_dclist **list_b,
 	t_dclist	*head_a;
 	int			local_size;
 
-	tail_a = (*list_a)->prev;
+	tail_a = last_element_to_push(list_a, median);
 	head_a = *list_a;
 	local_size = ft_lst_dcsize(*list_a);
 	while (*list_a != tail_a)
@@ -43,10 +56,11 @@ void	ft_push_if_below_median(t_dclist **list_a, t_dclist **list_b,
 		else
 			ft_ra(list_a, 1);
 	}
-	if ((*list_a)->data < median)
+	if (*list_a != head_a)
 	{
 		ft_pb(list_b, list_a);
 		ft_rra(list_a, 1);
 	}
-	ft_rotate_to_good_place(list_a, &head_a, absolute_size, local_size);
+	if (absolute_size != local_size)
+		ft_rotate_to_good_place(list_a, &head_a);
 }
