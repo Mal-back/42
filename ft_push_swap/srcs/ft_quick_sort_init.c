@@ -52,31 +52,16 @@ static void	init_list_b(t_dclist **list_b)
 
 void	ft_quick_sort_init(t_dclist **list_a, int absolute_size_a)
 {
-	t_dclist	*list_b[3];
-	long		median[2];
-	int			absolute_size_b;
+	t_dclist	*list_b;
+	int			limit;
 	int			i;
 
-	init_list_b(list_b);
-	i = 0;
-	ft_give_index(list_a);
-	median[0] = ft_lst_dcsize(*list_a) / 4;
-	median[1] = median[0];
-	if (absolute_size_a > 16)
+	list_b = NULL;
+	limit = ft_lst_dcsize(*list_a) / 4;
+	i = 3;
+	while (i--)
 	{
-		while (i < 3)
-		{
-			ft_push_init(list_a, &list_b[i], median[1]);
-			if (!i)
-			{
-				ft_quick_sort_b(&list_b[i], absolute_size_a,
-					ft_lst_dcsize(list_b[i]));
-			}
-			else 
-				ft_quick_sort_b(&list_b[i], absolute_size_a, -1);
-			i++;
-			median[1] += median[0];
-		}
-		ft_quick_sort_a(list_a, absolute_size_a, -1);
+		ft_push_init(list_a, &list_b, limit * i);
+		smart_push_back(list_a, &list_b);
 	}
 }

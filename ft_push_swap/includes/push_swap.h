@@ -23,6 +23,18 @@ typedef struct s_dclist
 	struct s_dclist	*next;
 }							t_dclist;
 
+typedef struct s_data_info
+{
+	int	value;
+	int	min;
+	int	max;
+	int	cost_to_rotate_b;
+	int	direction_b;
+	int	cost_to_rotate_a;
+	int	direction_a;
+	int	final_cost;
+}							t_data_info;
+
 typedef struct s_sort_info_a
 {
 	long	little;
@@ -91,6 +103,17 @@ void		ft_rrb(t_dclist **list_b, int f);
 void		ft_rrr(t_dclist **list_a, t_dclist **list_b);
 
 
+
+void		resolve_direction_b(int go_cost, int go_back_cost,
+				t_data_info *data_info);
+void		resolve_direction_a(int go_cost, int go_back_cost,
+				t_data_info *data_info);
+void		resolve_cost(t_data_info *data_info);
+void		ft_cost_to_go_b(t_dclist **list_b, int number,
+				int *go_cost, int *go_back_cost);
+void		ft_cost_to_go_a(t_dclist **list_a, t_data_info *data_info);
+void		combine_rotate(t_dclist **list_a, t_dclist **list_b,
+				t_data_info *data_info);
 
 int			need_to_swap(t_dclist **list);
 void		bubble_sort_5(t_dclist **list_a);

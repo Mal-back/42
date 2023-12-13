@@ -19,12 +19,12 @@ static void	ft_rotate_to_good_place(t_dclist **list_b, t_dclist **head_b)
 		ft_rrb(list_b, 1);
 	while (*list_b != *head_b)
 	{
-		// if (!need_to_swap(list_b))
-		// 	ft_sb(list_b, 1);
+		if (!need_to_swap(list_b))
+			ft_sb(list_b, 1);
 		ft_rrb(list_b, 1);
 	}
-	// if (!need_to_swap(list_b))
-	// 	ft_sb(list_b, 1);
+	if (!need_to_swap(list_b))
+		ft_sb(list_b, 1);
 }
 
 // static void	ft_opportunist_sort(t_dclist **list_a, t_dclist **list_b,
@@ -82,7 +82,7 @@ void	ft_push_if_above_median(t_dclist **list_a, t_dclist **list_b,
 	local_size = ft_lst_dcsize(*list_b);
 	while (*list_b != tail_b)
 	{
-		// ft_opportunist_sort(list_a, list_b, &head_b, median);
+	// ft_opportunist_sort(list_a, list_b, &head_b, median);
 		if ((*list_b)->data > median)
 		{
 			if (*list_b == head_b)

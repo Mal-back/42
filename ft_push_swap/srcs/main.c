@@ -35,13 +35,13 @@ int	main(int ac, char **av)
 		i++;
 	}
 	lst = ft_algo_init(lst);
-	if (ft_is_sorted(lst))
-	{
-		ft_print_test(lst);
-		ft_printf("OK");
-	}
-	else
-		ft_print_test(lst);
+	// if (ft_is_sorted(lst))
+	// {
+	// 	ft_print_test(lst);
+	// 	ft_printf("OK");
+	// }
+	// else
+	// 	ft_print_test(lst);
 	ft_lst_dcclear(&lst);
 	return (0);
 }

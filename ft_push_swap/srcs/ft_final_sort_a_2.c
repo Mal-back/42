@@ -50,7 +50,7 @@ void	sort_down_a(t_dclist **list_a, t_dclist **list_b,
 	}
 	else if (need_to_swap(list_a))
 		ft_sa(list_a, 1);
-	else if (!need_to_swap(list_b) && ft_lst_dcsize(*list_b) > 1)
+	if (!need_to_swap(list_b) && ft_lst_dcsize(*list_b) > 1)
 	{
 		ft_sb(list_b, 1);
 		sort_info->push_little_is_mandatory = 0;
@@ -96,7 +96,7 @@ void	sort_up_a(t_dclist **list_a, t_dclist **list_b,
 	}
 	else if (need_to_swap(list_a) && *list_a != *tail_a)
 		ft_sa(list_a, 1);
-	else if (!need_to_swap(list_b) && ft_lst_dcsize(*list_b) > 1)
+	if (!need_to_swap(list_b) && ft_lst_dcsize(*list_b) > 1)
 	{
 		ft_sb(list_b, 1);
 		sort_info->push_little_is_mandatory = 0;

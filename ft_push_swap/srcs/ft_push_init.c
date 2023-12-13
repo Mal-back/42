@@ -17,13 +17,12 @@ void	ft_push_init(t_dclist **list_a, t_dclist **list_b,
 {
 	t_dclist	*tail_a;
 	t_dclist	*head_a;
-	int			local_size;
 
 	tail_a = (*list_a)->prev;
 	head_a = *list_a;
 	while (*list_a != tail_a)
 	{
-		if ((*list_a)->end_place < median)
+		if ((*list_a)->end_place >= median)
 		{
 			if (*list_a == head_a)
 				head_a = (*list_a)->next;
