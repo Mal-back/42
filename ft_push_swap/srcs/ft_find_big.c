@@ -19,7 +19,10 @@ long	ft_find_big(t_dclist **list)
 
 	head = *list;
 	big = (*list)->data;
-	*list = (*list)->next;
+	if (!(*list)->next)
+		return (big);
+	else
+		*list = (*list)->next;
 	while (*list != head)
 	{
 		if ((*list)->data > big)

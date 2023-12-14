@@ -20,6 +20,7 @@ typedef struct s_dclist
 {
 	struct s_dclist	*prev;
 	long			data;
+	int				end_place;
 	struct s_dclist	*next;
 }							t_dclist;
 

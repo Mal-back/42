@@ -36,6 +36,7 @@ FILES = srcs/check_doublons.c\
 				srcs/ft_final_sort_a.c srcs/ft_find_next_big.c\
 				srcs/ft_final_sort_b.c srcs/ft_final_sort_b_2.c\
 				srcs/ft_is_reverse_sorted.c srcs/ft_push_init.c\
+				srcs/ft_smart_push_back.c srcs/ft_cost_big_utils.c
 
 CHECKER_FILES =		bonus_srcs/check_doublons.c bonus_srcs/free_and_exit.c\
 									bonus_srcs/free_tab.c bonus_srcs/ft_apply_instructions.c\

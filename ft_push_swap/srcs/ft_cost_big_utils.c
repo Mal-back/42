@@ -43,54 +43,31 @@ void	resolve_cost(t_data_info *data_info)
 	}
 }
 
-void	combine_rotate(t_dclist **list_a, t_dclist **list_b,
-	t_data_info *data_info)
+int	is_in_range(t_dclist **list_a, t_data_info *data_info)
 {
-	if (!data_info->direction_b)
-	{
-		while ((*list_b)->data != data_info->value
-			&& (*list_a)->data < data_info->value)
-			ft_rr(list_a, list_b);
-		while ((*list_b)->data != data_info->value)
-			ft_rb(list_b, 1);
-		while ((*list_a)->data < data_info->value)
-			ft_ra(list_a, 1);
-	}
-	else
-	{
-		while ((*list_b)->data != data_info->value
-			&& (*list_a)->prev->data > data_info->value)
-			ft_rrr(list_a, list_b);
-		while ((*list_b)->data != data_info->value)
-			ft_rrb(list_b, 1);
-		while ((*list_a)->prev->data > data_info->value)
-			ft_rra(list_a, 1);
-	}
+	if ((*list_a)->data >= data_info->min && (*list_a)->data <= data_info->max)
+		return (1);
+	return (0);
 }
 
 void	ft_cost_to_go_a(t_dclist **list_a, t_data_info *data_info)
 {
 	t_dclist	*head;
 
-	data_info->cost_to_rotate_a = 0;
-	if ((*list_a)->data < data_info->min || (*list_a)->data > data_info->max)
-		data_info->direction_a = 0;
-	else if ((*list_a)->data > data_info->value)
+	head = *list_a;
+	if (is_in_range(list_a, data_info) && (*list_a)->data > data_info->value)
+		data_info->direction_a += 1;
+	while (!a_is_to_good_place(list_a, data_info))
 	{
-		data_info->direction_a = 1;
-		while ((*list_a)->prev->data > data_info->value)
-		{
-			data_info->cost_to_rotate_a += 1;
-			*list_a = (*list_a)->prev;
-		}
-	}
-	else
-	{
-		data_info->direction_a = 0;
-		while ((*list_a)->data < data_info->value)
+		if (data_info->direction_a)
 		{
 			data_info->cost_to_rotate_a += 1;
 			*list_a = (*list_a)->next;
+		}
+		else
+		{
+			*list_a = (*list_a)->prev;
+			data_info->cost_to_rotate_a += 1;
 		}
 	}
 	*list_a = head;
@@ -116,4 +93,26 @@ void	ft_cost_to_go_b(t_dclist **list_b, int number,
 		*list_b = (*list_b)->prev;
 	}
 	*list_b = head;
+}
+
+int	a_is_to_good_place(t_dclist **list_a, t_data_info *data_info)
+{
+	if (!is_in_range(list_a, data_info)
+		&& !is_in_range(&(*list_a)->prev, data_info))
+		return (1);
+	else if (is_in_range(list_a, data_info)
+		&& is_in_range(&(*list_a)->prev, data_info))
+	{
+		if ((*list_a)->data > data_info->value
+			&& (*list_a)->prev->data < data_info->value)
+			return (1);
+	}
+	else if (is_in_range(list_a, data_info))
+	{
+		if ((*list_a)->data > data_info->value)
+			return (1);
+	}
+	else
+		return (1);
+	return (0);
 }

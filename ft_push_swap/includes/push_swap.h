@@ -70,7 +70,7 @@ void		ft_push_if_above_median(t_dclist **list_a, t_dclist **list_b,
 				int median_of_three, int absolute_size);
 void		ft_dcdel(long node, t_dclist **list);
 void		ft_push_init(t_dclist **list_a, t_dclist **list_b,
-				int median);
+				int limit, int i);
 void		ft_push_if_below_median(t_dclist **list_a, t_dclist **list_b,
 				int median_of_three, int absolute_size);
 void		ft_quick_sort_a(t_dclist **list_a, int ultimate_size_a,
@@ -104,6 +104,7 @@ void		ft_rrr(t_dclist **list_a, t_dclist **list_b);
 
 
 
+void		smart_push_back(t_dclist **list_a, t_dclist **list_b);
 void		resolve_direction_b(int go_cost, int go_back_cost,
 				t_data_info *data_info);
 void		resolve_direction_a(int go_cost, int go_back_cost,
@@ -114,6 +115,8 @@ void		ft_cost_to_go_b(t_dclist **list_b, int number,
 void		ft_cost_to_go_a(t_dclist **list_a, t_data_info *data_info);
 void		combine_rotate(t_dclist **list_a, t_dclist **list_b,
 				t_data_info *data_info);
+int			is_in_range(t_dclist **list_a, t_data_info *data_info);
+int			a_is_to_good_place(t_dclist **list_a, t_data_info *data_info);
 
 int			need_to_swap(t_dclist **list);
 void		bubble_sort_5(t_dclist **list_a);

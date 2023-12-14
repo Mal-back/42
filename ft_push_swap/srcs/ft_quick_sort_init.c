@@ -38,18 +38,6 @@ void	ft_give_index(t_dclist **list_a)
 	*list_a = head;
 }
 
-static void	init_list_b(t_dclist **list_b)
-{
-	int	i;
-
-	i = 0;
-	while (i < 3)
-	{
-		list_b[i] = NULL;
-		i++;
-	}
-}
-
 void	ft_quick_sort_init(t_dclist **list_a, int absolute_size_a)
 {
 	t_dclist	*list_b;
@@ -57,11 +45,25 @@ void	ft_quick_sort_init(t_dclist **list_a, int absolute_size_a)
 	int			i;
 
 	list_b = NULL;
+	absolute_size_a++;
 	limit = ft_lst_dcsize(*list_a) / 4;
-	i = 3;
-	while (i--)
+	ft_give_index(list_a);
+	i = 4;
+	while (i)
 	{
-		ft_push_init(list_a, &list_b, limit * i);
+		ft_push_init(list_a, &list_b, limit, i);
 		smart_push_back(list_a, &list_b);
+		if (i > 1)
+		{
+			while ((*list_a)->end_place >= limit * (i - 1))
+				ft_ra(list_a, 1);
+		}
+		else
+		{
+			while ((*list_a)->end_place)
+				ft_rra(list_a, 1);
+		}
+		i--;
+		// ft_print_test(*list_a);
 	}
 }

@@ -10,7 +10,30 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "push_swap.h"
+
+void	separate_rotate(t_dclist **list_a, t_dclist **list_b,
+		t_data_info *data_info)
+{
+	while ((*list_b)->data != data_info->value)
+	{
+		if (data_info->direction_b)
+			ft_rrb(list_b, 1);
+		else
+			ft_rb(list_b, 1);
+	}
+	if (data_info->direction_a)
+	{
+		while (!a_is_to_good_place(list_a, data_info))
+			ft_ra(list_a, 1);
+	}
+	else
+	{
+		while (!a_is_to_good_place(list_a, data_info))
+			ft_rra(list_a, 1);
+	}
+}
 
 static void	push_data(t_dclist **list_a, t_dclist **list_b,
 	t_data_info *data_info)
@@ -18,26 +41,35 @@ static void	push_data(t_dclist **list_a, t_dclist **list_b,
 	if (data_info->direction_a == data_info->direction_b)
 		combine_rotate(list_a, list_b, data_info);
 	else
+		separate_rotate(list_a, list_b, data_info);
+	ft_pa(list_a, list_b);
+}
+
+void	combine_rotate(t_dclist **list_a, t_dclist **list_b,
+	t_data_info *data_info)
+{
+	if (!data_info->direction_b)
 	{
+		while ((*list_b)->data != data_info->value
+			&& !a_is_to_good_place(list_a, data_info))
+			ft_rr(list_a, list_b);
 		while ((*list_b)->data != data_info->value)
+			ft_rb(list_b, 1);
+		while (!a_is_to_good_place(list_a, data_info))
+			ft_ra(list_a, 1);
+	}
+	else
+	{
+		while ((*list_b)->data != data_info->value
+			&& !a_is_to_good_place(list_a, data_info))
+			ft_rrr(list_a, list_b);
+		while ((*list_b)->data != data_info->value)
+			ft_rrb(list_b, 1);
+		while (!a_is_to_good_place(list_a, data_info))
 		{
-			if (data_info->direction_b)
-				ft_rrb(list_b, 1);
-			else
-				ft_rb(list_b, 1);
-		}
-		if (data_info->direction_a)
-		{
-			while ((*list_a)->data < data_info->value)
-				ft_ra(list_a, 1);
-		}
-		else
-		{
-			while ((*list_a)->prev->data > data_info->value)
-				ft_rra(list_a, 1);
+			ft_rra(list_a, 1);
 		}
 	}
-	ft_pa(list_a, list_b);
 }
 
 static void	cost_of_push(t_dclist **list_a, t_dclist **list_b,
@@ -48,6 +80,8 @@ static void	cost_of_push(t_dclist **list_a, t_dclist **list_b,
 
 	ft_cost_to_go_b(list_b, data_info->value, &go_cost, &go_back_cost);
 	resolve_direction_b(go_cost, go_back_cost, data_info);
+	data_info->cost_to_rotate_a = 0;
+	data_info->direction_a = 0;
 	ft_cost_to_go_a(list_a, data_info);
 	resolve_cost(data_info);
 }
