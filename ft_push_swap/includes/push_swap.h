@@ -20,6 +20,7 @@ typedef struct s_dclist
 	struct s_dclist	*prev;
 	long			data;
 	int				end_place;
+	int				cost_to_push_back;
 	struct s_dclist	*next;
 }							t_dclist;
 
@@ -70,7 +71,7 @@ void		ft_push_if_above_median(t_dclist **list_a, t_dclist **list_b,
 				int median_of_three, int absolute_size);
 void		ft_dcdel(long node, t_dclist **list);
 void		ft_push_init(t_dclist **list_a, t_dclist **list_b,
-				int limit, int i);
+				int limit, int upper_limit);
 void		ft_push_if_below_median(t_dclist **list_a, t_dclist **list_b,
 				int median_of_three, int absolute_size);
 void		ft_quick_sort_a(t_dclist **list_a, int ultimate_size_a,

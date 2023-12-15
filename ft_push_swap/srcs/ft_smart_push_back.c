@@ -26,12 +26,12 @@ void	separate_rotate(t_dclist **list_a, t_dclist **list_b,
 	if (data_info->direction_a)
 	{
 		while (!a_is_to_good_place(list_a, data_info))
-			ft_ra(list_a, 1);
+			ft_rra(list_a, 1);
 	}
 	else
 	{
 		while (!a_is_to_good_place(list_a, data_info))
-			ft_rra(list_a, 1);
+			ft_ra(list_a, 1);
 	}
 }
 
