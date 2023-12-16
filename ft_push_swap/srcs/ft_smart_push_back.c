@@ -14,99 +14,55 @@
 #include "push_swap.h"
 
 void	separate_rotate(t_dclist **list_a, t_dclist **list_b,
-		t_data_info *data_info)
+		t_dclist **cheapest_node)
 {
-	while ((*list_b)->data != data_info->value)
+	while ((*list_a)->data != (*cheapest_node)->data)
 	{
-		if (data_info->direction_b)
+		if ((*cheapest_node)->direction_a)
+			ft_rra(list_a, 1);
+		else
+			ft_ra(list_a, 1);
+	}
+	while ((*list_b)->data != (*cheapest_node)->target)
+	{
+		if ((*cheapest_node)->direction_b)
 			ft_rrb(list_b, 1);
 		else
 			ft_rb(list_b, 1);
 	}
-	if (data_info->direction_a)
-	{
-		while (!a_is_to_good_place(list_a, data_info))
-			ft_rra(list_a, 1);
-	}
-	else
-	{
-		while (!a_is_to_good_place(list_a, data_info))
-			ft_ra(list_a, 1);
-	}
 }
 
-static void	push_data(t_dclist **list_a, t_dclist **list_b,
-	t_data_info *data_info)
+void	push_cheapest(t_dclist **list_a, t_dclist **list_b,
+	t_dclist **cheapest_node)
 {
-	if (data_info->direction_a == data_info->direction_b)
-		combine_rotate(list_a, list_b, data_info);
+	if ((*cheapest_node)->direction_a == (*cheapest_node)->direction_b)
+		combine_rotate(list_a, list_b, cheapest_node);
 	else
-		separate_rotate(list_a, list_b, data_info);
-	ft_pa(list_a, list_b);
+		separate_rotate(list_a, list_b, cheapest_node);
+	ft_pb(list_b, list_a);
 }
 
 void	combine_rotate(t_dclist **list_a, t_dclist **list_b,
-	t_data_info *data_info)
+	t_dclist **cheapest_node)
 {
-	if (!data_info->direction_b)
+	if (!(*cheapest_node)->direction_b)
 	{
-		while ((*list_b)->data != data_info->value
-			&& !a_is_to_good_place(list_a, data_info))
+		while ((*list_a)->data != (*cheapest_node)->data
+			&& (*list_b)->data != (*cheapest_node)->target)
 			ft_rr(list_a, list_b);
-		while ((*list_b)->data != data_info->value)
+		while ((*list_b)->data != (*cheapest_node)->target)
 			ft_rb(list_b, 1);
-		while (!a_is_to_good_place(list_a, data_info))
+		while ((*list_a)->data != (*cheapest_node)->data)
 			ft_ra(list_a, 1);
 	}
 	else
 	{
-		while ((*list_b)->data != data_info->value
-			&& !a_is_to_good_place(list_a, data_info))
+		while ((*list_b)->data != (*cheapest_node)->target
+			&& (*list_a)->data != (*cheapest_node)->data)
 			ft_rrr(list_a, list_b);
-		while ((*list_b)->data != data_info->value)
+		while ((*list_b)->data != (*cheapest_node)->target)
 			ft_rrb(list_b, 1);
-		while (!a_is_to_good_place(list_a, data_info))
-		{
+		while ((*list_a)->data != (*cheapest_node)->data)
 			ft_rra(list_a, 1);
-		}
 	}
-}
-
-static void	cost_of_push(t_dclist **list_a, t_dclist **list_b,
-	t_data_info *data_info)
-{
-	int	go_cost;
-	int	go_back_cost;
-
-	ft_cost_to_go_b(list_b, data_info->value, &go_cost, &go_back_cost);
-	resolve_direction_b(go_cost, go_back_cost, data_info);
-	data_info->cost_to_rotate_a = 0;
-	data_info->direction_a = 0;
-	ft_cost_to_go_a(list_a, data_info);
-	resolve_cost(data_info);
-}
-
-void	smart_push_back(t_dclist **list_a, t_dclist **list_b)
-{
-	t_data_info	big_info;
-	t_data_info	little_info;
-
-	big_info.min = ft_find_little(list_b);
-	big_info.max = ft_find_big(list_b);
-	little_info.min = ft_find_little(list_b);
-	little_info.max = ft_find_big(list_b);
-	while ((*list_b)->next)
-	{
-		big_info.value = ft_find_big(list_b);
-		little_info.value = ft_find_little(list_b);
-		cost_of_push(list_a, list_b, &big_info);
-		cost_of_push(list_a, list_b, &little_info);
-		if (big_info.final_cost < little_info.final_cost)
-			push_data(list_a, list_b, &big_info);
-		else
-			push_data(list_a, list_b, &little_info);
-	}
-	little_info.value = ft_find_little(list_b);
-	cost_of_push(list_a, list_b, &little_info);
-	push_data(list_a, list_b, &little_info);
 }

@@ -20,7 +20,14 @@ typedef struct s_dclist
 {
 	struct s_dclist	*prev;
 	long			data;
-	int				end_place;
+	int				index;
+	int				target;
+	int				direction_a;
+	int				rotate_cost_a;
+	int				direction_b;
+	int				rotate_cost_b;
+	int				final_cost;
+	int				cheapest;
 	struct s_dclist	*next;
 }							t_dclist;
 

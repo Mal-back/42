@@ -10,36 +10,43 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "push_swap.h"
 
-void	resolve_direction_b(int go_cost, int go_back_cost,
-	t_data_info *data_info)
+void	resolve_direction_b(t_dclist **list_b, t_dclist **looked_position)
 {
-	if (go_cost > go_back_cost)
+	int	go_cost;
+	int	go_back_cost;
+
+	ft_cost_to_go_b(list_b, (*looked_position)->target, &go_cost, &go_back_cost);
+	if (go_cost < go_back_cost)
 	{
-		data_info->cost_to_rotate_b = go_cost;
-		data_info->direction_b = 0;
+		(*looked_position)->rotate_cost_b = go_cost;
+		(*looked_position)->direction_b = 0;
 	}
 	else
 	{
-		data_info->cost_to_rotate_b = go_back_cost;
-		data_info->direction_b = 1;
+		(*looked_position)->rotate_cost_b = go_back_cost;
+		(*looked_position)->direction_b = 1;
 	}
 }
 
-void	resolve_cost(t_data_info *data_info)
+void	resolve_cost(t_dclist **looked_position)
 {
-	if (data_info->direction_a != data_info->direction_b)
-		data_info->final_cost = data_info->cost_to_rotate_b
-			+ data_info->cost_to_rotate_b;
+	if ((*looked_position)->direction_a != (*looked_position)->direction_b)
+		(*looked_position)->final_cost = (*looked_position)->rotate_cost_a
+			+ (*looked_position)->rotate_cost_b;
 	else
 	{
-		if (data_info->cost_to_rotate_b > data_info->cost_to_rotate_a)
-			data_info->final_cost = data_info->cost_to_rotate_a
-				+ (data_info->cost_to_rotate_b - data_info->cost_to_rotate_a);
+		if ((*looked_position)->rotate_cost_b
+			> (*looked_position)->rotate_cost_a)
+			(*looked_position)->final_cost = (*looked_position)->rotate_cost_a
+				+ ((*looked_position)->rotate_cost_b
+					- (*looked_position)->rotate_cost_a);
 		else
-			data_info->final_cost = data_info->cost_to_rotate_b
-				+ (data_info->cost_to_rotate_a - data_info->cost_to_rotate_b);
+			(*looked_position)->final_cost = (*looked_position)->rotate_cost_b
+				+ ((*looked_position)->rotate_cost_a
+					- (*looked_position)->rotate_cost_b);
 	}
 }
 
@@ -50,27 +57,22 @@ int	is_in_range(t_dclist **list_a, t_data_info *data_info)
 	return (0);
 }
 
-void	ft_cost_to_go_a(t_dclist **list_a, t_data_info *data_info)
+int	ft_cost_to_go_a(t_dclist **list_a, t_dclist **looked_position)
 {
 	t_dclist	*head;
+	int			cost;
 
 	head = *list_a;
-	if (is_in_range(list_a, data_info) && (*list_a)->data > data_info->value)
-		data_info->direction_a += 1;
-	while (!a_is_to_good_place(list_a, data_info))
+	cost = 0;
+	while (head != *looked_position)
 	{
-		if (data_info->direction_a)
-		{
-			data_info->cost_to_rotate_a += 1;
-			*list_a = (*list_a)->next;
-		}
+		if (!(*looked_position)->direction_a)
+			head = head->next;
 		else
-		{
-			*list_a = (*list_a)->prev;
-			data_info->cost_to_rotate_a += 1;
-		}
+			head = head->prev;
+		cost++;
 	}
-	*list_a = head;
+	return (cost);
 }
 
 void	ft_cost_to_go_b(t_dclist **list_b, int number,
@@ -89,30 +91,8 @@ void	ft_cost_to_go_b(t_dclist **list_b, int number,
 	*list_b = head;
 	while ((*list_b)->data != number)
 	{
-		go_back_cost += 1;
+		*go_back_cost += 1;
 		*list_b = (*list_b)->prev;
 	}
 	*list_b = head;
-}
-
-int	a_is_to_good_place(t_dclist **list_a, t_data_info *data_info)
-{
-	if (!is_in_range(list_a, data_info)
-		&& !is_in_range(&(*list_a)->prev, data_info))
-		return (1);
-	else if (is_in_range(list_a, data_info)
-		&& is_in_range(&(*list_a)->prev, data_info))
-	{
-		if ((*list_a)->data > data_info->value
-			&& (*list_a)->prev->data < data_info->value)
-			return (1);
-	}
-	else if (is_in_range(list_a, data_info))
-	{
-		if ((*list_a)->data > data_info->value)
-			return (1);
-	}
-	else
-		return (1);
-	return (0);
 }

@@ -23,10 +23,10 @@ void	ft_sb(t_dclist **list_b, int f)
 	if (f)
 		ft_putendl_fd("sb", 1);
 	tmp = (*list_b)->data;
-	tmp_place = (*list_b)->end_place;
+	tmp_place = (*list_b)->index;
 	(*list_b)->data = (*list_b)->next->data;
-	(*list_b)->end_place = (*list_b)->next->end_place;
+	(*list_b)->index = (*list_b)->next->index;
 	(*list_b)->next->data = tmp;
-	(*list_b)->next->end_place = tmp_place;
+	(*list_b)->next->index = tmp_place;
 	return ;
 }

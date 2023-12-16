@@ -18,10 +18,10 @@ void	ft_sort_3(t_dclist **list_a)
 		return ;
 	if ((*list_a)->data > (*list_a)->prev->data
 		&& (*list_a)->data > (*list_a)->next->data)
-		ft_rra(list_a, 1);
+		ft_ra(list_a, 1);
 	else if ((*list_a)->next->data > (*list_a)->data
 		&& (*list_a)->next->data > (*list_a)->prev->data)
-		ft_ra(list_a, 1);
+		ft_rra(list_a, 1);
 	if ((*list_a)->data > (*list_a)->next->data)
 		ft_sa(list_a, 1);
 	return ;

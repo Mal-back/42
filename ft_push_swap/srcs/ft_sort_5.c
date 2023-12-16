@@ -18,17 +18,17 @@ static void	ft_dual_sort(t_dclist **list_a, t_dclist **list_b)
 		&& (*list_a)->data > (*list_a)->next->data)
 	{
 		if (ft_is_sorted(*list_b))
-			ft_rrr(list_a, list_b);
+			ft_rr(list_a, list_b);
 		else
-			ft_rra(list_a, 1);
+			ft_ra(list_a, 1);
 	}
 	else if ((*list_a)->next->data > (*list_a)->data
 		&& (*list_a)->next->data > (*list_a)->prev->data)
 	{
 		if (ft_is_sorted(*list_b))
-			ft_rr(list_a, list_b);
+			ft_rrr(list_a, list_b);
 		else
-			ft_ra(list_a, 1);
+			ft_rra(list_a, 1);
 	}
 	if ((*list_a)->data > (*list_a)->next->data)
 	{
@@ -91,6 +91,14 @@ static void	ft_continue_sort_5(t_dclist **list_a, t_dclist **list_b,
 	}
 	ft_actual_sort_5(list_a, list_b);
 }
+
+static void	ft_dumb_norminette(t_dclist **list_a, t_dclist **list_b)
+{
+	ft_ra(list_a, 1);
+	ft_ra(list_a, 1);
+	ft_pb(list_b, list_a);
+}
+
 void	ft_sort_5(t_dclist **list_a)
 {
 	long		little;
@@ -115,10 +123,6 @@ void	ft_sort_5(t_dclist **list_a)
 		ft_pb(&list_b, list_a);
 	}
 	else
-	{
-		ft_ra(list_a, 1);
-		ft_ra(list_a, 1);
-		ft_pb(&list_b, list_a);
-	}
+		ft_dumb_norminette(list_a, &list_b);
 	ft_continue_sort_5(list_a, &list_b, little, second_little);
 }

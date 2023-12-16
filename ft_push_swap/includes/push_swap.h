@@ -19,8 +19,14 @@ typedef struct s_dclist
 {
 	struct s_dclist	*prev;
 	long			data;
-	int				end_place;
-	int				cost_to_push_back;
+	int				index;
+	int				target;
+	int				direction_a;
+	int				rotate_cost_a;
+	int				direction_b;
+	int				rotate_cost_b;
+	int				final_cost;
+	int				cheapest;
 	struct s_dclist	*next;
 }							t_dclist;
 
@@ -105,19 +111,25 @@ void		ft_rrr(t_dclist **list_a, t_dclist **list_b);
 
 
 
+void		identify_cheapest(t_dclist **list_a, t_dclist **list_b,
+				t_dclist **cheapest_node);
 void		smart_push_back(t_dclist **list_a, t_dclist **list_b);
-void		resolve_direction_b(int go_cost, int go_back_cost,
-				t_data_info *data_info);
+void		resolve_direction_b(t_dclist **list_b, t_dclist **looked_position);
 void		resolve_direction_a(int go_cost, int go_back_cost,
 				t_data_info *data_info);
-void		resolve_cost(t_data_info *data_info);
+void		resolve_cost(t_dclist **looked_position);
 void		ft_cost_to_go_b(t_dclist **list_b, int number,
 				int *go_cost, int *go_back_cost);
-void		ft_cost_to_go_a(t_dclist **list_a, t_data_info *data_info);
+int			ft_cost_to_go_a(t_dclist **list_a, t_dclist **looked_position);
 void		combine_rotate(t_dclist **list_a, t_dclist **list_b,
-				t_data_info *data_info);
+				t_dclist **cheapest_node);
 int			is_in_range(t_dclist **list_a, t_data_info *data_info);
 int			a_is_to_good_place(t_dclist **list_a, t_data_info *data_info);
+void		push_cheapest(t_dclist **list_a, t_dclist **list_b,
+				t_dclist **cheapest_node);
+void		ft_push_back_b(t_dclist **list_a, t_dclist **list_b);
+void		ft_indentify_cost(t_dclist **list_a, int data,
+				int	*go_cost, int	*go_back_cost);
 
 int			need_to_swap(t_dclist **list);
 void		bubble_sort_5(t_dclist **list_a);
