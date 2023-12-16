@@ -15,11 +15,12 @@
 # define FT_CHECKER_H
 
 # include "libft.h"
+# include <limits.h>
 
 typedef struct s_dclist
 {
 	struct s_dclist	*prev;
-	long			data;
+	int				data;
 	int				index;
 	int				target;
 	int				direction_a;

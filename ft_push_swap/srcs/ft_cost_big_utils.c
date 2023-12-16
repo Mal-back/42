@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "push_swap.h"
 
 void	resolve_direction_b(t_dclist **list_b, t_dclist **looked_position)
@@ -49,13 +48,6 @@ void	resolve_cost(t_dclist **looked_position)
 				+ ((*looked_position)->rotate_cost_a
 					- (*looked_position)->rotate_cost_b);
 	}
-}
-
-int	is_in_range(t_dclist **list_a, t_data_info *data_info)
-{
-	if ((*list_a)->data >= data_info->min && (*list_a)->data <= data_info->max)
-		return (1);
-	return (0);
 }
 
 int	ft_cost_to_go_a(t_dclist **list_a, t_dclist **looked_position)

@@ -17,7 +17,7 @@ void	ft_rra(t_dclist **list_a, int f)
 	if (!*list_a)
 		return ;
 	if (f)
-		ft_printf("rra\n");
+		ft_putendl_fd("rra", 1);
 	if ((*list_a)->next)
 		*list_a = (*list_a)->prev;
 	return ;

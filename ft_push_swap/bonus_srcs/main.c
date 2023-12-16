@@ -11,21 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_checker.h"
-
-void	ft_print_list(t_dclist *list)
-{
-	t_dclist	*head;
-
-	head = list;
-	if (list == NULL)
-		return ;
-	while (list->next != NULL && list->next != head)
-	{
-		ft_printf("Data : %d\n", list->data);
-		list = list->next;
-	}
-	ft_printf("Data : %d\n", list->data);
-}
+#include "libft.h"
 
 int	main(int ac, char **av)
 {
@@ -51,10 +37,7 @@ int	main(int ac, char **av)
 	if (ft_is_sorted(lst) && ft_lst_dcsize(lst) == list_size)
 		ft_putendl_fd("OK", 1);
 	else
-	{
-		ft_putendl_fd("KO, Here is the result list :\n", 1);
-		ft_print_list(lst);
-	}
+		ft_putendl_fd("KO", 1);
 	ft_lst_dcclear(&lst);
 	return (0);
 }

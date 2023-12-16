@@ -6,11 +6,10 @@
 /*   By: vlevy <vlevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 18:40:27 by vlevy             #+#    #+#             */
-/*   Updated: 2023/12/04 19:24:46 by vlevy            ###   ########.fr       */
+/*   Updated: 2023/11/25 19:39:39 by vlevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "push_swap.h"
 
 void	ft_rr(t_dclist **list_a, t_dclist **list_b)

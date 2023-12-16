@@ -10,32 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "push_swap.h"
+#include <limits.h>
 
-long	ft_atol(char **str)
+long	ft_atol(char **str, int *flag)
 {
-	long	result;
-	int		i;
-	int		sign;
+	unsigned int	result;
+	unsigned int	max_value;
+	int				i;
+	int				sign;
 
-	result = 0;
 	i = 0;
+	max_value = INT_MAX;
 	sign = 1;
-	while (ft_isblank(**str))
-		*str += 1;
-	if (ft_is_sign(**str))
-	{
-		if (**str == '-')
-			sign *= -1;
-		*str += 1;
-	}
-	if (!ft_isdigit(**str) && **str != 0 && !ft_isblank(**str))
-		return (2147483987);
+	if (!ft_isdigit(**str))
+		return (UINT_MAX);
 	while (ft_isdigit(**str))
 	{
 		result = 10 * result + (**str - 48);
+		if (result > max_value + 1)
+			return (UINT_MAX);
 		*str += 1;
+		*flag = 0;
 	}
-	return (result * sign);
+	return (result);
 }

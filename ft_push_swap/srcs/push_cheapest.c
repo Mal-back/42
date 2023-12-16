@@ -88,6 +88,6 @@ void	identify_cheapest(t_dclist **list_a, t_dclist **list_b,
 	{
 		calcul_cost_reverse_order(list_a, list_b, &looked_position, &cheapest);
 		is_cheapest(&looked_position, cheapest_node);
-		looked_position = looked_position->next;
+		looked_position = looked_position->prev;
 	}
 }

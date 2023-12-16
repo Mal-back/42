@@ -16,20 +16,10 @@ static void	ft_dual_sort(t_dclist **list_a, t_dclist **list_b)
 {
 	if ((*list_a)->data > (*list_a)->prev->data
 		&& (*list_a)->data > (*list_a)->next->data)
-	{
-		if (ft_is_sorted(*list_b))
-			ft_rr(list_a, list_b);
-		else
-			ft_ra(list_a, 1);
-	}
+		ft_ra(list_a, 1);
 	else if ((*list_a)->next->data > (*list_a)->data
 		&& (*list_a)->next->data > (*list_a)->prev->data)
-	{
-		if (ft_is_sorted(*list_b))
-			ft_rrr(list_a, list_b);
-		else
-			ft_rra(list_a, 1);
-	}
+		ft_rra(list_a, 1);
 	if ((*list_a)->data > (*list_a)->next->data)
 	{
 		if (ft_is_sorted(*list_b))
@@ -37,6 +27,8 @@ static void	ft_dual_sort(t_dclist **list_a, t_dclist **list_b)
 		else
 			ft_sa(list_a, 1);
 	}
+	else if (ft_is_sorted(*list_b))
+		ft_sb(list_b, 1);
 }
 
 static void	ft_actual_sort_5(t_dclist **list_a, t_dclist **list_b)
