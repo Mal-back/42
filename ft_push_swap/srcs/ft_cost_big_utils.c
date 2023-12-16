@@ -15,7 +15,7 @@
 void	resolve_direction_b(int go_cost, int go_back_cost,
 	t_data_info *data_info)
 {
-	if (go_cost > go_back_cost)
+	if (go_cost < go_back_cost)
 	{
 		data_info->cost_to_rotate_b = go_cost;
 		data_info->direction_b = 0;
@@ -89,7 +89,7 @@ void	ft_cost_to_go_b(t_dclist **list_b, int number,
 	*list_b = head;
 	while ((*list_b)->data != number)
 	{
-		go_back_cost += 1;
+		*go_back_cost += 1;
 		*list_b = (*list_b)->prev;
 	}
 	*list_b = head;

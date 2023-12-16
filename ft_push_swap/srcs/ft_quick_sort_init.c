@@ -71,12 +71,12 @@ void	ft_quick_sort_init(t_dclist **list_a, int absolute_size_a)
 	int			i;
 
 	list_b = NULL;
-	limit = absolute_size_a / 5;
+	limit = absolute_size_a / 9;
 	ft_give_index(list_a);
-	i = 5;
+	i = 9;
 	while (i)
 	{
-		if (i == 5)
+		if (i == 9)
 			upper_limit = absolute_size_a;
 		else
 			upper_limit = limit * i;
