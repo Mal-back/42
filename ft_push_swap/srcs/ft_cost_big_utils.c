@@ -18,7 +18,8 @@ void	resolve_direction_b(t_dclist **list_b, t_dclist **looked_position)
 	int	go_cost;
 	int	go_back_cost;
 
-	ft_cost_to_go_b(list_b, (*looked_position)->target, &go_cost, &go_back_cost);
+	ft_cost_to_go_b(list_b, (*looked_position)->target,
+		&go_cost, &go_back_cost);
 	if (go_cost < go_back_cost)
 	{
 		(*looked_position)->rotate_cost_b = go_cost;
