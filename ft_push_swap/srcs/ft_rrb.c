@@ -17,7 +17,7 @@ void	ft_rrb(t_dclist **list_b, int f)
 	if (!*list_b)
 		return ;
 	if (f)
-		ft_putendl_fd("rrb", 1);
+		ft_printf("rrb\n");
 	if ((*list_b)->next)
 		*list_b = (*list_b)->prev;
 	return ;

@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "push_swap.h"
 
 void	ft_pb(t_dclist **list_b, t_dclist **list_a)
@@ -20,7 +19,7 @@ void	ft_pb(t_dclist **list_b, t_dclist **list_a)
 	tmp = *list_a;
 	if (!list_a || !*list_a)
 		return ;
-	ft_putendl_fd("pb", 1);
+	ft_printf("pb\n");
 	ft_update_lstdc(list_a);
 	tmp->prev = NULL;
 	tmp->next = NULL;

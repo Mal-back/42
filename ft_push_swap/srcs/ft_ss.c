@@ -19,7 +19,7 @@ void	ft_ss(t_dclist **list_a, t_dclist **list_b)
 		return ;
 	if ((*list_a)->next == NULL && (*list_b)->next == NULL)
 		return ;
-	ft_putendl_fd("ss", 1);
+	ft_printf("ss\n");
 	ft_sa(list_a, 0);
 	ft_sb(list_b, 0);
 }

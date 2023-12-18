@@ -22,6 +22,7 @@ long	ft_atol(char **str, int *flag)
 
 	i = 0;
 	max_value = INT_MAX;
+	result = 0;
 	sign = 1;
 	if (!ft_isdigit(**str))
 		return (UINT_MAX);

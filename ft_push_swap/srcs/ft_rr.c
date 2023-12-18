@@ -10,14 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "push_swap.h"
 
 void	ft_rr(t_dclist **list_a, t_dclist **list_b)
 {
 	if (!list_a && !list_b && !(*list_a)->next && !(*list_b)->next)
 		return ;
-	ft_putendl_fd("rr", 1);
+	ft_printf("rr\n");
 	ft_ra(list_a, 0);
 	ft_rb(list_b, 0);
 	return ;

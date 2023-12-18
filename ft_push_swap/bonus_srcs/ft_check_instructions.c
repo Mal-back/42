@@ -21,7 +21,9 @@ int	ft_check_instructions(char **instructions_tab, char *str)
 	while (instructions_tab[i])
 	{
 		if (!ft_strncmp(str, instructions_tab[i], 5))
+		{
 			return (i);
+		}
 		i++;
 	}
 	return (-1);

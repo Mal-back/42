@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "push_swap.h"
 
 void	ft_pa(t_dclist **list_a, t_dclist **list_b)
@@ -20,7 +19,7 @@ void	ft_pa(t_dclist **list_a, t_dclist **list_b)
 	tmp = *list_b;
 	if (!list_b || !*list_b)
 		return ;
-	ft_putendl_fd("pa", 1);
+	ft_printf("pa\n");
 	ft_update_lstdc(list_b);
 	ft_lstdcadd_front(list_a, tmp);
 	return ;

@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "push_swap.h"
 
 void	ft_sb(t_dclist **list_b, int f)
@@ -21,7 +20,7 @@ void	ft_sb(t_dclist **list_b, int f)
 	if (!list_b || !*list_b || !(*list_b)->next)
 		return ;
 	if (f)
-		ft_putendl_fd("sb", 1);
+		ft_printf("sb\n");
 	tmp = (*list_b)->data;
 	tmp_place = (*list_b)->index;
 	(*list_b)->data = (*list_b)->next->data;

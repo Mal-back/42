@@ -13,15 +13,37 @@
 #include "ft_checker.h"
 #include "libft.h"
 
+static char	*verify_sorting(t_dclist **list)
+{
+	int			list_size;
+
+	list_size = ft_lst_dcsize(*list);
+	if (ft_is_sorted(*list))
+	{
+		if (get_next_line(0))
+			return ("KO");
+		else
+			return ("OK");
+	}
+	else
+	{
+		ft_parse_instructions(list);
+		if (ft_is_sorted(*list) && ft_lst_dcsize(*list) == list_size)
+			return ("OK");
+		else
+			return ("KO");
+	}
+}
+
 int	main(int ac, char **av)
 {
 	int			i;
-	int			list_size;
 	t_dclist	*lst;
 
 	if (ac < 2)
 		return (0);
 	i = 1;
+	lst = NULL;
 	while (i < ac)
 	{
 		if (parse_av(av[i], &lst))
@@ -32,12 +54,7 @@ int	main(int ac, char **av)
 		}
 		i++;
 	}
-	list_size = ft_lst_dcsize(lst);
-	ft_parse_instructions(&lst);
-	if (ft_is_sorted(lst) && ft_lst_dcsize(lst) == list_size)
-		ft_putendl_fd("OK", 1);
-	else
-		ft_putendl_fd("KO", 1);
+	ft_printf("%s\n", verify_sorting(&lst));
 	ft_lst_dcclear(&lst);
 	return (0);
 }
