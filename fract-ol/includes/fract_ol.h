@@ -22,24 +22,28 @@
 #define WIN_HEIGHT 1440
 # define WIN_WIDTH  1440
 
-typedef struct s_image
-{
-	void	*image;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-	int		relative_x_center;
-	int		relative_y_center;
-	double	slope_x;
-	double	slope_y;
-}							t_image;
-
 typedef struct s_window
 {
 	void	*mlx;
 	void	*win;
 }								t_window;
+
+typedef struct s_image
+{
+	t_window	*open_win;
+	void		*image;
+	char		*addr;
+	int			bits_per_pixel;
+	int			line_length;
+	int			endian;
+	int			relative_x_center;
+	int			relative_y_center;
+	double		slope_x;
+	double		slope_y;
+	double		set_dimension;
+	double		x_origin;
+	double		y_origin;
+}							t_image;
 
 typedef struct s_complex
 {
