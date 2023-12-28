@@ -1,29 +1,29 @@
-FILES = srcs/check_doublons.c\
-				srcs/ft_algo_init.c\
-				srcs/ft_atoll.c	srcs/ft_isblank.c\
-				srcs/ft_is_sign.c	srcs/ft_lstdcadd_back.c\
-				srcs/ft_lstdc_clear.c	srcs/ft_lstdc_new.c\
-				srcs/ft_lstdc_size.c	srcs/ft_pa.c\
-				srcs/ft_pb.c	srcs/ft_ra.c\
-				srcs/ft_rb.c	srcs/ft_rra.c\
-				srcs/ft_rrb.c	srcs/ft_rr.c\
-				srcs/ft_rrr.c	srcs/ft_sa.c\
-				srcs/ft_sb.c	srcs/ft_ss.c\
-				srcs/main.c	srcs/parse_av.c\
-				srcs/ft_lstdcadd_front.c\
-				srcs/ft_update_lstdc.c\
-				srcs/ft_is_sorted.c srcs/ft_manual_sort.c\
-				srcs/ft_find_little.c\
-				srcs/ft_large_stack.c\
-				srcs/ft_sort_3.c srcs/ft_sort_4.c\
-				srcs/ft_sort_5.c\
-				srcs/ft_find_next_little.c\
-				srcs/ft_find_next_big.c\
-				srcs/need_to_swap.c\
-				srcs/ft_find_big.c\
-				srcs/ft_is_reverse_sorted.c\
-				srcs/ft_smart_push_back.c srcs/ft_cost_big_utils.c\
-				srcs/push_cheapest.c srcs/ft_push_back_b.c\
+FILES = check_doublons.c\
+				ft_algo_init.c\
+				ft_atoll.c	ft_isblank.c\
+				ft_is_sign.c	ft_lstdcadd_back.c\
+				ft_lstdc_clear.c	ft_lstdc_new.c\
+				ft_lstdc_size.c	ft_pa.c\
+				ft_pb.c	ft_ra.c\
+				ft_rb.c	ft_rra.c\
+				ft_rrb.c	ft_rr.c\
+				ft_rrr.c	ft_sa.c\
+				ft_sb.c	ft_ss.c\
+				main.c	parse_av.c\
+				ft_lstdcadd_front.c\
+				ft_update_lstdc.c\
+				ft_is_sorted.c ft_manual_sort.c\
+				ft_find_little.c\
+				ft_large_stack.c\
+				ft_sort_3.c ft_sort_4.c\
+				ft_sort_5.c\
+				ft_find_next_little.c\
+				ft_find_next_big.c\
+				need_to_swap.c\
+				ft_find_big.c\
+				ft_is_reverse_sorted.c\
+				ft_smart_push_back.c ft_cost_big_utils.c\
+				push_cheapest.c ft_push_back_b.c\
 
 CHECKER_FILES =		srcs/check_doublons.c bonus_srcs/free_and_exit.c\
 									bonus_srcs/free_tab.c bonus_srcs/ft_apply_instructions.c\
@@ -41,9 +41,11 @@ CHECKER_FILES =		srcs/check_doublons.c bonus_srcs/free_and_exit.c\
 									bonus_srcs/main.c srcs/parse_av.c\
 									srcs/ft_update_lstdc.c\
 
-CHECKER_OBJECTS = ${CHECKER_FILES:.c=.o} 
+SRC = $(addprefix srcs/,$(FILES))
 
-OBJECTS = ${FILES:.c=.o}
+CHECKER_OBJECTS = ${CHECKER_FILES:.c=.o}
+
+OBJECTS = $(addprefix build/,${FILES:.c=.o})
 
 SUBDIR = libft/
 
@@ -67,7 +69,8 @@ ${CHECKER_NAME} : ${CHECKER_OBJECTS}
 	make -C ${SUBDIR}
 	${CC} ${CHECKER_OBJECTS} -o ${CHECKER_NAME} -L. -lft
 
-%.o:%.c
+build/%.o:srcs/%.c
+	@mkdir -p build/
 	$(CC) -I ${INCLUDES} -o $@ -c $<
 
 clean :

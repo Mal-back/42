@@ -36,13 +36,12 @@ typedef struct s_image
 	int			bits_per_pixel;
 	int			line_length;
 	int			endian;
-	int			relative_x_center;
-	int			relative_y_center;
+	int			max_iter;
 	double		slope_x;
 	double		slope_y;
-	double		set_dimension;
-	double		x_origin;
-	double		y_origin;
+	double		zoom;
+	double				x_origin;
+	double				y_origin;
 }							t_image;
 
 typedef struct s_complex

@@ -25,13 +25,17 @@ int	kill(t_image *param)
 	free(param->open_win->mlx);
 	exit (0);
 }
-int	handle_key(int key, void *param)
+int	handle_key(int key, t_image *param)
 {
 	if (key == XK_Escape)
 		kill(param);
-	else if (key == XK_k)
-		write(1, "K\n", 2);
-	write(1, "Key pressed !", 13);
+	else if (key == XK_KP_Add)
+		param->max_iter += 10;
+	else if (key == XK_KP_Subtract)
+		param->max_iter -= 10;
+	// else if (key == XK_Up)
+	// 	
+	handle_image(param, param->open_win);
 	return (0);
 }
 
@@ -39,10 +43,9 @@ int	handle_mouse(int key, int x, int y, t_image *param)
 {
 	if (key == 4)
 	{
-		param->set_dimension -= (param->set_dimension / 10);
-		param->x_origin = x;
-		param->y_origin = y;
-		printf("%lf\n", param->set_dimension);
+		param->zoom *= 0.95;
+		param->x_origin += x - WIN_WIDTH / 2.;
+		param->y_origin += y - WIN_HEIGHT / 2.;
 		handle_image(param, param->open_win);
 	}
 	return (0);
@@ -59,9 +62,10 @@ int	main(int ac, char **av)
 	image.image = mlx_new_image(window.mlx, WIN_WIDTH, WIN_HEIGHT);
 	image.addr = mlx_get_data_addr(image.image, &image.bits_per_pixel,
 			&image.line_length, &image.endian);
-	image.set_dimension = 4.;
-	image.x_origin = 0.;
-	image.y_origin = 0.;
+	image.zoom = 1.;
+	image.max_iter = 40;
+	image.x_origin = 0;
+	image.y_origin = 0;
 	image.open_win = &window;
 	handle_image(&image, &window);
 	mlx_mouse_hook(window.win, handle_mouse, &image);
