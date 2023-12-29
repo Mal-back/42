@@ -14,22 +14,17 @@
 #include "mlx.h"
 #include <stdio.h>
 
-int	colormap(int t, int r, int g, int b)
-{
-	return (t << 24 | r << 16 | g << 8 | b);
-}
-
 void	map(t_image *image, t_complex *complex, int x, int y)
 {
-	complex->r = (image->slope_x * (x + image->x_origin));
-	complex->i = (image->slope_y * (y + image->y_origin));
+	complex->r = (image->slope_x * x) + image->x_origin;
+	complex->i = (image->slope_y * y) + image->y_origin;
 }
 
 void	set_relative_center_and_slope(t_image *image)
 {
 	image->slope_x = (4.0 / WIN_WIDTH) * image->zoom;
 	image->slope_y = (4.0 / WIN_HEIGHT) * image->zoom;
-	printf("Slope_x : %lf, slope_y : %lf\n", image->slope_x, image->slope_y);
+	// printf("Slope_x : %lf, slope_y : %lf\n", image->slope_x, image->slope_y);
 }
 
 double	is_in_plan(t_complex *nbr)
@@ -59,9 +54,12 @@ void	compute_value_of_pixel(t_image *image, int x, int y)
 		idx++;
 	}
 	if (idx == image->max_iter)
-		my_pixel_put(image, (x + WIN_WIDTH / 2), y + (WIN_HEIGHT / 2), 0x00000000);
+		my_pixel_put(image, x + (WIN_WIDTH / 2), y + (WIN_HEIGHT / 2), 0x00000000);
 	else
-		my_pixel_put(image, (x + WIN_WIDTH / 2), y + (WIN_HEIGHT / 2), colormap(0, 255 - (idx * 50), 255 - (idx * 25), 255 - (idx * 60)));
+	{
+		idx += image->max_iter * (1 - image->zoom);
+		my_pixel_put(image, x + (WIN_WIDTH / 2), y + (WIN_HEIGHT / 2), colormap(0, (idx * 12), (idx * 35), (idx * 24)));
+	}
 }
 
 void	handle_image(t_image *image, t_window *window)
@@ -71,10 +69,10 @@ void	handle_image(t_image *image, t_window *window)
 
 	set_relative_center_and_slope(image);
 	y = WIN_HEIGHT / -2;
-	while (y < WIN_HEIGHT / 2)
+	while (y <= WIN_HEIGHT / 2)
 	{
 		x = WIN_WIDTH / -2;
-		while (x < WIN_WIDTH / 2)
+		while (x <= WIN_WIDTH / 2)
 		{
 			compute_value_of_pixel(image, x , y);
 			x++;
@@ -82,5 +80,6 @@ void	handle_image(t_image *image, t_window *window)
 		y++;
 	}
 	// printf("X : %d, Y : %d\n", x, y);
+	ft_blur(image);
 	mlx_put_image_to_window(window->mlx, window->win, image->image, 0, 0);
 }

@@ -44,8 +44,10 @@ int	handle_mouse(int key, int x, int y, t_image *param)
 	if (key == 4)
 	{
 		param->zoom *= 0.95;
-		param->x_origin += x - WIN_WIDTH / 2.;
-		param->y_origin += y - WIN_HEIGHT / 2.;
+		param->max_iter += 2;
+		param->x_origin += (x - WIN_WIDTH / 2.) * (4. / WIN_WIDTH) * param->zoom;
+		param->y_origin += (y - WIN_HEIGHT / 2.) * (4. / WIN_HEIGHT) * param->zoom;
+		printf("X : %lf, Y : %lf\n", param->x_origin, param->y_origin);
 		handle_image(param, param->open_win);
 	}
 	return (0);
