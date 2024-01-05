@@ -19,8 +19,10 @@
 # include "libft.h"
 # include "mlx.h"
 
-#define WIN_HEIGHT 1440
-# define WIN_WIDTH  1440
+# define WIN_HEIGHT 800
+# define WIN_WIDTH  800
+# define LIGHT 0.61
+# define SATURATION 1
 
 typedef struct s_window
 {
@@ -40,6 +42,7 @@ typedef struct s_image
 	double		slope_x;
 	double		slope_y;
 	double		zoom;
+	int				zoom_tracker;
 	double				x_origin;
 	double				y_origin;
 }							t_image;
@@ -54,6 +57,7 @@ void	my_pixel_put(t_image *img, int x, int y, unsigned int color);
 void	handle_image(t_image *image, t_window *window);
 void	set_relative_center_and_slope(t_image *image);
 void	ft_blur(t_image *image);
+int		def_color(int hue, int zoom_tracker);
 int		colormap(int t, int r, int g, int b);
 char	retrieve_color(t_image *img, int x, int y, int i);
 

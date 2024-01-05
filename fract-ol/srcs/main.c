@@ -45,6 +45,7 @@ int	handle_mouse(int key, int x, int y, t_image *param)
 	{
 		param->zoom *= 0.95;
 		param->max_iter += 2;
+		param->zoom_tracker++;
 		param->x_origin += (x - WIN_WIDTH / 2.) * (4. / WIN_WIDTH) * param->zoom;
 		param->y_origin += (y - WIN_HEIGHT / 2.) * (4. / WIN_HEIGHT) * param->zoom;
 		printf("X : %lf, Y : %lf\n", param->x_origin, param->y_origin);
@@ -65,6 +66,7 @@ int	main(int ac, char **av)
 	image.addr = mlx_get_data_addr(image.image, &image.bits_per_pixel,
 			&image.line_length, &image.endian);
 	image.zoom = 1.;
+	image.zoom_tracker = 1;
 	image.max_iter = 40;
 	image.x_origin = 0;
 	image.y_origin = 0;
