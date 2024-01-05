@@ -12,6 +12,7 @@
 
 #include "fract_ol.h"
 #include "mlx.h"
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -56,7 +57,19 @@ void	compute_value_of_pixel(t_image *image, int x, int y)
 		idx++;
 	}
 	if (idx < image->max_iter)
-		color = def_color(idx * 22 * fabs(1 - image->zoom + 0.5), image->zoom_tracker);
+	{
+		int i;
+		i = 0;
+		while (i < 5)
+		{
+		tmp = complex_nbr;
+		complex_nbr.r = (tmp.r * tmp.r) - (tmp.i * tmp.i) + c.r;
+		complex_nbr.i = (2. * tmp.r * tmp.i) + c.i;
+		idx++;
+		i++;
+		}
+		color = def_color(idx, fmax(fabs(complex_nbr.r), fabs(complex_nbr.i)), image->max_iter);
+	}
 	my_pixel_put(image, x + (WIN_WIDTH / 2), y + (WIN_HEIGHT / 2), color);
 }
 
@@ -80,4 +93,5 @@ void	handle_image(t_image *image, t_window *window)
 	// printf("X : %d, Y : %d\n", x, y);
 	// ft_blur(image);
 	mlx_put_image_to_window(window->mlx, window->win, image->image, 0, 0);
+	mlx_string_put(window->mlx, window->win, 0, 10, 0x00FFFFFF, "Use mouse wheel to zoom in and out");
 }

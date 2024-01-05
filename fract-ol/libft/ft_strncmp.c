@@ -23,14 +23,12 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	us2 = (const unsigned char *)s2;
 	if (n == 0)
 		return (0);
-	while ((*us1 || *us2) && *us1 == *us2 && i < n)
+	while ((*us1 || *us2) && *us1 == *us2 && i <= n)
 	{
 		i++;
 		us1++;
 		us2++;
 	}
-	if (i == n)
-		return (*(us1 - 1) - *(us2 - 1));
 	return (*us1 - *us2);
 }
 /*#include <stdio.h>

@@ -36,54 +36,53 @@ int	colormap(int t, int r, int g, int b)
 	return (t << 24 | r << 16 | g << 8 | b);
 }
 
-int	rounded_colormap(int zoom_tracker, float r_f, float g_f, float b_f)
+void	init_smoothing(double mu, int count, t_smoothing *smooth_info)
 {
-	int	r;
-	int	g;
-	int	b;
-
-	if (zoom_tracker % 3 == 0)
-	{
-		r = round(g_f * 255);
-		g = round(b_f * 255);
-		b = round(r_f * 255);
-	}
-	else if (zoom_tracker % 2 == 0)
-	{
-		r = round(b_f * 255);
-		g = round(r_f * 255);
-		b = round(g_f * 255);
-	}
-	else
-	{
-		r = round(r_f * 255);
-		g = round(g_f * 255);
-		b = round(b_f * 255);
-	}
-	return (colormap(0, r, g, b));
+	smooth_info->color1 = (int)mu;
+	smooth_info->reminder_2 = mu - smooth_info->color1;
+	smooth_info->reminder_1 = 1 - smooth_info->reminder_2;
+	smooth_info->color1 %= count;
+	smooth_info->color2 = (smooth_info->color1 + 1) % count;
 }
 
-int	def_color(int hue, int zoom_tracker)
+void	init_color(t_color *colortab)
 {
-	float	div_hue;
-	float	chroma;
-	float	x;
-	float	m;
+	colortab[4].red = 133;
+	colortab[4].green = 129;
+	colortab[4].blue = 17;
+	colortab[1].red = 105;
+	colortab[1].green = 101;
+	colortab[1].blue = 8;
+	colortab[2].red = 38;
+	colortab[2].green = 44;
+	colortab[2].blue = 224;
+	colortab[3].red = 39;
+	colortab[3].green = 42;
+	colortab[3].blue = 143;
+	colortab[0].red = 24;
+	colortab[0].green = 47;
+	colortab[0].blue = 222;
+}
 
-	div_hue = hue / 60.;
-	chroma = (1 - fabs(2 * LIGHT - 1)) * SATURATION;
-	x = chroma * (1 - abs((int)div_hue % 2) - 1);
-	m = LIGHT - (chroma / 2);
-	if (div_hue <= 1)
-		return (rounded_colormap(zoom_tracker, chroma + m, x + m, m));
-	else if (div_hue <= 2)
-		return (rounded_colormap(zoom_tracker, x + m, chroma + m, m));
-	else if (div_hue <= 3)
-		return (rounded_colormap(zoom_tracker, m, chroma + m, x + m));
-	else if (div_hue <= 4)
-		return (rounded_colormap(zoom_tracker, m, x + m, chroma + m));
-	else if (div_hue <= 5)
-		return (rounded_colormap(zoom_tracker, x + m, m, chroma + m));
-	else
-		return (rounded_colormap(zoom_tracker, chroma + m, m, x + m));
+int	def_color(int idx, double z, int max_iter)
+{
+	double		mu;
+	t_color		colortab[5];
+	t_color		final_color;
+	t_smoothing	smooth_info;
+
+	init_color(colortab);
+	mu = idx + 1 - log(log(z)) / log(2.);
+	// mu = mu / max_iter * 5;
+	init_smoothing(mu, 5, &smooth_info);
+	final_color.red = (unsigned char)(colortab[smooth_info.color1].red
+			* smooth_info.reminder_1 + colortab[smooth_info.color2].red
+			* smooth_info.reminder_2);
+	final_color.green = (unsigned char)(colortab[smooth_info.color1].green
+			* smooth_info.reminder_1 + colortab[smooth_info.color2].green
+			* smooth_info.reminder_2);
+	final_color.blue = (unsigned char)(colortab[smooth_info.color1].blue
+			* smooth_info.reminder_1 + colortab[smooth_info.color2].blue
+			* smooth_info.reminder_2);
+	return (colormap(0, final_color.red, final_color.green, final_color.blue));
 }

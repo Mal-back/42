@@ -132,5 +132,6 @@ void		ft_lchexa_handling(va_list *ap, long *count,
 void		ft_uchhexa_handling(va_list *ap, long *count,
 				t_flags *flags);
 void		ft_ptr_handling(va_list *ap, long *count, t_flags *flags);
+void		ft_free_tab(char **tab);
 
 #endif
