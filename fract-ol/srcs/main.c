@@ -28,64 +28,61 @@ static int	identify_fractal(char *av, char **valid_set)
 	return (-1);
 }
 
-static void	display_help(char **tab)
+static int	is_in_range(double d)
 {
-	ft_free_tab(tab);
-	ft_printf("Wrong Usage, here is the correct one :\n");
-	ft_printf("./fractol [fractal] [Julia Real value] [Julia Imaginary Value]");
-	ft_printf(" [ColorPalette]\n");
-	ft_printf("Available Fractal : MandelBrot , Julia, Boudhabrot\n");
-	ft_printf("If you choose Julia, Real and imaginary values are mandatory");
-	ft_printf(" and must be contained in the range [-2.0, 2.0]\n");
-	ft_printf("They must be ignored for the other fractals\n");
-	ft_printf("ColorPalette is optional. The choices are :");
-	ft_printf(" Red, Blue, Green, Rainbow and Psychedelic.");
-	ft_printf(" Default is rainbow.\n");
-	exit (0);
+	if (d > 2. || d < -2.)
+		return (0);
+	return (1);
 }
 
-void	check_av(int ac, char **av)
+static int	parse_julia(char **av, t_image *image)
+{
+	if (invalid_number(av[0]) || invalid_number(av[1]))
+		return (1);
+	image->c.r = ft_atod(av[0]);
+	image->c.i = ft_atod(av[1]);
+	if (!is_in_range(image->c.r) || !is_in_range(image->c.i))
+		return (1);
+	printf("x : %lf, y : %lf\n", image->c.r, image->c.i);
+	return (0);
+}
+
+void	check_av(int ac, char **av, t_main *main)
 {
 	char	**fractal;
 	int		i;
 
 	fractal = ft_split("Mandelbrot Julia Boudhabrot", ' ');
 	if (ac < 2)
-		display_help(fractal);
-	i = identify_fractal(av[1], fractal);	
-	if (i == 0)
-		printf("Mandy !\n");
-		// parse_mandelbrot;
+		display_help(fractal, main);
+	i = identify_fractal(av[1], fractal);
+	if (i == 0 || i == 2)
+	{
+		if (ac != 2)
+			display_help(fractal, main);
+		main->image->fractal = i;
+	}
 	else if (i == 1)
-		printf("Julia !\n");
-		// parse_julia;
-	else if (i == 2)
-		printf("Boudha !\n");
-		// parse_boudhabrot;
-	else
-		display_help(fractal);
+	{
+		if (ac != 4 || parse_julia(av + 2, main->image))
+			display_help(fractal, main);
+		main->image->fractal = i;
+	}
+	ft_free_tab(fractal);
 }
 
 int	main(int ac, char **av)
 {
-	t_window	window;
-	t_image		image;
+	t_main	main;
 
-	check_av(ac, av);
-	// window.mlx = mlx_init();
-	// window.win = mlx_new_window(window.mlx, WIN_WIDTH, WIN_HEIGHT, "My Fractal");
-	// image.image = mlx_new_image(window.mlx, WIN_WIDTH, WIN_HEIGHT);
-	// image.addr = mlx_get_data_addr(image.image, &image.bits_per_pixel,
-	// 		&image.line_length, &image.endian);
-	// image.zoom = 1.;
-	// image.zoom_tracker = 1;
-	// image.max_iter = 40;
-	// image.x_origin = 0;
-	// image.y_origin = 0;
-	// image.open_win = &window;
-	// handle_image(&image, &window);
-	// mlx_mouse_hook(window.win, handle_mouse, &image);
-	// mlx_hook(window.win, KeyPress, KeyPressMask, handle_key, &image);
-	// mlx_hook(window.win, 17, 0, kill, &image);
-	// mlx_loop(window.mlx);
+	main.image = malloc(sizeof (t_image));
+	main.window = malloc(sizeof (t_window));
+	if (!main.image || !main.window)
+	{
+		free_struct(&main);
+		exit (1);
+	}
+	check_av(ac, av, &main);
+	init_window(&main);
+	return (0);
 }

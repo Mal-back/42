@@ -15,17 +15,15 @@
 # define FRACT_OL_H
 
 # include <stdlib.h>
+#include <fcntl.h>
 # include <math.h>
 # include "libft.h"
 # include <X11/X.h>
 # include <X11/keysym.h>
 # include "mlx.h"
 
-# define WIN_HEIGHT 800
-# define WIN_WIDTH  800
-# define ESCAPE_LOG 0.30102999566
-# define LIGHT 0.61
-# define SATURATION 1
+# define WIN_HEIGHT 1200
+# define WIN_WIDTH  1200
 
 typedef enum e_fractal
 {
@@ -42,14 +40,6 @@ typedef enum e_color_palette
 	RAINBOW = 3,
 	PSYCHEDELIC = 4
 }							t_color_palette;
-
-typedef struct s_specifications
-{
-	t_fractal		fractal;
-	t_color_palette	palette;
-	double			cx;
-	double			cy;
-}								t_specifications;
 
 typedef struct s_window
 {
@@ -72,35 +62,61 @@ typedef struct s_smoothing
 	double	reminder_2;
 }							t_smoothing;
 
-typedef struct s_image
-{
-	t_window	*open_win;
-	void		*image;
-	char		*addr;
-	int			bits_per_pixel;
-	int			line_length;
-	int			endian;
-	int			max_iter;
-	double		slope_x;
-	double		slope_y;
-	double		x_origin;
-	double		y_origin;
-	double		zoom;
-	int			zoom_tracker;
-}							t_image;
-
 typedef struct s_complex
 {
 	double	r;
 	double	i;
 }								t_complex;
 
+typedef struct s_image
+{
+	void			*image;
+	char			*addr;
+	int				bits_per_pixel;
+	int				line_length;
+	int				endian;
+	int				max_iter;
+	double			slope_x;
+	double			slope_y;
+	double			x_origin;
+	double			y_origin;
+	t_complex		c;
+	t_fractal		fractal;
+	t_color			colormap[4][7];
+	t_color_palette	color;
+	double			zoom;
+	int				zoom_tracker;
+}							t_image;
+
+typedef void	(*t_function)(t_image *, int, int);
+
+typedef struct s_main
+{
+	t_image		*image;
+	t_window	*window;
+	t_function	compute[3];
+}							t_main;
+
 void	my_pixel_put(t_image *img, int x, int y, unsigned int color);
-void	handle_image(t_image *image, t_window *window);
+void	init_window(t_main *main);
+void	init_color(t_main *main);
+void	handle_image(t_main *main);
+void	compute_mandelbrot(t_image *image, int x, int y);
+void	compute_julia(t_image *image, int x, int y);
 void	set_relative_center_and_slope(t_image *image);
 void	ft_blur(t_image *image);
 int		def_color(int idx, double z, int max_iter);
 int		colormap(int t, int r, int g, int b);
+int		handle_key(int key, t_main *param);
+int		handle_mouse(int key, int x, int y, t_main *param);
 char	retrieve_color(t_image *img, int x, int y, int i);
+void	free_struct(t_main *main);
+void	display_help(char **tab, t_main *main);
+int		invalid_number(char *str);
+int		kill(t_main *param);
+void	map(t_image *image, t_complex *complex, int x, int y);
+void	set_relative_center_and_slope(t_image *image);
+double	is_in_plan(t_complex *nbr);
+void	round_for_smoothing(t_complex *nbr, t_complex c);
 
 #endif // !FRACTOL_OL_H

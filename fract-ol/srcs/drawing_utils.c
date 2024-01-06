@@ -22,15 +22,6 @@ void	my_pixel_put(t_image *img, int x, int y, unsigned int color)
 	*(unsigned int *)dst = color;
 }
 
-char	retrieve_color(t_image *img, int x, int y, int i)
-{
-	char	*dst;
-
-	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-	// printf("%i\n", *dst);
-	return (*(unsigned char *)(dst + i));
-}
-
 int	colormap(int t, int r, int g, int b)
 {
 	return (t << 24 | r << 16 | g << 8 | b);
@@ -45,7 +36,7 @@ void	init_smoothing(double mu, int count, t_smoothing *smooth_info)
 	smooth_info->color2 = (smooth_info->color1 + 1) % count;
 }
 
-void	init_color(t_color *colortab)
+void	init_colortab(t_color *colortab)
 {
 	colortab[4].red = 133;
 	colortab[4].green = 129;
@@ -67,11 +58,11 @@ void	init_color(t_color *colortab)
 int	def_color(int idx, double z, int max_iter)
 {
 	double		mu;
-	t_color		colortab[5];
+	t_color		colortab[7];
 	t_color		final_color;
 	t_smoothing	smooth_info;
 
-	init_color(colortab);
+	init_colortab(colortab);
 	mu = idx + 1 - log(log(z)) / log(2.);
 	// mu = mu / max_iter * 5;
 	init_smoothing(mu, 5, &smooth_info);
