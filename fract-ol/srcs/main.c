@@ -43,7 +43,6 @@ static int	parse_julia(char **av, t_image *image)
 	image->c.i = ft_atod(av[1]);
 	if (!is_in_range(image->c.r) || !is_in_range(image->c.i))
 		return (1);
-	printf("x : %lf, y : %lf\n", image->c.r, image->c.i);
 	return (0);
 }
 
