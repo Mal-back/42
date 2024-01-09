@@ -11,9 +11,6 @@
 /* ************************************************************************** */
 
 #include "fract_ol.h"
-#include "libft.h"
-#include <stdio.h>
-#include <string.h>
 
 static int	parse_line(char *line)
 {
@@ -108,12 +105,12 @@ static int	open_shade_config(char *str, t_color *colormap)
 
 void	init_color(t_main *main)
 {
-	if (!open_shade_config("ressources/shade1.c", main->image->colormap[0]))
+	if (!open_shade_config(SHADE_1, main->image->colormap[0]))
 		kill(main, 1);
-	if (!open_shade_config("ressources/shade2.c", main->image->colormap[1]))
+	if (!open_shade_config(SHADE_2, main->image->colormap[1]))
 		kill(main, 1);
-	if (!open_shade_config("ressources/shade3.c", main->image->colormap[2]))
+	if (!open_shade_config(SHADE_3, main->image->colormap[2]))
 		kill(main, 1);
-	if (!open_shade_config("ressources/shade4.c", main->image->colormap[3]))
+	if (!open_shade_config(SHADE_4, main->image->colormap[3]))
 		kill(main, 1);
 }

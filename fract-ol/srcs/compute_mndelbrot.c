@@ -11,12 +11,8 @@
 /* ************************************************************************** */
 
 #include "fract_ol.h"
-#include "mlx.h"
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
 
-int	dumb_norminette(t_complex *complex_nbr, t_complex c, int max)
+static int	dumb_norminette(t_complex *complex_nbr, t_complex c, int max)
 {
 	int			idx;
 	t_complex	tmp;
@@ -51,8 +47,7 @@ void	compute_mandelbrot(t_image *image, int x, int y)
 	{
 		round_for_smoothing(&complex_nbr, c);
 		color = def_color(idx + 5, fmax(fabs(complex_nbr.r),
-					fabs(complex_nbr.i)), image->max_iter,
-				image->colormap[image->color]);
+					fabs(complex_nbr.i)), image->max_iter, image);
 	}
 	my_pixel_put(image, x + (WIN_WIDTH / 2), y + (WIN_HEIGHT / 2), color);
 }

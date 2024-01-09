@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "fract_ol.h"
-#include "libft.h"
-#include <stdio.h>
 
 static int	identify_fractal(char *av, char **valid_set)
 {
@@ -51,10 +49,12 @@ void	check_av(int ac, char **av, t_main *main)
 	char	**fractal;
 	int		i;
 
-	fractal = ft_split("Mandelbrot Julia Boudhabrot", ' ');
-	if (ac < 2)
+	fractal = ft_split("Mandelbrot Julia Burning_ship", ' ');
+	if (ac < 2 || !fractal)
 		display_help(fractal, main);
 	i = identify_fractal(av[1], fractal);
+	if (i == -1)
+		display_help(fractal, main);
 	if (i == 0 || i == 2)
 	{
 		if (ac != 2)
@@ -75,6 +75,8 @@ int	main(int ac, char **av)
 	t_main	main;
 
 	main.image = malloc(sizeof (t_image));
+	if (!main.image)
+		return (1);
 	main.window = malloc(sizeof (t_window));
 	if (!main.image || !main.window)
 	{

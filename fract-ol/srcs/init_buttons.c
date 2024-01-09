@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "fract_ol.h"
-#include "libft.h"
 
 void	init_button(t_main *main)
 {

@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "fract_ol.h"
-#include "mlx.h"
 
 void	send_image(t_main *main)
 {
@@ -20,16 +19,22 @@ void	send_image(t_main *main)
 
 	i = 0;
 	y_button = 5;
-	mlx_put_image_to_window(main->window->mlx, main->window->win,
-		main->image->image, 0, 0);
-	while (i < 5)
+	if (main->image->refresh)
 	{
 		mlx_put_image_to_window(main->window->mlx, main->window->win,
-			main->button[i].image, 1100, y_button);
-		y_button += 40;
-		i++;
+			main->image->image, 0, 0);
+		if (main->image->gui)
+		{
+			while (i < 5)
+			{
+				mlx_put_image_to_window(main->window->mlx, main->window->win,
+					main->button[i].image, 1100, y_button);
+				y_button += 40;
+				i++;
+			}
+			ft_display_command(main);
+		}
 	}
-	ft_display_command(main);
 }
 
 void	handle_image(t_main *main)
@@ -62,13 +67,29 @@ void	init_image(t_image *image)
 	image->x_origin = 0;
 	image->y_origin = 0;
 	image->command_display = 0;
+	image->refresh = 1;
+	image->smoothing = 1;
+	image->gui = 1;
+	image->rand_color = 0;
 	image->color = PURPLE;
 }
 
 void	init_function(t_main *main)
 {
+	int	i;
+
+	i = 0;
+	main->window->mlx = NULL;
+	main->window->win = NULL;
+	main->image->image = NULL;
+	while (i < 5)
+	{
+		main->button[i].image = NULL;
+		i++;
+	}
 	main->compute[0] = compute_mandelbrot;
 	main->compute[1] = compute_julia;
+	main->compute[2] = compute_burning_ship;
 }
 
 void	init_window(t_main *main)

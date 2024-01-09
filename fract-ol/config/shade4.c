@@ -24,19 +24,19 @@
 	 g=255
 	 b=0
 	 Shade 4 :
-	 r=0
-	 g=255
-	 b=0
-	 Shade 5 :
-	 r=0
-	 g=0
-	 b=255
-	 Shade 6 :
-	 r=75
-	 g=0
-	 b=130
-	 Shade 7 :
 	 r=128
 	 g=0
 	 b=128
+	 Shade 5 :
+	 r=75
+	 g=0
+	 b=130
+	 Shade 6 :
+	 r=0
+	 g=0
+	 b=255
+	 Shade 7 :
+	 r=0
+	 g=255
+	 b=0
 */

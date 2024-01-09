@@ -31,12 +31,16 @@
 # define BUTTON_3 "ressources/Shade3Button.xpm "
 # define BUTTON_4 "ressources/Shade4Button.xpm "
 # define BUTTON_5 "ressources/ShadeMixedButton.xpm "
+# define SHADE_1 "config/shade1.c"
+# define SHADE_2 "config/shade2.c"
+# define SHADE_3 "config/shade3.c"
+# define SHADE_4 "config/shade4.c"
 
 typedef enum e_fractal
 {
 	MANDELBROT = 0,
 	JULIA = 1,
-	BOUDHABROT = 2
+	BURNING_SHIP = 2
 }							t_fractal;
 
 typedef enum e_color_palette
@@ -104,6 +108,8 @@ typedef struct s_image
 	int				zoom_tracker;
 	int				refresh;
 	int				rand_color;
+	int				smoothing;
+	int				gui;
 }							t_image;
 
 typedef void	(*t_function)(t_image *, int, int);
@@ -118,14 +124,16 @@ typedef struct s_main
 
 void	my_pixel_put(t_image *img, int x, int y, unsigned int color);
 void	init_window(t_main *main);
+void	init_image(t_image *image);
 void	init_color(t_main *main);
 void	init_button(t_main *main);
 void	handle_image(t_main *main);
 void	compute_mandelbrot(t_image *image, int x, int y);
 void	compute_julia(t_image *image, int x, int y);
+void	compute_burning_ship(t_image *image, int x, int y);
 void	set_relative_center_and_slope(t_image *image);
 void	ft_blur(t_image *image);
-int		def_color(int idx, double z, int max_iter, t_color *colortab);
+int		def_color(int idx, double z, int max_iter, t_image *image);
 int		colormap(int t, int r, int g, int b);
 int		handle_key(int key, t_main *param);
 int		handle_mouse(int key, int x, int y, t_main *param);

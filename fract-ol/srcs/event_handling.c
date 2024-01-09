@@ -11,10 +11,30 @@
 /* ************************************************************************** */
 
 #include "fract_ol.h"
-#include <stdio.h>
+
+void	handle_key_next(int key, t_main *param)
+{
+	if (key == XK_h)
+		param->image->command_display ^= 1;
+	else if (key == XK_g)
+		param->image->gui ^= 1;
+	else if (key == XK_w && param->image->fractal == JULIA)
+		param->image->c.i += 0.01;
+	else if (key == XK_s && param->image->fractal == JULIA)
+		param->image->c.i -= 0.01;
+	else if (key == XK_d && param->image->fractal == JULIA)
+		param->image->c.r += 0.01;
+	else if (key == XK_a && param->image->fractal == JULIA)
+		param->image->c.r -= 0.01;
+	else if (key == XK_r)
+		init_image(param->image);
+	else
+		param->image->refresh = 0;
+}
 
 int	handle_key(int key, t_main *param)
 {
+	param->image->refresh = 1;
 	if (key == XK_Escape)
 		kill(param, 0);
 	else if (key == XK_KP_Add)
@@ -29,8 +49,10 @@ int	handle_key(int key, t_main *param)
 		param->image->x_origin -= 0.25 * param->image->zoom;
 	else if (key == XK_Right)
 		param->image->x_origin += 0.25 * param->image->zoom;
-	else if (key == XK_h)
-		param->image->command_display = 1;
+	else if (key == XK_f)
+		param->image->smoothing ^= 1;
+	else
+		handle_key_next(key, param);
 	handle_image(param);
 	return (0);
 }
@@ -76,7 +98,7 @@ static void	update_color(t_main *param)
 
 int	handle_mouse(int key, int x, int y, t_main *param)
 {
-	if (key == 1)
+	if (key == 1 && param->image->gui)
 		handle_colorshift(x, y, param);
 	if (key == 4)
 	{

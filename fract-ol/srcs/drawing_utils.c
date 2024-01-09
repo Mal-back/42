@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "fract_ol.h"
-#include <math.h>
-#include <stdio.h>
 
 void	my_pixel_put(t_image *img, int x, int y, unsigned int color)
 {
@@ -36,23 +34,27 @@ void	init_smoothing(double mu, int count, t_smoothing *smooth_info)
 	smooth_info->color2 = (smooth_info->color1 + 1) % count;
 }
 
-int	def_color(int idx, double z, int max_iter, t_color *colortab)
+int	def_color(int idx, double z, int max_iter, t_image *image)
 {
 	double		mu;
 	t_color		final_color;
 	t_smoothing	smooth_info;
 
 	mu = idx + 1 - log(log(z)) / log(2.);
-	mu = mu / max_iter * 7;
+	if (image->smoothing)
+		mu = mu / max_iter * 7;
 	init_smoothing(mu, 7, &smooth_info);
-	final_color.red = (unsigned char)(colortab[smooth_info.color1].red
-			* smooth_info.reminder_1 + colortab[smooth_info.color2].red
+	final_color.red = (unsigned char)(image->colormap[image->color]
+		[smooth_info.color1].red * smooth_info.reminder_1
+			+ image->colormap[image->color][smooth_info.color2].red
 			* smooth_info.reminder_2);
-	final_color.green = (unsigned char)(colortab[smooth_info.color1].green
-			* smooth_info.reminder_1 + colortab[smooth_info.color2].green
+	final_color.green = (unsigned char)(image->colormap[image->color]
+		[smooth_info.color1].green * smooth_info.reminder_1
+			+ image->colormap[image->color][smooth_info.color2].green
 			* smooth_info.reminder_2);
-	final_color.blue = (unsigned char)(colortab[smooth_info.color1].blue
-			* smooth_info.reminder_1 + colortab[smooth_info.color2].blue
+	final_color.blue = (unsigned char)(image->colormap[image->color]
+		[smooth_info.color1].blue * smooth_info.reminder_1
+			+ image->colormap[image->color][smooth_info.color2].blue
 			* smooth_info.reminder_2);
 	return (colormap(0, final_color.red, final_color.green, final_color.blue));
 }

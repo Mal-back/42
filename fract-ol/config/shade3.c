@@ -24,19 +24,19 @@
 	 g=41
 	 b=7
 	 Shade 4 :
-	 r=184
-	 g=56
-	 b=25
-	 Shade 5 :
-	 r=181
-	 g=97
-	 b=13
-	 Shade 6 :
-	 r=163
-	 g=116
-	 b=7
-	 Shade 7 :
 	 r=232
 	 g=226
 	 b=51
+	 Shade 5 :
+	 r=163
+	 g=116
+	 b=7
+	 Shade 6 :
+	 r=181
+	 g=97
+	 b=13
+	 Shade 7 :
+	 r=184
+	 g=56
+	 b=25
 */

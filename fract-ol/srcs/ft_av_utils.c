@@ -50,7 +50,7 @@ void	display_help(char **tab, t_main *main)
 	ft_printf("Wrong Usage, here is the correct one :\n");
 	ft_printf("./fractol [fractal] [Julia Real value] \
 	[Julia Imaginary Value]\n");
-	ft_printf("Available Fractal : MandelBrot , Julia, Boudhabrot\n");
+	ft_printf("Available Fractal : MandelBrot , Julia, Burning_ship\n");
 	ft_printf("If you choose Julia, Real and imaginary values are mandatory");
 	ft_printf(" and must be contained in the range [-2.0, 2.0]\n");
 	ft_printf("They must be ignored for the other fractals.\n");

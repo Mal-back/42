@@ -25,7 +25,7 @@ void	kill_buttons(t_main *main)
 	i = 0;
 	while (i < 5)
 	{
-		if (main->button[i].image)
+		if (main->button[i].image != NULL)
 			mlx_destroy_image(main->window->mlx, main->button[i].image);
 		i++;
 	}
