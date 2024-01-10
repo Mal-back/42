@@ -27,16 +27,16 @@ NAME = ../libft.a
 all : ${NAME}	
 
 ${NAME} : ${OBJECTS}
-	ar rcs $@ $^
+	@ar rcs $@ $^
 
 %.o:%.c
-	${CC} -I $(INCLUDES) -c $< -o $@
+	@${CC} -I $(INCLUDES) -c $< -o $@
 
 clean :
-	rm -f ${OBJECTS} ${BONUS_OBJ}
+	@rm -f ${OBJECTS} ${BONUS_OBJ}
 
 fclean : 		clean
-	rm -f ${NAME} ${BONUS_OBJ}
+	@rm -f ${NAME} ${BONUS_OBJ}
 
 re : fclean all
 

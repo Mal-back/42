@@ -31,7 +31,6 @@ static int	dumb_norminette(t_complex *complex_nbr, t_complex c, int max)
 void	compute_mandelbrot(t_image *image, int x, int y)
 {
 	t_complex	complex_nbr;
-	t_complex	tmp;
 	t_complex	c;
 	int			color;
 	int			idx;
