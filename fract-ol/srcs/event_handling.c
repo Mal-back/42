@@ -93,6 +93,7 @@ static void	update_color(t_main *param)
 		param->image->color++;
 		if (param->image->color > 3)
 			param->image->color = 0;
+		param->image->smoothing ^= 1;
 	}
 }
 

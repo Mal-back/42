@@ -68,10 +68,10 @@ void	init_image(t_image *image)
 	image->y_origin = 0;
 	image->command_display = 0;
 	image->refresh = 1;
-	image->smoothing = 1;
+	image->smoothing = 0;
 	image->gui = 1;
 	image->rand_color = 0;
-	image->color = PURPLE;
+	image->color = RED;
 }
 
 void	init_function(t_main *main)
