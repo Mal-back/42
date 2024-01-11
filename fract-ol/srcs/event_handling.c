@@ -80,9 +80,9 @@ static void	handle_colorshift(int x, int y, t_main *param)
 					param->image->rand_color = 1;
 				i = 10;
 			}
-		i++;
 		ystart += 40;
 		}
+		i++;
 	}
 }
 
