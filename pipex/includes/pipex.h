@@ -17,18 +17,34 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <time.h>
 # include <errno.h>
 # include <sys/wait.h>
 # include "libft.h"
 
+# define READ_ENTRY 0
+# define WRITE_ENTRY 1
+
 typedef struct s_main
 {
-	int		fd1;
-	int		fd2;
+	int		fd_infile;
+	int		fd_outfile;
+	int		pipe[2];
+	int		read_entry;
 	char	**possible_paths;
 	char	***cmds;
+	char	*pwd;
+	char	**envp;
 }								t_main;
 
 void	ft_clean_exit(t_main *main, int code);
+void	assemble_command(t_main *main, int j);
+void	append_backslash(t_main *main);
+void	init_pipex(t_main *main);
 
+// Handling commands
+
+void	first_command(t_main *main);
+void	middle_command(t_main *main, int idx);
+void	end_command(t_main *main, int idx);
 #endif // !PIPEX_H

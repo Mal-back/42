@@ -1,37 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_clean_exit.c                                    :+:      :+:    :+:   */
+/*   append_backslash.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: purmerinos <purmerinos@protonmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/12 16:53:47 by purmerinos        #+#    #+#             */
-/*   Updated: 2024/01/12 16:53:47 by purmerinos       ###   ########.fr       */
+/*   Created: 2024/01/15 12:29:07 by purmerinos        #+#    #+#             */
+/*   Updated: 2024/01/15 12:29:07 by purmerinos       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "pipex.h"
 
-void	ft_clean_exit(t_main *main, int code)
+void	append_backslash(t_main *main)
 {
-	int	i;
+	int		i;
+	char	*joined_str;
 
-	close(main->fd_infile);
-	close(main->fd_outfile);
-	if (main->possible_paths)
-		ft_free_tab(main->possible_paths);
-	if (main->cmds)
+	i = 0;
+	while (main->possible_paths[i])
 	{
-		i = 0;
-		while (main->cmds[i])
-		{
-			ft_free_tab(main->cmds[i]);
-			i++;
-		}
-		free(main->cmds);
+		joined_str = ft_strjoin(main->possible_paths[i], "/");
+		if (!joined_str)
+			ft_clean_exit(main, 1);
+		free (main->possible_paths[i]);
+		main->possible_paths[i] = joined_str;
+		i++;
 	}
-	if (main->pwd)
-		free(main->pwd);
-	exit (code);
+	joined_str = ft_strjoin(main->pwd, "/");
+	if (!joined_str)
+		ft_clean_exit(main, 1);
+	free (main->pwd);
+	main->pwd = joined_str;
+	return ;
 }
