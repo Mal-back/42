@@ -10,26 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "pipex.h"
-#include <unistd.h>
 
-static int	assemble_pwd(t_main	*main, int j)
+static void	assemble_pwd(t_main	*main, int j)
 {
 	char	*full_path;
 
+	if (!main->pwd)
+		return ;
 	full_path = ft_strjoin(main->pwd, *main->cmds[j]);
 	if (!full_path)
-		ft_clean_exit(main, 1);
+		ft_clean_exit(main, MALLOC);
 	if (access(full_path, X_OK) == 0)
 	{
 		free(*main->cmds[j]);
 		*main->cmds[j] = full_path;
-		return (1);
+		return ;
 	}
-	if (access(*main->cmds[j], X_OK) == 0)
-		return (1);
-	return (0);
+	free(full_path);
+	return ;
 }
 
 void	assemble_command(t_main *main, int j)
@@ -38,19 +37,18 @@ void	assemble_command(t_main *main, int j)
 	char	*full_path;
 
 	i = 0;
-	while (main->possible_paths[i])
+	while (main->possible_paths && main->possible_paths[i])
 	{
 		full_path = ft_strjoin(main->possible_paths[i], *main->cmds[j]);
 		if (!full_path)
-			ft_clean_exit(main, 1);
+			ft_clean_exit(main, MALLOC);
 		if (access(full_path, X_OK) == 0)
 		{
 			free(*main->cmds[j]);
 			*main->cmds[j] = full_path;
 			return ;
 		}
-		else
-			free (full_path);
+		free (full_path);
 		i++;
 	}
 	assemble_pwd(main, j);

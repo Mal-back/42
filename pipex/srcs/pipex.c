@@ -11,62 +11,32 @@
 /* ************************************************************************** */
 
 #include "pipex.h"
-#include <stdlib.h>
-#include <unistd.h>
-
-static void	last_cmds(t_main *main, int idx)
-{
-	pid_t	pid;
-	int		status;
-
-	close(main->pipe[WRITE_ENTRY]);
-	main->read_entry = main->pipe[READ_ENTRY];
-	pid = fork();
-	if (pid == -1)
-		ft_clean_exit(main, 1);
-	if (!pid)
-		end_command(main, idx);
-	close(main->read_entry);
-	waitpid(pid, &status, 0);
-	ft_printf("%d\n", status);
-	ft_clean_exit(main, status);
-}
-
-static void	kinder_garten(t_main *main)
-{
-	int		i;
-	pid_t	pid;
-
-	i = 0;
-	while (main->cmds[i] && main->cmds[i + 1])
-	{
-		close(main->pipe[WRITE_ENTRY]);
-		main->read_entry = main->pipe[READ_ENTRY];
-		if (pipe(main->pipe) == -1)
-			ft_clean_exit(main, 1);
-		pid = fork();
-		if (pid == -1)
-			ft_clean_exit(main, 1);
-		if (!pid)
-			middle_command(main, i);
-		close(main->read_entry);
-		i++;
-	}
-	last_cmds(main, i);
-}
 
 void	init_pipex(t_main *main)
 {
+	int		i;
 	pid_t	pid;
 	int		status;
 
-	status = 0;
-	if (pipe(main->pipe) == -1)
-		ft_clean_exit(main, 1);
-	pid = fork();
-	if (pid == -1)
-		ft_clean_exit(main, 1);
-	if (!pid)
-		first_command(main);
-	kinder_garten(main);
+	i = 0;
+	while (main->cmds[i])
+	{
+		if (i)
+			close(main->pipe[WRITE_ENTRY]);
+		main->read_entry = main->pipe[READ_ENTRY];
+		if (pipe(main->pipe) == -1)
+			ft_clean_exit(main, PIPE_ERROR);
+		pid = fork();
+		if (pid == -1)
+			ft_clean_exit(main, FORK_ERROR);
+		if (!pid)
+			handle_command(main, i);
+		if (i)
+			close(main->read_entry);
+		i++;
+	}
+	waitpid(pid, &status, 0);
+	while (wait(NULL) != -1)
+		wait(NULL);
+	ft_clean_exit(main, WEXITSTATUS(status));
 }

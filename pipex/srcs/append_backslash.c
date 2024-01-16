@@ -22,14 +22,14 @@ void	append_backslash(t_main *main)
 	{
 		joined_str = ft_strjoin(main->possible_paths[i], "/");
 		if (!joined_str)
-			ft_clean_exit(main, 1);
+			ft_clean_exit(main, MALLOC);
 		free (main->possible_paths[i]);
 		main->possible_paths[i] = joined_str;
 		i++;
 	}
 	joined_str = ft_strjoin(main->pwd, "/");
 	if (!joined_str)
-		ft_clean_exit(main, 1);
+		ft_clean_exit(main, MALLOC);
 	free (main->pwd);
 	main->pwd = joined_str;
 	return ;

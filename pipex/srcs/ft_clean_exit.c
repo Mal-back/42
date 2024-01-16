@@ -12,8 +12,9 @@
 
 #include "libft.h"
 #include "pipex.h"
+#include <stdio.h>
 
-void	ft_clean_exit(t_main *main, int code)
+static void	free_all(t_main *main)
 {
 	int	i;
 
@@ -33,5 +34,55 @@ void	ft_clean_exit(t_main *main, int code)
 	}
 	if (main->pwd)
 		free(main->pwd);
+}
+
+static void	ft_error_next(t_main *main, int code)
+{
+	if (code == DUP_ERROR)
+		perror("Dup error : ");
+	else if (code == BAD_OUTFILE_PERM)
+	{
+		ft_putstr_fd("pipex: permission denied: ", 2);
+		ft_putendl_fd(main->outfile, 2);
+	}
+	else if (code == OUTFILE_IS_DIR)
+	{
+		ft_putstr_fd("pipex: is a directory: ", 2);
+		ft_putendl_fd(main->outfile, 2);
+		code = 1;
+	}
+}
+
+void	ft_clean_exit(t_main *main, int code)
+{
+	if (code == MALLOC)
+		perror("Malloc error ");
+	else if (code == PIPE_ERROR)
+		perror("Pipe error ");
+	else if (code == FORK_ERROR)
+		perror("Fork error ");
+	else
+		ft_error_next(main, code);
+	free_all(main);
 	exit (code);
+}
+
+void	infile_error(t_main *main, int code)
+{
+	if (code == BAD_INFILE_PERM)
+	{
+		ft_putstr_fd(main->cmds[0][0], 2);
+		ft_putstr_fd(": ", 2);
+		ft_putstr_fd(main->infile, 2);
+		ft_putendl_fd(": Permission denied.", 2);
+		main->fd_infile = open("/dev/null", O_RDONLY);
+	}
+	else if (code == INFILE_IS_DIR)
+	{
+		ft_putstr_fd(main->cmds[0][0], 2);
+		ft_putstr_fd(": ", 2);
+		ft_putstr_fd(main->infile, 2);
+		ft_putendl_fd(": Is a directory.", 2);
+		main->fd_infile = open("/dev/null", O_RDONLY);
+	}
 }

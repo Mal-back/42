@@ -25,12 +25,27 @@
 # define READ_ENTRY 0
 # define WRITE_ENTRY 1
 
+// Error Code
+
+# define BAD_INFILE_PERM 0
+# define INFILE_IS_DIR 6
+# define BAD_OUTFILE_PERM 1
+# define OUTFILE_IS_DIR 7
+# define FORK_ERROR 2
+# define PIPE_ERROR 3
+# define DUP_ERROR 4
+# define MALLOC 5
+# define EXECVE_ERROR 127
+
 typedef struct s_main
 {
 	int		fd_infile;
+	char	*infile;
 	int		fd_outfile;
+	char	*outfile;
 	int		pipe[2];
 	int		read_entry;
+	int		command_number;
 	char	**possible_paths;
 	char	***cmds;
 	char	*pwd;
@@ -38,13 +53,10 @@ typedef struct s_main
 }								t_main;
 
 void	ft_clean_exit(t_main *main, int code);
+void	infile_error(t_main *main, int code);
 void	assemble_command(t_main *main, int j);
 void	append_backslash(t_main *main);
 void	init_pipex(t_main *main);
 
-// Handling commands
-
-void	first_command(t_main *main);
-void	middle_command(t_main *main, int idx);
-void	end_command(t_main *main, int idx);
+void	handle_command(t_main *main, int idx);
 #endif // !PIPEX_H
