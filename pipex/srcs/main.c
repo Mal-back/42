@@ -20,83 +20,18 @@ static	void	init_struct(t_main *main)
 	main->possible_paths = NULL;
 	main->pwd = NULL;
 	main->read_entry = -1;
-}
-
-static	void	check_files_and_dup(int ac, char **av, t_main *main)
-{
-	main->infile = av[1];
-	main->outfile = av[ac - 1];
-	main->fd_infile = open(av[1], O_RDONLY);
-	if (main->fd_infile == -1)
-		infile_error(main, BAD_INFILE_PERM);
-	main->fd_outfile = open(av[ac - 1],
-			O_RDWR | O_CREAT | O_TRUNC, 00244 | 00400);
-	if (main->fd_outfile == -1)
-	{
-		if (errno == EISDIR)
-			ft_clean_exit(main, OUTFILE_IS_DIR);
-		ft_clean_exit(main, BAD_OUTFILE_PERM);
-	}
-	if (dup2(main->fd_infile, STDIN_FILENO) == -1)
-		infile_error(main, BAD_INFILE_PERM);
-	if (dup2(main->fd_outfile, STDOUT_FILENO) == -1)
-		ft_clean_exit(main, BAD_OUTFILE_PERM);
-	close(main->fd_infile);
-	close(main->fd_outfile);
-}
-
-static void	check_cmds(t_main *main, int ac, char **av)
-{
-	int	i;
-
-	i = 0;
-	main->cmds = malloc((ac - 2) * sizeof (char **));
-	if (!main->cmds)
-		ft_clean_exit(main, MALLOC);
-	main->cmds[ac - 3] = NULL;
-	main->command_number = ac - 3;
-	while (i < ac - 3)
-	{
-		main->cmds[i] = ft_split(av[i + 2], ' ');
-		if (!main->cmds[i])
-			ft_clean_exit(main, MALLOC);
-		i++;
-	}
-}
-
-static void	check_env(char **envp, t_main *main)
-{
-	int		i;
-
-	i = 0;
-	if (!envp || !*envp)
-		return ;
-	while (envp[i] && ft_strncmp(envp[i], "PWD=", 4))
-		i++;
-	if (!envp[i])
-		return ;
-	main->pwd = ft_strdup(envp[i] + 4);
-	if (!main->pwd)
-		ft_clean_exit(main, MALLOC);
-	i = 0;
-	while (envp[i] && ft_strncmp(envp[i], "PATH=", 5))
-		i++;
-	if (!envp[i])
-		return ;
-	main->possible_paths = ft_split(envp[i] + 5, ':');
-	if (!main->possible_paths)
-		ft_clean_exit(main, MALLOC);
-	append_backslash(main);
+	main->here_doc = FALSE;
 }
 
 int	main(int ac, char **av, char **envp)
 {
 	t_main	main;
 
-	if (ac < 5)
-		exit(EXIT_FAILURE);
 	main.envp = envp;
 	init_struct(&main);
+	if (ac < 5 || (main.here_doc == TRUE && ac < 6))
+		ft_clean_exit(&main, NOT_ENOUGH_ARGUMENT);
+	check_here_doc(&main, ac, av);
 	check_env(envp, &main);
 	check_cmds(&main, ac, av);
 	check_files_and_dup(ac, av, &main);

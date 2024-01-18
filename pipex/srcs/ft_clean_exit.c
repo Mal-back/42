@@ -12,7 +12,6 @@
 
 #include "libft.h"
 #include "pipex.h"
-#include <stdio.h>
 
 static void	free_all(t_main *main)
 {
@@ -34,6 +33,8 @@ static void	free_all(t_main *main)
 	}
 	if (main->pwd)
 		free(main->pwd);
+	if (main->here_doc == TRUE)
+		unlink(".here_doc");
 }
 
 static void	ft_error_next(t_main *main, int code)
@@ -61,6 +62,13 @@ void	ft_clean_exit(t_main *main, int code)
 		perror("Pipe error ");
 	else if (code == FORK_ERROR)
 		perror("Fork error ");
+	else if (code == NOT_ENOUGH_ARGUMENT)
+	{
+		ft_putendl_fd("Usage without here_doc : \"./pipex infile cmd1 cmd2 \
+... cmdn outfile\"", 2);
+		ft_putendl_fd("Usage with heredoc : \"./pipex here_doc LIMITER \
+cmd1 cmd 2 ... cmdn outfile\"", 2);
+	}
 	else
 		ft_error_next(main, code);
 	free_all(main);

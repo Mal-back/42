@@ -11,7 +11,8 @@ RESET=\033[0m
 LB_DIR = lib
 
 FILES = main.c ft_clean_exit.c assemble_command.c\
-				append_backslash.c pipex.c cmds_gestion.c
+				append_backslash.c pipex.c cmds_gestion.c\
+				here_doc.c arg_check.c
 
 SRC=$(addprefix srcs/,$(FILES))
 
