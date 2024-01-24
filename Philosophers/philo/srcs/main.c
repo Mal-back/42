@@ -57,6 +57,9 @@ void	init_local_info(t_philo *monitoring)
 		monitoring->philo[i].number_of_meals = 0;
 		monitoring->philo[i].philo_info = monitoring->philo_info;
 		monitoring->philo[i].writing = &monitoring->writing;
+		monitoring->philo[i].sim_state = &monitoring->sim_state;
+		monitoring->philo[i].deadline_mut = &monitoring->deadline_mut;
+		monitoring->philo[i].meals_mut = &monitoring->meals_mut;
 		monitoring->philo[i].my_fork = &monitoring->forks[i];
 		if (i != monitoring->philo_info[NUMBER] - 1)
 			monitoring->philo[i].other_fork = &monitoring->forks[i + 1];
@@ -74,10 +77,12 @@ void	init_mutex(t_philo *monitoring)
 	i = 0;
 	if (save_mutex_init(&monitoring->writing))
 		ft_clean_exit(monitoring, MUTEX);
-	if (save_mutex_init(&monitoring->deadline_update))
-		mutex_fault(monitoring, -2, MUTEX);
-	if (save_mutex_init(&monitoring->meal_update))
-		mutex_fault(monitoring, -1, MUTEX);
+	if (save_mutex_init(&monitoring->sim_state))
+		mutex_fault(monitoring, i, MUTEX);
+	if (save_mutex_init(&monitoring->meals_mut))
+		mutex_fault(monitoring, i, MUTEX);
+	if (save_mutex_init(&monitoring->deadline_mut))
+		mutex_fault(monitoring, i, MUTEX);
 	while (i < monitoring->philo_info[NUMBER])
 	{
 		if (save_mutex_init(&monitoring->forks[i]))

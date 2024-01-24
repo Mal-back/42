@@ -54,6 +54,9 @@ typedef struct s_local_info
 	pthread_mutex_t		*my_fork;
 	pthread_mutex_t		*other_fork;
 	pthread_mutex_t		*writing;
+	pthread_mutex_t		*deadline_mut;
+	pthread_mutex_t		*meals_mut;
+	pthread_mutex_t		*sim_state;
 }							t_local_info;
 
 // Main monitoring struct
@@ -64,8 +67,9 @@ typedef struct s_philo
 	pthread_t			*threads;
 	pthread_mutex_t		*forks;
 	pthread_mutex_t		writing;
-	pthread_mutex_t		meal_update;
-	pthread_mutex_t		deadline_update;
+	pthread_mutex_t		sim_state;
+	pthread_mutex_t		deadline_mut;
+	pthread_mutex_t		meals_mut;
 	size_t				start;
 	int					philo_info[5];
 	int					sim_is_running;
@@ -96,5 +100,7 @@ size_t	get_relative_time(size_t start); // utils.c
 void	ft_usleep(size_t time, t_local_info *monitoring); // utils.c
 void	safe_write(t_local_info *philo, char *str); // utils.c
 int		save_mutex_init(pthread_mutex_t *mutex); // utils.c
+int		sim_is_running(t_local_info *philo); // utils2.c
+void	lock_fork(t_local_info *philo); // utils2.c
 
 #endif

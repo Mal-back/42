@@ -18,22 +18,13 @@ void	mutex_fault(t_philo *monitoring, int idx, int error)
 	int	i;
 
 	i = 0;
-	if (pthread_mutex_destroy(&monitoring->writing))
-		perror("Mutex destroy error");
-	if (idx >= -2)
-	{
-		if (pthread_mutex_destroy(&monitoring->deadline_update))
-			perror("Mutex destroy error");
-	}
-	if (idx >= -1)
-	{
-		if (pthread_mutex_destroy(&monitoring->meal_update))
-			perror("Mutex destroy error");
-	}
+	pthread_mutex_destroy(&monitoring->writing);
+	pthread_mutex_destroy(&monitoring->deadline_mut);
+	pthread_mutex_destroy(&monitoring->sim_state);
+	pthread_mutex_destroy(&monitoring->meals_mut);
 	while (i < idx)
 	{
-		if (pthread_mutex_destroy(&monitoring->forks[i]))
-			perror("Mutex destroy error");
+		pthread_mutex_destroy(&monitoring->forks[i]);
 		i++;
 	}
 	ft_clean_exit(monitoring, error);
@@ -44,7 +35,9 @@ void	clean_threads(t_philo *monitoring, int idx, int error)
 	int	i;
 
 	i = 0;
-	monitoring->sim_is_running = -1;
+	pthread_mutex_lock(&monitoring->sim_state);
+	monitoring->sim_is_running = 0;
+	pthread_mutex_unlock(&monitoring->sim_state);
 	while (i < idx)
 	{
 		if (pthread_join(monitoring->threads[i], NULL))
