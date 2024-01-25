@@ -31,7 +31,7 @@ static void	lock_forks_n_eat(t_local_info *philo)
 	pthread_mutex_lock(philo->deadline_mut);
 	philo->deadline = time + philo->philo_info[TIME_TO_DIE];
 	pthread_mutex_unlock(philo->deadline_mut);
-	if (sim_is_running(philo))
+	if (sim_is_running(philo) == 1)
 		safe_write(philo, "is eating");
 	pthread_mutex_lock(philo->meals_mut);
 	philo->number_of_meals += 1;
@@ -45,11 +45,11 @@ static void	lock_forks_n_eat(t_local_info *philo)
 static void	sleep_n_think(t_local_info *philo)
 {
 	if (philo->deadline <= get_relative_time(*(philo->start))
-		+ philo->philo_info[TIME_TO_SLEEP] || !sim_is_running(philo))
+		+ philo->philo_info[TIME_TO_SLEEP] || sim_is_running(philo) != 1)
 		return ;
 	safe_write(philo, "is sleeping");
 	ft_usleep(philo->philo_info[TIME_TO_SLEEP], philo);
-	if (!sim_is_running(philo))
+	if (sim_is_running(philo) != 1)
 		return ;
 	safe_write(philo, "is thinking");
 	ft_usleep((philo->deadline
@@ -59,10 +59,10 @@ static void	sleep_n_think(t_local_info *philo)
 
 static void	living_loop(t_local_info *philo)
 {
-	while (sim_is_running(philo))
+	while (sim_is_running(philo) == 1)
 	{
 		lock_forks_n_eat(philo);
-		if (sim_is_running(philo))
+		if (sim_is_running(philo) == 1)
 			sleep_n_think(philo);
 	}
 	return ;
@@ -76,7 +76,7 @@ void	*philo_routine(void *arg)
 	philo = (t_local_info *)arg;
 	while (!sim_is_running(philo))
 		usleep(1000);
-	if (!sim_is_running(philo))
+	if (sim_is_running(philo) != 1)
 		return (NULL);
 	time = get_relative_time(*(philo->start));
 	pthread_mutex_lock(philo->deadline_mut);

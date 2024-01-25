@@ -18,8 +18,7 @@ int	sim_is_running(t_local_info *philo)
 
 	res = 0;
 	pthread_mutex_lock(philo->sim_state);
-	if (*philo->sim_is_running == 1)
-		res = 1;
+	res = *philo->sim_is_running;
 	pthread_mutex_unlock(philo->sim_state);
 	return (res);
 }

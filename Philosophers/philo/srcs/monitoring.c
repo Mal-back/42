@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "philo.h"
-#include <pthread.h>
 
 static int	get_sim_state(t_philo *monitoring)
 {
@@ -19,8 +18,7 @@ static int	get_sim_state(t_philo *monitoring)
 
 	res = 0;
 	pthread_mutex_lock(&monitoring->sim_state);
-	if (monitoring->sim_is_running == 1)
-		res = 1;
+	res = monitoring->sim_is_running;
 	pthread_mutex_unlock(&monitoring->sim_state);
 	return (res);
 }
@@ -80,31 +78,37 @@ static void	monitore_meals(t_philo *monitoring)
 	return ;
 }
 
+static void	update_sim(t_philo *monitoring)
+{
+	pthread_mutex_lock(&monitoring->sim_state);
+	if (monitoring->sim_is_running == 0)
+		monitoring->sim_is_running = 1;
+	pthread_mutex_unlock(&monitoring->sim_state);
+}
+
 void	*monitoring_routine(void *arg)
 {
 	t_philo	*monitoring;
 
 	monitoring = (t_philo *)arg;
-	usleep(monitoring->philo_info[NUMBER] * 10000);
+	usleep(monitoring->philo_info[NUMBER] * 1000);
 	pthread_mutex_lock(&monitoring->writing);
 	printf("Starting simulation\n");
 	pthread_mutex_unlock(&monitoring->writing);
+	update_sim(monitoring);
 	monitoring->start = get_time();
-	pthread_mutex_lock(&monitoring->sim_state);
-	monitoring->sim_is_running = 1;
-	pthread_mutex_unlock(&monitoring->sim_state);
 	while (1)
 	{
 		monitore_death(monitoring);
-		if (get_sim_state(monitoring) == 0)
+		if (get_sim_state(monitoring) != 1)
 			break ;
 		if (monitoring->philo_info[SIM_LIMIT] != -1)
 		{
 			monitore_meals(monitoring);
-			if (get_sim_state(monitoring) == 0)
+			if (get_sim_state(monitoring) != 1)
 				break ;
 		}
-		usleep(3000);
+		usleep(8000);
 	}
 	return (NULL);
 }

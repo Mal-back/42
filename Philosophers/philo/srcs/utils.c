@@ -34,7 +34,7 @@ void	ft_usleep(size_t time, t_local_info *philo)
 	size_t	start;
 
 	start = get_time();
-	while (get_time() - start < time && sim_is_running(philo))
+	while (get_time() - start < time && sim_is_running(philo) == 1)
 		usleep(500);
 	return ;
 }
@@ -42,7 +42,7 @@ void	ft_usleep(size_t time, t_local_info *philo)
 void	safe_write(t_local_info *philo, char *str)
 {
 	pthread_mutex_lock(philo->writing);
-	if (sim_is_running(philo))
+	if (sim_is_running(philo) == 1)
 		printf("[%ldms] %d %s\n", get_relative_time(*(philo->start)),
 			philo->who_am_i + 1, str);
 	pthread_mutex_unlock(philo->writing);

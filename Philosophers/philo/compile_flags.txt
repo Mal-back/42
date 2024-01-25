@@ -1,5 +1,0 @@
--Iincludes
--Wall
--Wextra
--Werror
--pthread

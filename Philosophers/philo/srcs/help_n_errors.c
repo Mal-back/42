@@ -36,7 +36,7 @@ void	clean_threads(t_philo *monitoring, int idx, int error)
 
 	i = 0;
 	pthread_mutex_lock(&monitoring->sim_state);
-	monitoring->sim_is_running = 0;
+	monitoring->sim_is_running = -1;
 	pthread_mutex_unlock(&monitoring->sim_state);
 	while (i < idx)
 	{
