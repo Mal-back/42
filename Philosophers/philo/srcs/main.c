@@ -20,12 +20,12 @@ void	init_struct(t_philo *monitoring)
 	while (i < 5)
 	{
 		monitoring->philo_info[i] = -1;
-		monitoring->sim_is_running = 0;
-		monitoring->philo = NULL;
-		monitoring->threads = NULL;
-		monitoring->forks = NULL;
 		i++;
 	}
+	monitoring->sim_is_running = 0;
+	monitoring->philo = NULL;
+	monitoring->threads = NULL;
+	monitoring->forks = NULL;
 }
 
 void	init_philo(t_philo *monitoring)
@@ -78,11 +78,11 @@ void	init_mutex(t_philo *monitoring)
 	if (save_mutex_init(&monitoring->writing))
 		ft_clean_exit(monitoring, MUTEX);
 	if (save_mutex_init(&monitoring->sim_state))
-		mutex_fault(monitoring, i, MUTEX);
+		destroy_mutex(monitoring, 1, MUTEX);
 	if (save_mutex_init(&monitoring->meals_mut))
-		mutex_fault(monitoring, i, MUTEX);
+		destroy_mutex(monitoring, 2, MUTEX);
 	if (save_mutex_init(&monitoring->deadline_mut))
-		mutex_fault(monitoring, i, MUTEX);
+		destroy_mutex(monitoring, 3, MUTEX);
 	while (i < monitoring->philo_info[NUMBER])
 	{
 		if (save_mutex_init(&monitoring->forks[i]))

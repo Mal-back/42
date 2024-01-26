@@ -11,23 +11,18 @@
 /* ************************************************************************** */
 
 #include "philo.h"
-#include <pthread.h>
 
 void	mutex_fault(t_philo *monitoring, int idx, int error)
 {
 	int	i;
 
 	i = 0;
-	pthread_mutex_destroy(&monitoring->writing);
-	pthread_mutex_destroy(&monitoring->deadline_mut);
-	pthread_mutex_destroy(&monitoring->sim_state);
-	pthread_mutex_destroy(&monitoring->meals_mut);
 	while (i < idx)
 	{
 		pthread_mutex_destroy(&monitoring->forks[i]);
 		i++;
 	}
-	ft_clean_exit(monitoring, error);
+	destroy_mutex(monitoring, 4, error);
 }
 
 void	clean_threads(t_philo *monitoring, int idx, int error)

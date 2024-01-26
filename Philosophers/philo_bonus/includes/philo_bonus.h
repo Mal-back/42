@@ -10,13 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
+#ifndef PHILO_BONUS_H
 
-# define PHILO_H
+# define PHILO_BONUS_H
 
 # include <pthread.h>
 # include <bits/pthreadtypes.h>
 # include <sys/time.h>
+# include <sys/wait.h>
+# include <sys/stat.h>
+# include <fcntl.h>
+# include <semaphore.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -32,76 +36,56 @@
 
 typedef struct timeval	t_timeval;
 
+// boolean
+
+typedef enum e_bool
+{
+	FALSE = 0,
+	TRUE = 1
+}						t_bool;
+
 // error_codes
 
 typedef enum e_error
 {
 	MALLOC = 1,
-	MUTEX = 2,
-	THREAD = 3,
+	SEMAPHORE = 2,
+	PID = 3,
 }						t_error;
 
 // philo struct
 
-typedef struct s_local_info
-{
-	int					*sim_is_running;
-	int					*philo_info;
-	int					number_of_meals;
-	int					who_am_i;
-	size_t				*start;
-	size_t				deadline;	
-	pthread_mutex_t		*my_fork;
-	pthread_mutex_t		*other_fork;
-	pthread_mutex_t		*writing;
-	pthread_mutex_t		*deadline_mut;
-	pthread_mutex_t		*meals_mut;
-	pthread_mutex_t		*sim_state;
-}							t_local_info;
-
-// Main monitoring struct
-
 typedef struct s_philo
 {
-	t_local_info		*philo;
-	pthread_t			*threads;
-	pthread_mutex_t		*forks;
-	pthread_mutex_t		writing;
-	pthread_mutex_t		sim_state;
-	pthread_mutex_t		deadline_mut;
-	pthread_mutex_t		meals_mut;
-	size_t				start;
-	int					philo_info[5];
-	int					sim_is_running;
+	int		philo_info[5];
+	pid_t	*pid;
+	size_t	t_zero;
+	size_t	deadline;
+	int		who_am_i;
+	int		meals;
+	sem_t	*forks;
+	sem_t	*start;
 }								t_philo;
 
-// help and exit fonctions in help_n_errors.c
+// help_n_error
 
 void	display_help(t_philo *philo, int code);
-void	mutex_fault(t_philo *monitoring, int idx, int code);
-void	clean_threads(t_philo *monitoring, int idx, int error);
 void	ft_clean_exit(t_philo *philo, int code);
+void	exit_routine(t_philo *philo, int idx);
+void	kill_childrens(t_philo *philo, int idx);
 void	solo(t_philo *monitoring);
-void	destroy_mutex(t_philo *monitoring, int idx, int error); // help_n_errors2.c
 
 // parsing
 
 void	parse_av(char **av, t_philo *philo); // parse_av.c
-
-// Routines
-
-void	launch_simulation(t_philo *monitoring); // philo.c
-void	*philo_routine(void *philo); // philo.c
-void	*monitoring_routine(void *arg); // monitoring.c
+void	launch_sim(t_philo *philo);
 
 // utils
 
+void	ft_usleep(size_t time, t_philo *philo); // utils.c
 size_t	get_time(void); // utils.c
 size_t	get_relative_time(size_t start); // utils.c
-void	ft_usleep(size_t time, t_local_info *monitoring); // utils.c
-void	safe_write(t_local_info *philo, char *str); // utils.c
-int		save_mutex_init(pthread_mutex_t *mutex); // utils.c
-int		sim_is_running(t_local_info *philo); // utils2.c
-void	lock_fork(t_local_info *philo); // utils2.c
+int		is_alive(t_philo *philo); // utils.c
+void	write_template(t_philo *philo, char *str); // utils.c
 
 #endif
