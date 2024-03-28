@@ -12,20 +12,28 @@
 
 #include "philo.h"
 
-void	mutex_fault(t_philo *monitoring, int idx, int error)
+void	mutex_fault(t_philo *monitoring)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
-	while (i < idx)
+	if (monitoring->writing_is_set == TRUE)
+		pthread_mutex_destroy(&monitoring->writing);
+	if (monitoring->deadline_is_set == TRUE)
+		pthread_mutex_destroy(&monitoring->deadline_mut);
+	if (monitoring->sim_state_is_set == TRUE)
+		pthread_mutex_destroy(&monitoring->sim_state);
+	if (monitoring->meals_is_set == TRUE)
+		pthread_mutex_destroy(&monitoring->meals_mut);
+	while (i < monitoring->number_of_forks_set)
 	{
 		pthread_mutex_destroy(&monitoring->forks[i]);
-		i++;
+		++i;
 	}
-	destroy_mutex(monitoring, 4, error);
+	ft_clean_exit(monitoring);
 }
 
-void	clean_threads(t_philo *monitoring, int idx, int error)
+void	clean_threads(t_philo *monitoring, int idx)
 {
 	int	i;
 
@@ -39,10 +47,10 @@ void	clean_threads(t_philo *monitoring, int idx, int error)
 			perror("Thread join error");
 		i++;
 	}
-	mutex_fault(monitoring, monitoring->philo_info[NUMBER], error);
+	mutex_fault(monitoring);
 }
 
-void	ft_clean_exit(t_philo *monitoring, int code)
+void	ft_clean_exit(t_philo *monitoring)
 {
 	if (monitoring->philo)
 		free(monitoring->philo);
@@ -50,14 +58,14 @@ void	ft_clean_exit(t_philo *monitoring, int code)
 		free(monitoring->threads);
 	if (monitoring->forks)
 		free(monitoring->forks);
-	exit(code);
+	return ;
 }
 
-void	display_help(t_philo *monitoring, int code)
+void	display_help(void)
 {
 	printf("Usage : ./philo [Numbers_of_philo] [time_to_die] [time_to_eat] \
-[time_to_sleep]\n All values should be positive integers.\n");
-	ft_clean_exit(monitoring, code);
+[time_to_sleep]\n All values should be integers greater than one.\n");
+	return ;
 }
 
 void	solo(t_philo *monitoring)
@@ -65,4 +73,5 @@ void	solo(t_philo *monitoring)
 	printf("[0ms] 1 has taken a fork\n");
 	usleep(monitoring->philo_info[TIME_TO_DIE] * 1000);
 	printf("[%dms] 1 died\n", monitoring->philo_info[TIME_TO_DIE] + 1);
+	ft_clean_exit(monitoring);
 }

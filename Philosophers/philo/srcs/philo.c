@@ -88,7 +88,7 @@ void	*philo_routine(void *arg)
 	return (NULL);
 }
 
-void	launch_simulation(t_philo *monitoring)
+int	launch_simulation(t_philo *monitoring)
 {
 	int	i;
 
@@ -99,7 +99,7 @@ void	launch_simulation(t_philo *monitoring)
 				&philo_routine, &monitoring->philo[i]))
 		{
 			perror("Thread creation error");
-			clean_threads(monitoring, i, THREAD);
+			return (clean_threads(monitoring, i), -1);
 		}
 		i++;
 	}
@@ -107,12 +107,12 @@ void	launch_simulation(t_philo *monitoring)
 			NULL, &monitoring_routine, monitoring))
 	{
 		perror("Thread creation error");
-		clean_threads(monitoring, i, THREAD);
+		return (clean_threads(monitoring, i), -1);
 	}
 	if (pthread_join(monitoring->threads[i], NULL))
 	{
 		perror("Thread join error");
-		clean_threads(monitoring, i, THREAD);
+		return (clean_threads(monitoring, i), -1);
 	}
-	clean_threads(monitoring, i, EXIT_SUCCESS);
+	return (clean_threads(monitoring, i), 0);
 }

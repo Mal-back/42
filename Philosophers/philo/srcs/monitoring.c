@@ -108,7 +108,7 @@ void	*monitoring_routine(void *arg)
 			if (get_sim_state(monitoring) != 1)
 				break ;
 		}
-		usleep(8000);
+		usleep(5000);
 	}
 	return (NULL);
 }

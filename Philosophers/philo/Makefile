@@ -10,7 +10,7 @@ RESET=\033[0m
 
 
 FILES = main.c help_n_errors.c parse_av.c utils.c\
-				philo.c monitoring.c utils2.c help_n_errors2.c
+				philo.c monitoring.c utils2.c
 
 SRC=$(addprefix srcs/,$(FILES))
 

@@ -41,3 +41,17 @@ void	lock_fork(t_local_info *philo)
 		safe_write(philo, "has taken a fork");
 	return ;
 }
+
+int	save_fork_init(pthread_mutex_t *mutex, size_t *fork_counter)
+{
+	if (pthread_mutex_init(mutex, NULL))
+	{
+		perror("mutex_init");
+		return (1);
+	}
+	else
+	{
+		*fork_counter += 1;
+	}
+	return (0);
+}

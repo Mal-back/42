@@ -41,6 +41,13 @@ typedef enum e_error
 	THREAD = 3,
 }						t_error;
 
+// boolean
+
+typedef enum e_bool
+{
+	FALSE = 0,
+	TRUE
+}						t_bool;
 // philo struct
 
 typedef struct s_local_info
@@ -66,10 +73,15 @@ typedef struct s_philo
 	t_local_info		*philo;
 	pthread_t			*threads;
 	pthread_mutex_t		*forks;
+	size_t				number_of_forks_set;
 	pthread_mutex_t		writing;
+	t_bool				writing_is_set;
 	pthread_mutex_t		sim_state;
+	t_bool				sim_state_is_set;
 	pthread_mutex_t		deadline_mut;
+	t_bool				deadline_is_set;
 	pthread_mutex_t		meals_mut;
+	t_bool				meals_is_set;
 	size_t				start;
 	int					philo_info[5];
 	int					sim_is_running;
@@ -77,20 +89,19 @@ typedef struct s_philo
 
 // help and exit fonctions in help_n_errors.c
 
-void	display_help(t_philo *philo, int code);
-void	mutex_fault(t_philo *monitoring, int idx, int code);
-void	clean_threads(t_philo *monitoring, int idx, int error);
-void	ft_clean_exit(t_philo *philo, int code);
+void	display_help(void);
+void	mutex_fault(t_philo *monitoring);
+void	ft_clean_exit(t_philo *monitoring);
 void	solo(t_philo *monitoring);
-void	destroy_mutex(t_philo *monitoring, int idx, int error); // help_n_errors2.c
+void	clean_threads(t_philo *monitoring, int idx);
 
 // parsing
 
-void	parse_av(char **av, t_philo *philo); // parse_av.c
+int		parse_av(char **av, t_philo *philo);
 
 // Routines
 
-void	launch_simulation(t_philo *monitoring); // philo.c
+int		launch_simulation(t_philo *monitoring);
 void	*philo_routine(void *philo); // philo.c
 void	*monitoring_routine(void *arg); // monitoring.c
 
@@ -100,8 +111,9 @@ size_t	get_time(void); // utils.c
 size_t	get_relative_time(size_t start); // utils.c
 void	ft_usleep(size_t time, t_local_info *monitoring); // utils.c
 void	safe_write(t_local_info *philo, char *str); // utils.c
-int		save_mutex_init(pthread_mutex_t *mutex); // utils.c
+int		save_mutex_init(pthread_mutex_t *mutex, t_bool *boolean_to_set);
 int		sim_is_running(t_local_info *philo); // utils2.c
 void	lock_fork(t_local_info *philo); // utils2.c
+int		save_fork_init(pthread_mutex_t *mutex, size_t *fork_counter);
 
 #endif

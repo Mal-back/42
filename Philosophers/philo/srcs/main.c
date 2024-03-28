@@ -26,22 +26,28 @@ void	init_struct(t_philo *monitoring)
 	monitoring->philo = NULL;
 	monitoring->threads = NULL;
 	monitoring->forks = NULL;
+	monitoring->number_of_forks_set = 0;
+	monitoring->deadline_is_set = FALSE;
+	monitoring->writing_is_set = FALSE;
+	monitoring->meals_is_set = FALSE;
+	monitoring->sim_state_is_set = FALSE;
 }
 
-void	init_philo(t_philo *monitoring)
+int	init_philo(t_philo *monitoring)
 {
 	monitoring->threads = malloc((monitoring->philo_info[NUMBER] + 1)
 			* sizeof(pthread_t));
-	if (monitoring->threads == NULL)
-		ft_clean_exit(monitoring, MALLOC);
 	monitoring->forks = malloc((monitoring->philo_info[NUMBER])
 			* sizeof(pthread_mutex_t));
-	if (monitoring->forks == NULL)
-		ft_clean_exit(monitoring, MALLOC);
 	monitoring->philo = malloc(((monitoring->philo_info[NUMBER] + 1))
 			* sizeof(t_local_info));
-	if (monitoring->philo == NULL)
-		ft_clean_exit(monitoring, MALLOC);
+	if (monitoring->threads == NULL || monitoring->forks == NULL
+		|| monitoring->philo == NULL)
+	{
+		ft_clean_exit(monitoring);
+		return (-1);
+	}
+	return (0);
 }
 
 void	init_local_info(t_philo *monitoring)
@@ -70,25 +76,28 @@ void	init_local_info(t_philo *monitoring)
 	}
 }
 
-void	init_mutex(t_philo *monitoring)
+int	init_mutex(t_philo *monitoring)
 {
 	int	i;
 
 	i = 0;
-	if (save_mutex_init(&monitoring->writing))
-		ft_clean_exit(monitoring, MUTEX);
-	if (save_mutex_init(&monitoring->sim_state))
-		destroy_mutex(monitoring, 1, MUTEX);
-	if (save_mutex_init(&monitoring->meals_mut))
-		destroy_mutex(monitoring, 2, MUTEX);
-	if (save_mutex_init(&monitoring->deadline_mut))
-		destroy_mutex(monitoring, 3, MUTEX);
+	if (save_mutex_init(&monitoring->writing, &monitoring->writing_is_set))
+		return (ft_clean_exit(monitoring), -1);
+	if (save_mutex_init(&monitoring->sim_state, &monitoring->sim_state_is_set))
+		return (mutex_fault(monitoring), -1);
+	if (save_mutex_init(&monitoring->meals_mut, &monitoring->meals_is_set))
+		return (mutex_fault(monitoring), -1);
+	if (save_mutex_init(&monitoring->deadline_mut,
+			&monitoring->deadline_is_set))
+		return (mutex_fault(monitoring), -1);
 	while (i < monitoring->philo_info[NUMBER])
 	{
-		if (save_mutex_init(&monitoring->forks[i]))
-			mutex_fault(monitoring, i, MUTEX);
-		i++;
+		if (save_fork_init(&monitoring->forks[i],
+				&monitoring->number_of_forks_set))
+			return (mutex_fault(monitoring), -1);
+		++i;
 	}
+	return (0);
 }
 
 int	main(int ac, char **av)
@@ -96,15 +105,16 @@ int	main(int ac, char **av)
 	t_philo	monitoring;
 
 	if (ac < 5 || ac > 6)
-		display_help(&monitoring, 0);
+		return (display_help(), 0);
 	init_struct(&monitoring);
-	parse_av(av + 1, &monitoring);
-	init_philo(&monitoring);
+	if (parse_av(av + 1, &monitoring) == -1)
+		return (display_help(), 0);
+	if (init_philo(&monitoring) == -1)
+		return (1);
 	init_local_info(&monitoring);
-	init_mutex(&monitoring);
+	if (init_mutex(&monitoring) == -1)
+		return (1);
 	if (monitoring.philo_info[NUMBER] == 1)
-		solo(&monitoring);
-	else
-		launch_simulation(&monitoring);
-	return (0);
+		return (solo(&monitoring), 0);
+	return (launch_simulation(&monitoring));
 }

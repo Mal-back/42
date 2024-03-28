@@ -33,7 +33,7 @@ static int	ovf_check(char c, int res)
 
 	i = 0;
 	tmp = res;
-	while (res && i < 9)
+	while (i < 9 && res != 0)
 	{
 		tmp += res;
 		if (res >= tmp)
@@ -71,7 +71,7 @@ static int	strong_atoi(char *str)
 	return (res);
 }
 
-void	parse_av(char **av, t_philo *philo)
+int	parse_av(char **av, t_philo *philo)
 {
 	int	i;
 	int	nb;
@@ -83,7 +83,8 @@ void	parse_av(char **av, t_philo *philo)
 		if (nb >= 0)
 			philo->philo_info[i] = nb;
 		else
-			display_help(philo, 1);
+			return (-1);
 		i++;
 	}
+	return (0);
 }

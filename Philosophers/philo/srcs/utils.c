@@ -48,12 +48,16 @@ void	safe_write(t_local_info *philo, char *str)
 	pthread_mutex_unlock(philo->writing);
 }
 
-int	save_mutex_init(pthread_mutex_t *mutex)
+int	save_mutex_init(pthread_mutex_t *mutex, t_bool *boolean_to_set)
 {
 	if (pthread_mutex_init(mutex, NULL))
 	{
 		perror("mutex_init");
 		return (1);
+	}
+	else
+	{
+		*boolean_to_set = TRUE;
 	}
 	return (0);
 }
